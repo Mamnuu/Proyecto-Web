@@ -1,5 +1,5 @@
 <template>
-    <div class="register-container">
+    <div class="container">
         <div class="form-container">
             <v-card class="mx-auto pa-12 pb-8" elevation="20" max-width="448" rounded="lg">
                 <div class="text-subtitle-1 text-medium-emphasis">Nombres</div>
@@ -10,24 +10,24 @@
                 <div class="text-subtitle-1 text-medium-emphasis">Apellidos</div>
 
                 <v-text-field v-model="lastname" density="compact" placeholder="Apellidos"
-                    prepend-inner-icon="mdi-account-outline" variant="underlined"></v-text-field>
+                    prepend-inner-icon="mdi-account-outline" variant="underlined" :rules="lastnameRules"></v-text-field>
 
                 <div class="text-subtitle-1 text-medium-emphasis">Cargo</div>
 
-                <v-text-field v-model="cargo" density="compact" placeholder="Cargo"
-                    prepend-inner-icon="mdi-account-hard-hat-outline" variant="underlined"></v-text-field>
+                <v-text-field v-model="charge" density="compact" placeholder="Cargo"
+                    prepend-inner-icon="mdi-account-hard-hat-outline" variant="underlined" :rules="chargeRules"></v-text-field>
 
                 <div class="text-subtitle-1 text-medium-emphasis">Correo electrónico</div>
 
                 <v-text-field v-model="email" density="compact" placeholder="Correo electrónico"
-                    prepend-inner-icon="mdi-email-outline" variant="underlined"></v-text-field>
+                    prepend-inner-icon="mdi-email-outline" variant="underlined" :rules="emailRules"></v-text-field>
 
                 <div class="text-subtitle-1 text-medium-emphasis">Contraseña</div>
 
                 <v-text-field v-model="password" :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
                     :type="visible ? 'text' : 'password'" density="compact" placeholder="Ingresar la contraseña"
                     prepend-inner-icon="mdi-lock-outline" variant="underlined"
-                    @click:append-inner="visible = !visible"></v-text-field>
+                    @click:append-inner="visible = !visible" :rules="passwordRules"></v-text-field>
 
                 <div class="text-subtitle-1 text-medium-emphasis">Confirmar Contraseña</div>
 
@@ -52,17 +52,39 @@ import axios from 'axios';
 import Swal from "sweetalert2";
 let nextUserId = 2;  // Contador para el ID secuencial
 
+
+const fullName = ref('');
+const lastname = ref('');
+const charge = ref('');
+const email = ref('');
+const password = ref('');
+const confirmPassword = ref('');
+const errorMessage = ref('');
+
+
 export default {
     data() {
         return {
             fullName: '',
             fullnameRules: [
-                v => !!v || 'El nombre es requerido',
+                vn => !!vn || 'El nombre es requerido',
             ],
             lastname: '',
-            cargo: '',
+            lastnameRules: [
+                vl => !!vl || 'El apellido es requerido',
+            ],
+            charge: '',
+            chargeRules: [
+                vc => !!vc || 'El cargo es requerido',
+            ],
             email: '',
+            emailRules: [
+                ve => !!ve || 'El correo es requerido',
+            ], 
             password: '',
+            passwordRules: [
+                vp => !!vp || 'La contraseña es requerida',
+            ],
             confirmPassword: '',
             visible: false,
             confirmVisible: false,
@@ -81,6 +103,16 @@ export default {
         async register() {
             await this.getUsers();
 
+
+            if (!email.value || !/^\S+@\S+\.\S+$/.test(email.value)) {
+        errorMessage.value = 'Por favor, ingresa un correo electrónico válido.';
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: errorMessage.value,
+        })
+        return;
+    }
             // Check if the email already exists
             const emailExists = this.users.some(user => user.email === this.email);
 
@@ -104,6 +136,7 @@ export default {
                     id: userId,
                     fullName: this.fullName,
                     lastname: this.lastname,
+                    charge: this.charge,
                     email: this.email,
                     password: this.password
                 };
@@ -146,15 +179,15 @@ definePageMeta({
     justify-content: center;
     align-items: center;
     height: 100vh;
-    padding-top: 5%;
+    padding-top: 2%;
+    padding-bottom: 5%;
+
 }
 
 .form-container v-card {
     width: 100%;
     /* Ajusta el ancho de la tarjeta al 100% del contenedor */
+
 }
 
-.register-container {
-    background-color: #f5f5f5;
-}
 </style>
