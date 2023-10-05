@@ -1,44 +1,53 @@
 {
-    "users":[
-        {
-            "id":1,
-            "email":"admin@admin.com",
-            "password":"admin123456789"
-        }
-    ],
-    "products": [
-        {   "id":1,
-            "nombre":"Chorizos grandes",
-            "precio": 24000,
-            "img ": "https://media.istockphoto.com/id/917583610/es/foto/chorizo-salchichas-con-mostaza.jpg?s=1024x1024&w=is&k=20&c=9MfWANHou-EMWN7ORpyO1h9hZqCpTQce9G4htaofkFQ="
-        },
-        {
-            "id":2,
-            "nombre": "Arepas",
-            "precio":7000,
-            "img": ""
-        },
-        {   "id":3,
-            "nombre":"Filetes de pescado",
-            "precio": 30000,
-            "img ": ""
-        },
-        {   "id":4,
-            "nombre":"Salsa BBQ artesanal",
-            "precio": 15000,
-            "img" : ""
-        },
-        {   "id":5,
-            "nombre":"Chorizos grandes",
-            "precio": 24000,
-            "img" : ""
-        },
-        {   "id":6,
-            "nombre":"Chorizos grandes",
-            "precio": 24000,
-            "img" : ""
-        }
-
-        ]
-
+  "users": [
+    {
+      "id": 1,
+      "email": "admin@admin.com",
+      "password": "admin123456789"
+    },
+    {
+      "id": 2,
+      "fullName": "",
+      "email": "",
+      "password": ""
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "nombre": "Chorizos grandes",
+      "precio": 24000,
+      "img ": "https://media.istockphoto.com/id/917583610/es/foto/chorizo-salchichas-con-mostaza.jpg?s=1024x1024&w=is&k=20&c=9MfWANHou-EMWN7ORpyO1h9hZqCpTQce9G4htaofkFQ="
+    },
+    {
+      "id": 2,
+      "nombre": "Arepas",
+      "precio": 7000,
+      "img": ""
+    },
+    {
+      "id": 3,
+      "nombre": "Filetes de pescado",
+      "precio": 30000,
+      "img ": ""
+    },
+    {
+      "id": 4,
+      "nombre": "Salsa BBQ artesanal",
+      "precio": 15000,
+      "img": ""
+    },
+    {
+      "id": 5,
+      "nombre": "Chorizos grandes",
+      "precio": 24000,
+      "img": ""
+    },
+    {
+      "id": 6,
+      "nombre": "Chorizos grandes",
+      "precio": 24000,
+      "img": ""
+    }
+  ]
 }
