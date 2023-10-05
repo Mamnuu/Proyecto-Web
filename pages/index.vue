@@ -21,10 +21,12 @@
         <div class="panels-container">
             <div class="panel left-panel">
                 <div class="content">
-                    <h3>Lorem ipsum</h3>
-                    <p>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
-                        ex ratione. Aliquid!
+                    <h3 class="tit">EasyMA</h3>
+                    <br>
+                    <p class="p">
+                        Optimiza tu tiempo y maximiza tus resultados con el CRM web EasyMA.
+                         Conecta tus datos, equipos y clientes en una plataforma de CRM 
+                         que crece junto a tu negocio.
                     </p>
                 </div>
                 <img src="./images/log.svg" class="image" alt="" />
@@ -96,7 +98,17 @@ const login = async () => {
         })
     }
 }
+
+definePageMeta({
+    layout:"blank",
+})
 </script>
+
+<style>
+.tit{
+    font-size: 50px !important;
+}
+</style>
 
 
 

@@ -72,10 +72,11 @@ Toast.fire({
   font-family: sans-serif;
   font-weight: bold;
   text-align: center;
+  font-size: 30px !important;
 }
 
 .btnCard{
-    color:  rgba(35, 166, 241, 0.904)  !important;
+    color:  #5995fd  !important;
     
 }
 
