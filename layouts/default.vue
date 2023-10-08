@@ -15,17 +15,26 @@
         <v-list-item
           prepend-icon="mdi-food"
           title="Productos"
+          to="/home"
           value="productos"
         ></v-list-item>
         <v-list-item
           prepend-icon="mdi-account-hard-hat"
           title="Vendedores"
+          to="/vendedores"
           value="vendedores"
         ></v-list-item>
         <v-list-item
           prepend-icon="mdi-account-tie"
           title="Proveedores"
+          to="/proveedores"
           value="proveedores"
+        ></v-list-item>
+        <v-list-item
+          prepend-icon="mdi-account-cash"
+          title="Clientes"
+          to="/clientes"
+          value="clientes"
         ></v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -34,5 +43,4 @@
       <slot />
     </v-main>
   </v-layout>
-
 </template>

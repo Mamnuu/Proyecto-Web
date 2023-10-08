@@ -8,8 +8,8 @@
     {
       "id": 2,
       "fullName": "",
-      "email": "",
-      "password": ""
+      "email": "a@jj.com",
+      "password": "1234"
     }
   ],
   "products": [
@@ -48,6 +48,150 @@
       "nombre": "Chorizos grandes",
       "precio": 24000,
       "img": ""
+    }
+  ],
+  "sellers": [
+    {
+      "id": 1,
+      "nombre": "Alicia",
+      "apellido": "ramirez",
+      "correo": "ar@gmail.com",
+      "cargo": "vendedor",
+      "img " : ""
+    },
+    {
+      "id": 2,
+      "nombre": "Juan",
+      "apellido": "Zapata",
+      "correo": "jz@gmail.com",
+      "cargo": "vendedor",
+      "img " : ""
+    },
+    {
+      "id": 3,
+      "nombre": "Carlos",
+      "apellido": "Bustamante",
+      "correo": "cb@gmail.com",
+      "cargo": "vendedor",
+      "img " : ""
+    },
+    {
+      "id": 4,
+      "nombre": "Elkin",
+      "apellido": "Casas",
+      "correo": "ec@gmail.com",
+      "cargo": "vendedor",
+      "img " : ""
+    },
+    {
+      "id": 5,
+      "nombre": "Marta",
+      "apellido": "Aguirre",
+      "correo": "ma@gmail.com",
+      "cargo": "vendedor",
+      "img " : ""
+    },
+    {
+      "id": 6,
+      "nombre": "Valentina",
+      "apellido": "Medina",
+      "correo": "vm@gmail.com",
+      "cargo": "vendedor",
+      "img " : ""
+    }
+  ],
+  "customers": [
+    {
+      "id": 1,
+      "nombre": "Carmen",
+      "apellido": "restrepo",
+      "correo": "cr@gmail.com",
+      "cargo": "cliente",
+      "img " : ""
+    },
+    {
+      "id": 2,
+      "nombre": "Armando",
+      "apellido": "Zapata",
+      "correo": "az@gmail.com",
+      "cargo": "cliente",
+      "img " : ""
+    },
+    {
+      "id": 3,
+      "nombre": "Sofía",
+      "apellido": "arango",
+      "correo": "sa@gmail.com",
+      "cargo": "cliente",
+      "img " : ""
+    },
+    {
+      "id": 4,
+      "nombre": "Carolina",
+      "apellido": "Corrales",
+      "correo": "cc@gmail.com",
+      "cargo": "cliente",
+      "img " : ""
+    },
+    {
+      "id": 5,
+      "nombre": "Mario",
+      "apellido": "Aguirre",
+      "correo": "ma@gmail.com",
+      "cargo": "cliente",
+      "img " : ""
+    },
+    {
+      "id": 6,
+      "nombre": "Cristian",
+      "apellido": "Morales",
+      "correo": "cm@gmail.com",
+      "cargo": "cliente",
+      "img " : ""
+    }
+  ],
+  "suppliers": [
+    {
+      "id": 1,
+      "nombre": "distriCarne",
+      "correo": "d@gmail.com",
+      "cargo": "proveedor",
+      "img " : ""
+    },
+    {
+      "id": 2,
+      "nombre": "distribol",
+      "correo": "db@gmail.com",
+      "cargo": "proveedor",
+      "img " : ""
+    },
+    {
+      "id": 3,
+      "nombre": "etiquet",
+      "correo": "e@gmail.com",
+      "cargo": "proveedor",
+      "img " : ""
+    },
+    {
+      "id": 4,
+      "nombre": "Alico",
+      "correo": "a@gmail.com",
+      "cargo": "proveedor",
+      "img " : ""
+    },
+    {
+      "id": 5,
+      "nombre": "leguc",
+      "correo": "lc@gmail.com",
+      "cargo": "proveedor",
+      "img " : ""
+    },
+    {
+      "id": 6,
+      "nombre": "distrisal",
+      "correo": "ds@gmail.com",
+      "cargo": "proveedor",
+      "img " : ""
     }
   ]
 }
