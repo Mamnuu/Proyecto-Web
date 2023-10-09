@@ -11,7 +11,7 @@
         sm="6"
       >
         <v-card class="productoCard" max-width="344" elevation="3">
-          <v-img src="./images/imgChorizos.jpg" height="200px" cover></v-img>
+          <v-img :src="producto.img" height="200px" cover></v-img>
 
           <v-card-title>
             {{ producto.nombre }}

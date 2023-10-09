@@ -3,7 +3,7 @@
     <v-navigation-drawer expand-on-hover rail>
       <v-list>
         <v-list-item
-          prepend-avatar="@/pages/images/perfil-del-usuario.png"
+          prepend-avatar="/images/perfil-del-usuario.png"
           title="Admin"
           subtitle="admin@admin.com"
         ></v-list-item>
