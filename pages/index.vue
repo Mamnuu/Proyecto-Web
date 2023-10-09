@@ -25,8 +25,8 @@
                     <br>
                     <p class="p">
                         Optimiza tu tiempo y maximiza tus resultados con el CRM web EasyMA.
-                         Conecta tus datos, equipos y clientes en una plataforma de CRM 
-                         que crece junto a tu negocio.
+                        Conecta tus datos, equipos y clientes en una plataforma de CRM
+                        que crece junto a tu negocio.
                     </p>
                 </div>
                 <img src="/images/log.svg" class="image" alt="" />
@@ -88,6 +88,8 @@ const login = async () => {
     );
     if (foundUser) {
         console.log('Inicio de sesión exitoso para el usuario:', foundUser);
+        let stringUser = JSON.stringify(foundUser);
+        sessionStorage.setItem('USER',stringUser);
         router.push('/home');
     } else {
         Swal.fire({
@@ -100,12 +102,12 @@ const login = async () => {
 }
 
 definePageMeta({
-    layout:"blank",
+    layout: "blank",
 })
 </script>
 
 <style>
-.tit{
+.tit {
     font-size: 50px !important;
 }
 </style>
