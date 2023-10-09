@@ -17,37 +17,37 @@
       "id": 1,
       "nombre": "Chorizos grandes",
       "precio": 24000,
-      "img ": "https://media.istockphoto.com/id/917583610/es/foto/chorizo-salchichas-con-mostaza.jpg?s=1024x1024&w=is&k=20&c=9MfWANHou-EMWN7ORpyO1h9hZqCpTQce9G4htaofkFQ="
+      "img": "/images/imgChorizos.jpg"
     },
     {
       "id": 2,
       "nombre": "Arepas",
       "precio": 7000,
-      "img": ""
+      "img": "/images/imgChorizos.jpg"
     },
     {
       "id": 3,
       "nombre": "Filetes de pescado",
       "precio": 30000,
-      "img ": ""
+      "img": "/images/imgChorizos.jpg"
     },
     {
       "id": 4,
       "nombre": "Salsa BBQ artesanal",
       "precio": 15000,
-      "img": ""
+      "img": "/images/imgChorizos.jpg"
     },
     {
       "id": 5,
       "nombre": "Chorizos grandes",
       "precio": 24000,
-      "img": ""
+      "img": "/images/imgChorizos.jpg"
     },
     {
       "id": 6,
       "nombre": "Chorizos grandes",
       "precio": 24000,
-      "img": ""
+      "img": "/images/imgChorizos.jpg"
     }
   ],
   "sellers": [
@@ -57,7 +57,7 @@
       "apellido": "ramirez",
       "correo": "ar@gmail.com",
       "cargo": "vendedor",
-      "img " : ""
+      "img" : "/images/imgvendedor.jpg"
     },
     {
       "id": 2,
@@ -65,7 +65,7 @@
       "apellido": "Zapata",
       "correo": "jz@gmail.com",
       "cargo": "vendedor",
-      "img " : ""
+      "img" : "/images/imgvendedor.jpg"
     },
     {
       "id": 3,
@@ -73,7 +73,7 @@
       "apellido": "Bustamante",
       "correo": "cb@gmail.com",
       "cargo": "vendedor",
-      "img " : ""
+      "img" : "/images/imgvendedor.jpg"
     },
     {
       "id": 4,
@@ -81,7 +81,7 @@
       "apellido": "Casas",
       "correo": "ec@gmail.com",
       "cargo": "vendedor",
-      "img " : ""
+      "img" : "/images/imgvendedor.jpg"
     },
     {
       "id": 5,
@@ -89,7 +89,7 @@
       "apellido": "Aguirre",
       "correo": "ma@gmail.com",
       "cargo": "vendedor",
-      "img " : ""
+      "img" : "/images/imgvendedor.jpg"
     },
     {
       "id": 6,
@@ -97,7 +97,7 @@
       "apellido": "Medina",
       "correo": "vm@gmail.com",
       "cargo": "vendedor",
-      "img " : ""
+      "img" : "/images/imgvendedor.jpg"
     }
   ],
   "customers": [
@@ -107,7 +107,7 @@
       "apellido": "restrepo",
       "correo": "cr@gmail.com",
       "cargo": "cliente",
-      "img " : ""
+      "img" : "/images/imgcliente.jpg"
     },
     {
       "id": 2,
@@ -115,7 +115,7 @@
       "apellido": "Zapata",
       "correo": "az@gmail.com",
       "cargo": "cliente",
-      "img " : ""
+      "img" : "/images/imgcliente.jpg"
     },
     {
       "id": 3,
@@ -123,7 +123,7 @@
       "apellido": "arango",
       "correo": "sa@gmail.com",
       "cargo": "cliente",
-      "img " : ""
+      "img" : "/images/imgcliente.jpg"
     },
     {
       "id": 4,
@@ -131,7 +131,7 @@
       "apellido": "Corrales",
       "correo": "cc@gmail.com",
       "cargo": "cliente",
-      "img " : ""
+      "img" : "/images/imgcliente.jpg"
     },
     {
       "id": 5,
@@ -139,7 +139,7 @@
       "apellido": "Aguirre",
       "correo": "ma@gmail.com",
       "cargo": "cliente",
-      "img " : ""
+      "img" : "/images/imgcliente.jpg"
     },
     {
       "id": 6,
@@ -147,7 +147,7 @@
       "apellido": "Morales",
       "correo": "cm@gmail.com",
       "cargo": "cliente",
-      "img " : ""
+      "img" : "/images/imgcliente.jpg"
     }
   ],
   "suppliers": [
@@ -156,42 +156,42 @@
       "nombre": "distriCarne",
       "correo": "d@gmail.com",
       "cargo": "proveedor",
-      "img " : ""
+      "img" : "/images/imgproveedor.jpeg"
     },
     {
       "id": 2,
       "nombre": "distribol",
       "correo": "db@gmail.com",
       "cargo": "proveedor",
-      "img " : ""
+      "img" : "/images/imgproveedor.jpeg"
     },
     {
       "id": 3,
       "nombre": "etiquet",
       "correo": "e@gmail.com",
       "cargo": "proveedor",
-      "img " : ""
+      "img" : "/images/imgproveedor.jpeg"
     },
     {
       "id": 4,
       "nombre": "Alico",
       "correo": "a@gmail.com",
       "cargo": "proveedor",
-      "img " : ""
+      "img" : "/images/imgproveedor.jpeg"
     },
     {
       "id": 5,
       "nombre": "leguc",
       "correo": "lc@gmail.com",
       "cargo": "proveedor",
-      "img " : ""
+      "img" : "/images/imgproveedor.jpeg"
     },
     {
       "id": 6,
       "nombre": "distrisal",
       "correo": "ds@gmail.com",
       "cargo": "proveedor",
-      "img " : ""
+      "img" : "/images/imgproveedor.jpeg"
     }
   ]
 }

@@ -18,7 +18,7 @@
         >
           <v-row>
             <v-col>
-              <v-img src="./images/imgproveedor.jpeg" class="imgc"></v-img>
+              <v-img :src="supplier.img" class="imgc"></v-img>
             </v-col>
             <v-col>
               <v-row>

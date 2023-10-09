@@ -29,7 +29,7 @@
                         que crece junto a tu negocio.
                     </p>
                 </div>
-                <img src="./images/log.svg" class="image" alt="" />
+                <img src="/images/log.svg" class="image" alt="" />
             </div>
         </div>
     </div>

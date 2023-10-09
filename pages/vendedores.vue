@@ -12,7 +12,7 @@
         >
           <v-row>
             <v-col>
-              <v-img src="./images/imgvendedor.jpg" class="imgv"></v-img>
+              <v-img :src="seller.img" class="imgv"></v-img>
             </v-col>
             <v-col>
               <v-row>

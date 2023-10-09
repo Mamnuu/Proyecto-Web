@@ -18,7 +18,7 @@
           >
             <v-row>
               <v-col>
-                <v-img src="./images/imgcliente.jpg" class="imgc"></v-img>
+                <v-img :src="customer.img" class="imgc"></v-img>
               </v-col>
               <v-col>
                 <v-row>
