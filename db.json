@@ -3,13 +3,23 @@
     {
       "id": 1,
       "email": "admin@admin.com",
-      "password": "admin123456789"
+      "password": "admin123456789",
+      "fullName": "Alicia Vargas",
+      "img" : "https://www.webconsultas.com/sites/default/files/styles/wch_image_schema/public/articulos/perfil-resilencia.jpg"
     },
     {
       "id": 2,
-      "fullName": "",
+      "email": "1@1.com",
+      "password": "1",
+      "fullName": "Marcos Guerra",
+      "img" : "https://img.freepik.com/foto-gratis/joven-confiado_1098-20868.jpg"
+    },
+    {
+      "id": 3,
+      "fullName": "Andrés Montoya",
       "email": "a@jj.com",
-      "password": "1234"
+      "password": "1234",
+      "img" : "https://www.blogdelfotografo.com/wp-content/uploads/2022/01/retrato-anillo-luz.webp"
     }
   ],
   "products": [
@@ -17,37 +27,37 @@
       "id": 1,
       "nombre": "Chorizos grandes",
       "precio": 24000,
-      "img": "/images/imgChorizos.jpg"
+      "img": "https://img.freepik.com/free-photo/grilled-sausage_144627-34250.jpg?w=2000"
     },
     {
       "id": 2,
-      "nombre": "Arepas",
+      "nombre": "Chorizo criollo",
       "precio": 7000,
-      "img": "/images/imgChorizos.jpg"
+      "img": "https://bgcalimentosespeciales.com/wp-content/uploads/2021/07/CHORIZO-TXISTORRA-1.jpg"
     },
     {
       "id": 3,
-      "nombre": "Filetes de pescado",
+      "nombre": "Chorizo premium",
       "precio": 30000,
-      "img": "/images/imgChorizos.jpg"
+      "img": "https://i.ytimg.com/vi/RkdPXyz2B4s/maxresdefault.jpg"
     },
     {
       "id": 4,
-      "nombre": "Salsa BBQ artesanal",
+      "nombre": "Chorizo artesanal",
       "precio": 15000,
-      "img": "/images/imgChorizos.jpg"
+      "img": "https://cdn0.recetasgratis.net/es/posts/4/4/8/chorizos_a_la_criolla_20844_orig.jpg"
     },
     {
       "id": 5,
       "nombre": "Chorizos grandes",
       "precio": 24000,
-      "img": "/images/imgChorizos.jpg"
+      "img": "https://progcarne.com/storage/app/uploads/public/629/000/14a/62900014ab1cc178930975.jpg"
     },
     {
       "id": 6,
-      "nombre": "Chorizos grandes",
+      "nombre": "Chorizos especiales",
       "precio": 24000,
-      "img": "/images/imgChorizos.jpg"
+      "img": "https://newluxbrand.com/wp-content/uploads/2022/02/Chorizos-caseros-Newlux-optimized.jpg"
     }
   ],
   "sellers": [
@@ -57,7 +67,7 @@
       "apellido": "ramirez",
       "correo": "ar@gmail.com",
       "cargo": "vendedor",
-      "img" : "/images/imgvendedor.jpg"
+      "img" : "https://www.webconsultas.com/sites/default/files/styles/wch_image_schema/public/articulos/perfil-resilencia.jpg"
     },
     {
       "id": 2,
@@ -65,7 +75,7 @@
       "apellido": "Zapata",
       "correo": "jz@gmail.com",
       "cargo": "vendedor",
-      "img" : "/images/imgvendedor.jpg"
+      "img" : "https://img.freepik.com/foto-gratis/joven-confiado_1098-20868.jpg"
     },
     {
       "id": 3,
@@ -73,7 +83,7 @@
       "apellido": "Bustamante",
       "correo": "cb@gmail.com",
       "cargo": "vendedor",
-      "img" : "/images/imgvendedor.jpg"
+      "img" : "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?cs=srgb&dl=pexels-justin-shaifer-1222271.jpg&fm=jpg"
     },
     {
       "id": 4,
@@ -81,7 +91,7 @@
       "apellido": "Casas",
       "correo": "ec@gmail.com",
       "cargo": "vendedor",
-      "img" : "/images/imgvendedor.jpg"
+      "img" : "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cGVyc29uYXxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80"
     },
     {
       "id": 5,
@@ -89,7 +99,7 @@
       "apellido": "Aguirre",
       "correo": "ma@gmail.com",
       "cargo": "vendedor",
-      "img" : "/images/imgvendedor.jpg"
+      "img" : "https://img.freepik.com/foto-gratis/retrato-hermoso-mujer-joven-posicion-pared-gris_231208-10760.jpg"
     },
     {
       "id": 6,
@@ -97,7 +107,7 @@
       "apellido": "Medina",
       "correo": "vm@gmail.com",
       "cargo": "vendedor",
-      "img" : "/images/imgvendedor.jpg"
+      "img" : "https://img.freepik.com/foto-gratis/chico-guapo-seguro-posando-contra-pared-blanca_176420-32936.jpg"
     }
   ],
   "customers": [
@@ -107,7 +117,7 @@
       "apellido": "restrepo",
       "correo": "cr@gmail.com",
       "cargo": "cliente",
-      "img" : "/images/imgcliente.jpg"
+      "img" : "https://plus.unsplash.com/premium_photo-1687832783320-35671afbf484?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Zm90byUyMGRlJTIwcGVyZmlsfGVufDB8fDB8fHww&w=1000&q=80"
     },
     {
       "id": 2,
@@ -115,7 +125,7 @@
       "apellido": "Zapata",
       "correo": "az@gmail.com",
       "cargo": "cliente",
-      "img" : "/images/imgcliente.jpg"
+      "img" : "https://www.blogdelfotografo.com/wp-content/uploads/2022/01/retrato-anillo-luz.webp"
     },
     {
       "id": 3,
@@ -123,7 +133,7 @@
       "apellido": "arango",
       "correo": "sa@gmail.com",
       "cargo": "cliente",
-      "img" : "/images/imgcliente.jpg"
+      "img" : "https://www.seoptimer.com/storage/images/2016/05/foto-de-perfil-adecuada.jpg"
     },
     {
       "id": 4,
@@ -131,7 +141,7 @@
       "apellido": "Corrales",
       "correo": "cc@gmail.com",
       "cargo": "cliente",
-      "img" : "/images/imgcliente.jpg"
+      "img" : "https://media.licdn.com/dms/image/C4D03AQFnohQzlY-XZw/profile-displayphoto-shrink_800_800/0/1624180767804?e=2147483647&v=beta&t=Vn6jKnvsAMS4C3WOX-3dkodb7wnJLezTpDhpPxbMjm8"
     },
     {
       "id": 5,
@@ -139,7 +149,7 @@
       "apellido": "Aguirre",
       "correo": "ma@gmail.com",
       "cargo": "cliente",
-      "img" : "/images/imgcliente.jpg"
+      "img" : "https://muhimu.es/wp-content/uploads/2017/04/FRENTE-NITIDA.jpg"
     },
     {
       "id": 6,
@@ -147,51 +157,51 @@
       "apellido": "Morales",
       "correo": "cm@gmail.com",
       "cargo": "cliente",
-      "img" : "/images/imgcliente.jpg"
+      "img" : "https://media.licdn.com/dms/image/C4D03AQExyXZIV7hP6w/profile-displayphoto-shrink_800_800/0/1631281341744?e=2147483647&v=beta&t=xwsiHNzN9b0Wgb75VaYvvBbDGv_XCus76WiZpyNJAMY"
     }
   ],
   "suppliers": [
     {
       "id": 1,
-      "nombre": "distriCarne",
+      "nombre": "distri HB",
       "correo": "d@gmail.com",
       "cargo": "proveedor",
-      "img" : "/images/imgproveedor.jpeg"
+      "img" : "https://distrihb.com.co/wp-content/uploads/2021/03/logo-manual-de-imagen-corporativo1-CUADRADO_Mesa-de-trabajo-1-copia-2_Mesa-de-trabajo-1-copia-2.png"
     },
     {
       "id": 2,
-      "nombre": "distribol",
+      "nombre": "la frontera",
       "correo": "db@gmail.com",
       "cargo": "proveedor",
-      "img" : "/images/imgproveedor.jpeg"
+      "img" : "https://distribuidoralafrontera.com.co/wp-content/uploads/2021/09/cropped-logo-editable-la-frontera-png-sin-texto.png"
     },
     {
       "id": 3,
-      "nombre": "etiquet",
+      "nombre": "totalaseo",
       "correo": "e@gmail.com",
       "cargo": "proveedor",
-      "img" : "/images/imgproveedor.jpeg"
+      "img" : "https://totalaseo.com/Media/totalaseo/dayvo/logo/total-aseo-logo-simbolo.png"
     },
     {
       "id": 4,
       "nombre": "Alico",
       "correo": "a@gmail.com",
       "cargo": "proveedor",
-      "img" : "/images/imgproveedor.jpeg"
+      "img" : "https://yt3.googleusercontent.com/ytc/AOPolaTg9wPS2Ccwloqd06W-U9bVOyyAYPtevkmJKsPhOA=s900-c-k-c0x00ffffff-no-rj"
     },
     {
       "id": 5,
-      "nombre": "leguc",
+      "nombre": "distriM",
       "correo": "lc@gmail.com",
       "cargo": "proveedor",
-      "img" : "/images/imgproveedor.jpeg"
+      "img" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7iymsdRKEoImPi7V7RifE6RRdwPOwd5uytA&usqp=CAU"
     },
     {
       "id": 6,
-      "nombre": "distrisal",
+      "nombre": "distriArco",
       "correo": "ds@gmail.com",
       "cargo": "proveedor",
-      "img" : "/images/imgproveedor.jpeg"
+      "img" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnGzkJFVIEXgKOlvCesKdY7FNkZ5cxOV3JkQ&usqp=CAU"
     }
   ]
 }

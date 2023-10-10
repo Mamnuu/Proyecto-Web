@@ -27,6 +27,9 @@
           </v-card-actions>
         </v-card>
       </v-col>
+      <v-btn fab dark large color=#5995fd class="btn-flotante">
+        <v-icon size="50">mdi-plus</v-icon>
+      </v-btn>
     </v-row>
   </v-container>
 </template>
@@ -83,5 +86,31 @@ sessionStorage.setItem('LOGGEDUSER',"true")
   background-color: whitesmoke;
   color: black;
   border-radius: 15px !important;
+}
+.btn-flotante {
+  size: 50px !important;
+  color: #ffffff; /* Color del texto */
+  border-radius: 50px !important; /* Borde del boton */
+  position: fixed !important;
+  bottom: 20px !important;
+  right: 40px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  margin-left: 80% !important;
+  margin-top: 100px !important;
+  width: 80px !important;
+  height: 80px !important;
+  background-color: #2c2fa5;
+}
+.btn-flotante:hover {
+  background-color: #2c2fa5; /* Color de fondo al pasar el cursor */
+  box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.3);
+  transform: translateY(-7px);
+}
+@media only screen and (max-width: 600px) {
+  .btn-flotante {
+    padding: 12px 20px;
+    bottom: 20px;
+    right: 20px;
+  }
 }
 </style>

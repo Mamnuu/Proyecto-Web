@@ -2,7 +2,7 @@
   <v-layout>
     <v-navigation-drawer expand-on-hover rail>
       <v-list>
-        <v-list-item prepend-avatar="/images/perfil-del-usuario.png" :title="user.id"
+        <v-list-item :prepend-avatar="user.img" :title="user.fullName"
           :subtitle="user.email"></v-list-item>
       </v-list>
 
