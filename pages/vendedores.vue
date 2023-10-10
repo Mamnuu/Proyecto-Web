@@ -12,7 +12,9 @@
         >
           <v-row>
             <v-col>
-              <v-img :src="seller.img" class="imgv"></v-img>
+              <v-card class="cardimg" >
+                <v-img cover :src="seller.img"  class="imgv"></v-img>
+              </v-card>
             </v-col>
             <v-col>
               <v-row>
@@ -28,6 +30,9 @@
           </v-row>
         </v-card>
       </v-col>
+      <v-btn fab dark large color="#5995fd" class="btn-flotante">
+        <v-icon size="50">mdi-plus</v-icon>
+      </v-btn>
     </v-row>
   </v-container>
 </template>
@@ -67,5 +72,17 @@ getSellers();
   width: 300px !important;
   height: 100px !important;
   align-items: center !important;
+}
+.imgv {
+  object-fit: cover !important;
+  border-radius: 20% !important;
+
+}
+.cardimg {
+  display:flex;
+  margin-left: 10px !important;
+  border-radius: 50% !important;
+  width: 100px !important;
+  height: 100px !important;
 }
 </style>
