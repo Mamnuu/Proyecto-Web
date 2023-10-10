@@ -88,8 +88,10 @@ const login = async () => {
     );
     if (foundUser) {
         console.log('Inicio de sesión exitoso para el usuario:', foundUser);
+        let loggedUser = "false"
         let stringUser = JSON.stringify(foundUser);
         sessionStorage.setItem('USER',stringUser);
+        sessionStorage.setItem('LOGGEDUSER',loggedUser)
         router.push('/home');
     } else {
         Swal.fire({

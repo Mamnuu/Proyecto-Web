@@ -43,7 +43,10 @@ const getProducts = async () => {
 getProducts();
 
 //Alerta de inicio de sesion existoso
-const Toast = Swal.mixin({
+
+let logged_user = sessionStorage.getItem('LOGGEDUSER')
+if(logged_user != "true"){
+  const Toast = Swal.mixin({
   toast: true,
   position: "top-end",
   showConfirmButton: false,
@@ -54,11 +57,14 @@ const Toast = Swal.mixin({
     toast.addEventListener("mouseleave", Swal.resumeTimer);
   },
 });
-
 Toast.fire({
   icon: "success",
   title: "Inicio de sesión exitoso",
 });
+sessionStorage.setItem('LOGGEDUSER',"true")
+}
+
+
 </script>
 
 <style>
