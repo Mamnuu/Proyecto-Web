@@ -1,49 +1,49 @@
 <template>
-    <div class="container">
-        <div class="form-container">
-            <v-card class="mx-auto pa-12 pb-8" elevation="20" max-width="448" rounded="lg">
-                <div class="text-subtitle-1 text-medium-emphasis">Nombres</div>
+        <div class="contenedor">
+            <div class="form-container">
+                <v-card class="mx-auto pa-12 pb-8" elevation="20" max-width="448" rounded="lg">
+                    <div class="text-subtitle-1 text-medium-emphasis">Nombres</div>
 
-                <v-text-field v-model="fullName" density="compact" placeholder="Nombres"
-                    prepend-inner-icon="mdi-account-outline" variant="underlined" :rules="Rules"></v-text-field>
+                    <v-text-field v-model="fullName" density="compact" placeholder="Nombres"
+                        prepend-inner-icon="mdi-account-outline" variant="underlined" :rules="Rules"></v-text-field>
 
-                <div class="text-subtitle-1 text-medium-emphasis">Apellidos</div>
+                    <div class="text-subtitle-1 text-medium-emphasis">Apellidos</div>
 
-                <v-text-field v-model="lastname" density="compact" placeholder="Apellidos"
-                    prepend-inner-icon="mdi-account-outline" variant="underlined" :rules="Rules"></v-text-field>
+                    <v-text-field v-model="lastname" density="compact" placeholder="Apellidos"
+                        prepend-inner-icon="mdi-account-outline" variant="underlined" :rules="Rules"></v-text-field>
 
-                <div class="text-subtitle-1 text-medium-emphasis">Cargo</div>
+                    <div class="text-subtitle-1 text-medium-emphasis">Cargo</div>
 
-                <v-select v-model="charge" density="compact" placeholder="Cargo"
-                    prepend-inner-icon="mdi-account-hard-hat-outline" :items="items" variant="underlined" :rules="Rules"></v-select>
+                    <v-select v-model="charge" density="compact" placeholder="Cargo"
+                        prepend-inner-icon="mdi-account-hard-hat-outline" :items="items" variant="underlined"></v-select>
 
-                <div class="text-subtitle-1 text-medium-emphasis">Correo electrónico</div>
+                    <div class="text-subtitle-1 text-medium-emphasis">Correo electrónico</div>
 
-                <v-text-field v-model="email" density="compact" placeholder="Correo electrónico"
-                    prepend-inner-icon="mdi-email-outline" variant="underlined" :rules="Rules"></v-text-field>
+                    <v-text-field v-model="email" density="compact" placeholder="Correo electrónico"
+                        prepend-inner-icon="mdi-email-outline" variant="underlined" :rules="Rules"></v-text-field>
 
-                <div class="text-subtitle-1 text-medium-emphasis">Contraseña</div>
+                    <div class="text-subtitle-1 text-medium-emphasis">Contraseña</div>
 
-                <v-text-field v-model="password" :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
-                    :type="visible ? 'text' : 'password'" density="compact" placeholder="Ingresar la contraseña"
-                    prepend-inner-icon="mdi-lock-outline" variant="underlined" @click:append-inner="visible = !visible"
-                    :rules="Rules"></v-text-field>
+                    <v-text-field v-model="password" :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
+                        :type="visible ? 'text' : 'password'" density="compact" placeholder="Ingresar la contraseña"
+                        prepend-inner-icon="mdi-lock-outline" variant="underlined" @click:append-inner="visible = !visible"
+                        :rules="Rules"></v-text-field>
 
-                <div class="text-subtitle-1 text-medium-emphasis">Confirmar Contraseña</div>
+                    <div class="text-subtitle-1 text-medium-emphasis">Confirmar Contraseña</div>
 
-                <v-text-field v-model="confirmPassword" :append-inner-icon="confirmVisible ? 'mdi-eye-off' : 'mdi-eye'"
-                    :type="confirmVisible ? 'text' : 'password'" density="compact" placeholder="Confirma la contraseña"
-                    prepend-inner-icon="mdi-lock-outline" variant="underlined"
-                    @click:append-inner="confirmVisible = !confirmVisible" :rules="Rules"></v-text-field>
+                    <v-text-field v-model="confirmPassword" :append-inner-icon="confirmVisible ? 'mdi-eye-off' : 'mdi-eye'"
+                        :type="confirmVisible ? 'text' : 'password'" density="compact" placeholder="Confirma la contraseña"
+                        prepend-inner-icon="mdi-lock-outline" variant="underlined"
+                        @click:append-inner="confirmVisible = !confirmVisible" :rules="Rules"></v-text-field>
 
-                <v-btn block class="mb-8" color="#5995fd" size="large" variant="outlined" @click="register">
-                    Registrar
-                </v-btn>
+                    <v-btn block class="mb-8" color="#5995fd" size="large" variant="outlined" @click="register">
+                        Registrar
+                    </v-btn>
 
 
-            </v-card>
+                </v-card>
+            </div>
         </div>
-    </div>
 </template>
 
 
@@ -61,7 +61,7 @@ export default {
     data: () => {
         return {
             Rules: [
-                vn => !!vn || 'El campo es obligatorio',
+                v => !!v || 'El campo es obligatorio',
             ],
             fullName: '',
             lastname: '',
@@ -75,7 +75,6 @@ export default {
             confirmPassword: '',
             visible: false,
             confirmVisible: false,
-            users: []
         };
     },
     methods: {
@@ -90,10 +89,13 @@ export default {
         async register() {
             await this.getUsers();
 
-            console.log(this.fullName);
-            
             // Validación campos vacíos
-            if(this.fullName == '' || this.lastname == '' || this.charge == 'Seleccionar' || this.email == '' || this.password == '' || this.confirmPassword == ''){
+            if (this.fullName == ''
+                || this.lastname == ''
+                || this.charge == 'Seleccionar'
+                || this.email == ''
+                || this.password == ''
+                || this.confirmPassword == '') {
                 errorMessage.value = 'Por favor, ingresa todos los campos.';
                 Swal.fire({
                     icon: 'error',
@@ -154,12 +156,34 @@ export default {
                     password: this.password
                 };
 
-                
+                // Añade el usuario al servidor
+                await this.addUser(newUser);
+
+                console.log('', newUser);
             }
         },
-
-
-        
+        async addUser(user) {
+            try {
+                const response = await axios.post('http://localhost:3001/users', user);
+                console.log('Usuario agregado:', response.data);
+                // Redirección al home
+                this.$router.push('./');
+                Swal.fire(
+                    {
+                        icon: 'success',
+                        title: 'Registro exitoso'
+                    }
+                )
+            } catch (error) {
+                console.error('Error al agregar usuario:', error);
+                Swal.fire(
+                    {
+                        icon: 'error',
+                        title: 'Error en el registro:'
+                    }
+                )
+            }
+        },
     }
 };
 definePageMeta({
@@ -174,13 +198,22 @@ definePageMeta({
     align-items: center;
     height: 100vh;
     padding-top: 1%;
-    padding-bottom: 5%;
+    padding-bottom: 20%;
 
 }
 
 .form-container v-card {
     width: 100%;
     /* Ajusta el ancho de la tarjeta al 100% del contenedor */
+
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    background-color: #fff;
+    min-height: 100vh;
+    overflow: hidden;
 
 }
 </style>
