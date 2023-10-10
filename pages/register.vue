@@ -1,5 +1,5 @@
 <template>
-        <div class="contenedor">
+        <div class="register-container">
             <div class="form-container">
                 <v-card class="mx-auto pa-12 pb-8" elevation="20" max-width="448" rounded="lg">
                     <div class="text-subtitle-1 text-medium-emphasis">Nombres</div>
@@ -196,9 +196,9 @@ definePageMeta({
 .form-container {
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 80%;
     padding-top: 1%;
-    padding-bottom: 20%;
+    padding-bottom: 2%;
 
 }
 
@@ -208,12 +208,25 @@ definePageMeta({
 
 }
 
-.container {
+.register-container {
     position: relative;
     width: 100%;
     background-color: #fff;
-    min-height: 100vh;
+    height: 100%;
     overflow: hidden;
+}
 
+.register-container:before {
+    content: "";
+    position: absolute;
+    height: 2000px;
+    width: 2000px;
+    top: -10%;
+    right: 48%;
+    transform: translateY(-50%);
+    background-image: linear-gradient(-45deg, #4481eb 0%, #04befe 100%);
+    transition: 1.8s ease-in-out;
+    border-radius: 50%;
+    z-index: 0;
 }
 </style>
