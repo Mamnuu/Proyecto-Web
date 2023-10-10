@@ -5,39 +5,39 @@
                 <div class="text-subtitle-1 text-medium-emphasis">Nombres</div>
 
                 <v-text-field v-model="fullName" density="compact" placeholder="Nombres"
-                    prepend-inner-icon="mdi-account-outline" variant="underlined" :rules="fullnameRules"></v-text-field>
+                    prepend-inner-icon="mdi-account-outline" variant="underlined" :rules="Rules"></v-text-field>
 
                 <div class="text-subtitle-1 text-medium-emphasis">Apellidos</div>
 
                 <v-text-field v-model="lastname" density="compact" placeholder="Apellidos"
-                    prepend-inner-icon="mdi-account-outline" variant="underlined" :rules="lastnameRules"></v-text-field>
+                    prepend-inner-icon="mdi-account-outline" variant="underlined" :rules="Rules"></v-text-field>
 
                 <div class="text-subtitle-1 text-medium-emphasis">Cargo</div>
 
-                <v-text-field v-model="charge" density="compact" placeholder="Cargo"
-                    prepend-inner-icon="mdi-account-hard-hat-outline" variant="underlined" :rules="chargeRules"></v-text-field>
+                <v-select v-model="charge" density="compact" placeholder="Cargo"
+                    prepend-inner-icon="mdi-account-hard-hat-outline" :items="items" variant="underlined" :rules="Rules"></v-select>
 
                 <div class="text-subtitle-1 text-medium-emphasis">Correo electrónico</div>
 
                 <v-text-field v-model="email" density="compact" placeholder="Correo electrónico"
-                    prepend-inner-icon="mdi-email-outline" variant="underlined" :rules="emailRules"></v-text-field>
+                    prepend-inner-icon="mdi-email-outline" variant="underlined" :rules="Rules"></v-text-field>
 
                 <div class="text-subtitle-1 text-medium-emphasis">Contraseña</div>
 
                 <v-text-field v-model="password" :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
                     :type="visible ? 'text' : 'password'" density="compact" placeholder="Ingresar la contraseña"
-                    prepend-inner-icon="mdi-lock-outline" variant="underlined"
-                    @click:append-inner="visible = !visible" :rules="passwordRules"></v-text-field>
+                    prepend-inner-icon="mdi-lock-outline" variant="underlined" @click:append-inner="visible = !visible"
+                    :rules="Rules"></v-text-field>
 
                 <div class="text-subtitle-1 text-medium-emphasis">Confirmar Contraseña</div>
 
                 <v-text-field v-model="confirmPassword" :append-inner-icon="confirmVisible ? 'mdi-eye-off' : 'mdi-eye'"
                     :type="confirmVisible ? 'text' : 'password'" density="compact" placeholder="Confirma la contraseña"
                     prepend-inner-icon="mdi-lock-outline" variant="underlined"
-                    @click:append-inner="confirmVisible = !confirmVisible"></v-text-field>
+                    @click:append-inner="confirmVisible = !confirmVisible" :rules="Rules"></v-text-field>
 
                 <v-btn block class="mb-8" color="#5995fd" size="large" variant="outlined" @click="register">
-                    Registrar vendedor
+                    Registrar
                 </v-btn>
 
 
@@ -53,38 +53,25 @@ import Swal from "sweetalert2";
 let nextUserId = 2;  // Contador para el ID secuencial
 
 
-const fullName = ref('');
-const lastname = ref('');
-const charge = ref('');
-const email = ref('');
-const password = ref('');
-const confirmPassword = ref('');
 const errorMessage = ref('');
 
 
+
 export default {
-    data() {
+    data: () => {
         return {
+            Rules: [
+                vn => !!vn || 'El campo es obligatorio',
+            ],
             fullName: '',
-            fullnameRules: [
-                vn => !!vn || 'El nombre es requerido',
-            ],
             lastname: '',
-            lastnameRules: [
-                vl => !!vl || 'El apellido es requerido',
-            ],
-            charge: '',
-            chargeRules: [
-                vc => !!vc || 'El cargo es requerido',
+            charge: 'Seleccionar',
+            items: [
+                'Vendedor',
+                'Administrador',
             ],
             email: '',
-            emailRules: [
-                ve => !!ve || 'El correo es requerido',
-            ], 
             password: '',
-            passwordRules: [
-                vp => !!vp || 'La contraseña es requerida',
-            ],
             confirmPassword: '',
             visible: false,
             confirmVisible: false,
@@ -103,17 +90,43 @@ export default {
         async register() {
             await this.getUsers();
 
+            console.log(this.fullName);
+            
+            // Validación campos vacíos
+            if(this.fullName == '' || this.lastname == '' || this.charge == 'Seleccionar' || this.email == '' || this.password == '' || this.confirmPassword == ''){
+                errorMessage.value = 'Por favor, ingresa todos los campos.';
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: errorMessage.value,
+                })
+                return;
+            }
 
-            if (!email.value || !/^\S+@\S+\.\S+$/.test(email.value)) {
-        errorMessage.value = 'Por favor, ingresa un correo electrónico válido.';
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: errorMessage.value,
-        })
-        return;
-    }
-            // Check if the email already exists
+            // Validación correo válido
+            if (!this.email || !/^\S+@\S+\.\S+$/.test(this.email)) {
+                console.log('Por favor, ingresa un correo electrónico válido.');
+                errorMessage.value = 'Por favor, ingresa un correo electrónico válido.';
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: errorMessage.value,
+                })
+                return;
+            }
+
+            // Validación contraseñas coinciden
+            if (!this.password || !this.confirmPassword) {
+                errorMessage.value = 'Por favor, ingresa tu contraseña.';
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: errorMessage.value,
+                })
+                return;
+            }
+
+            // Verificar si existe el correo
             const emailExists = this.users.some(user => user.email === this.email);
 
             if (emailExists) {
@@ -125,13 +138,13 @@ export default {
                     icon: 'error',
                 })
             } else {
-                // Generate a unique sequential ID for the new user
+                // Generación de ID secuencial única para el usuario
                 const userId = nextUserId;
 
-                // Increment the counter for the next user
+                // Incrementa el contador para el siguiente usuario
                 nextUserId++;
 
-                // Register the new user with the generated sequential ID
+                // Registra al usuario con el ID generado
                 const newUser = {
                     id: userId,
                     fullName: this.fullName,
@@ -141,31 +154,12 @@ export default {
                     password: this.password
                 };
 
-                // Add the user to the server
-                await this.addUser(newUser);
-
-                Swal.fire(
-                    {
-                        icon: 'success',
-                        title: 'Registro exitoso:'
-                    }
-                )
-
-                console.log('', newUser);
-                // Optionally, you can redirect to a different page after successful registration
-                this.$router.push('./');
+                
             }
         },
 
 
-        async addUser(user) {
-            try {
-                const response = await axios.post('http://localhost:3001/users', user);
-                console.log('Usuario agregado:', response.data);
-            } catch (error) {
-                console.error('Error al agregar usuario:', error);
-            }
-        }
+        
     }
 };
 definePageMeta({
@@ -179,7 +173,7 @@ definePageMeta({
     justify-content: center;
     align-items: center;
     height: 100vh;
-    padding-top: 2%;
+    padding-top: 1%;
     padding-bottom: 5%;
 
 }
@@ -189,5 +183,4 @@ definePageMeta({
     /* Ajusta el ancho de la tarjeta al 100% del contenedor */
 
 }
-
 </style>
