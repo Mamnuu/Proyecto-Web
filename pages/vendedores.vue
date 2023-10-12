@@ -20,16 +20,23 @@
               <v-row>
                 <br />
                 <v-card-title class="titulov">
-                  {{ seller.nombre }}
+                  {{ seller.nombre }} 
                 </v-card-title>
               </v-row>
               <v-row>
-                <v-btn class="btnCardv" variant="text"> Ver vendedor </v-btn>
+                <v-card-actions>
+                  <v-btn class="btnCardv" variant="text"  block @click="openDialog(seller);"> Ver vendedor </v-btn>
+                </v-card-actions>
               </v-row>
             </v-col>
           </v-row>
         </v-card>
       </v-col>
+      <v-card v-if="dialog"  class="infor" elevation="7">
+        <v-dialog v-model="dialog" width="auto" style="background: none !important; border-radius: 80px !important;">
+          <DescripcionV :seller="currentSeller"></DescripcionV>
+        </v-dialog>
+      </v-card>
       <v-btn fab dark large color="#5995fd" class="btn-flotante">
         <v-icon size="50">mdi-plus</v-icon>
       </v-btn>
@@ -38,7 +45,10 @@
 </template>
 <script setup>
 import axios from "axios";
+import DescripcionV from '~/components/vendedor.vue';
 const sellers = ref([]);
+const currentSeller = ref(null);
+const dialog = ref(false);
 
 const getSellers = async () => {
   const url = "http://localhost:3001/sellers";
@@ -46,6 +56,11 @@ const getSellers = async () => {
   sellers.value = response.data;
 };
 getSellers();
+
+const openDialog = (seller) => {
+  currentSeller.value = seller;
+  dialog.value = true;
+}
 </script>
 
 <style>

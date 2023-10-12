@@ -74,6 +74,7 @@
       "apellido": "ramirez",
       "correo": "ar@gmail.com",
       "cargo": "vendedor",
+      "contacto" : "3207608976",
       "img" : "https://www.webconsultas.com/sites/default/files/styles/wch_image_schema/public/articulos/perfil-resilencia.jpg"
     },
     {
@@ -82,6 +83,7 @@
       "apellido": "Zapata",
       "correo": "jz@gmail.com",
       "cargo": "vendedor",
+      "contacto" : "3134675890",
       "img" : "https://img.freepik.com/foto-gratis/joven-confiado_1098-20868.jpg"
     },
     {
@@ -90,6 +92,7 @@
       "apellido": "Bustamante",
       "correo": "cb@gmail.com",
       "cargo": "vendedor",
+      "contacto" : "3156489234",
       "img" : "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?cs=srgb&dl=pexels-justin-shaifer-1222271.jpg&fm=jpg"
     },
     {
@@ -98,6 +101,7 @@
       "apellido": "Casas",
       "correo": "ec@gmail.com",
       "cargo": "vendedor",
+      "contacto" : "3148791567",
       "img" : "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cGVyc29uYXxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80"
     },
     {
@@ -106,6 +110,7 @@
       "apellido": "Aguirre",
       "correo": "ma@gmail.com",
       "cargo": "vendedor",
+      "contacto" : "323875412",
       "img" : "https://img.freepik.com/foto-gratis/retrato-hermoso-mujer-joven-posicion-pared-gris_231208-10760.jpg"
     },
     {
@@ -114,6 +119,7 @@
       "apellido": "Medina",
       "correo": "vm@gmail.com",
       "cargo": "vendedor",
+      "contacto" : "345784325",
       "img" : "https://img.freepik.com/foto-gratis/chico-guapo-seguro-posando-contra-pared-blanca_176420-32936.jpg"
     }
   ],
