@@ -176,23 +176,29 @@
   "suppliers": [
     {
       "id": 1,
-      "nombre": "distri HB",
+      "nombre": "Distri HB",
       "correo": "d@gmail.com",
       "cargo": "proveedor",
+      "producto": "Etiquetas y Envases",
+      "contacto": "(123) 555-6789",
       "img" : "https://distrihb.com.co/wp-content/uploads/2021/03/logo-manual-de-imagen-corporativo1-CUADRADO_Mesa-de-trabajo-1-copia-2_Mesa-de-trabajo-1-copia-2.png"
     },
     {
       "id": 2,
-      "nombre": "la frontera",
+      "nombre": "La frontera",
       "correo": "db@gmail.com",
       "cargo": "proveedor",
+      "producto": "Carne de Cerdo y res",
+      "contacto": "(456) 555-1234",
       "img" : "https://distribuidoralafrontera.com.co/wp-content/uploads/2021/09/cropped-logo-editable-la-frontera-png-sin-texto.png"
     },
     {
       "id": 3,
-      "nombre": "totalaseo",
+      "nombre": "Totalaseo",
       "correo": "e@gmail.com",
       "cargo": "proveedor",
+      "producto": "Especias y Condimentos",
+      "contacto": "(789) 555-5678",
       "img" : "https://totalaseo.com/Media/totalaseo/dayvo/logo/total-aseo-logo-simbolo.png"
     },
     {
@@ -200,20 +206,26 @@
       "nombre": "Alico",
       "correo": "a@gmail.com",
       "cargo": "proveedor",
+      "producto": "Conservantes y Aditivos",
+      "contacto": "(234) 555-9012",
       "img" : "https://yt3.googleusercontent.com/ytc/AOPolaTg9wPS2Ccwloqd06W-U9bVOyyAYPtevkmJKsPhOA=s900-c-k-c0x00ffffff-no-rj"
     },
     {
       "id": 5,
-      "nombre": "distriM",
+      "nombre": "DistriM",
       "correo": "lc@gmail.com",
       "cargo": "proveedor",
+      "producto": "Cajas de Almacenamiento ",
+      "contacto": "(567) 555-3456",
       "img" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7iymsdRKEoImPi7V7RifE6RRdwPOwd5uytA&usqp=CAU"
     },
     {
       "id": 6,
-      "nombre": "distriArco",
+      "nombre": "DistriArco",
       "correo": "ds@gmail.com",
       "cargo": "proveedor",
+      "producto": "Emulsionantes y Estabilizantes",
+      "contacto": "(901) 555-7890",
       "img" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnGzkJFVIEXgKOlvCesKdY7FNkZ5cxOV3JkQ&usqp=CAU"
     }
   ]

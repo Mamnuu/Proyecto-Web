@@ -17,8 +17,7 @@
                 <v-row class="infov">
                     <v-col>
                         <ul>
-                             <li class="li"> Cargo: {{ seller.cargo }}</li> <br>
-                                <br>
+                                <li class="li"> Cargo: {{ seller.cargo }}</li> <br>
                                 <li class="li"> Correo eléctronico: {{ seller.correo }}</li> <br>
                                 <li class="li"> Contacto: {{ seller.contacto }}</li> <br>
                         </ul>
@@ -46,7 +45,7 @@ export default {
 <style>
     .informacionV{
         width: 420px !important; /* Establece el ancho deseado */
-        height: 300px !important;
+        height: 280px !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
