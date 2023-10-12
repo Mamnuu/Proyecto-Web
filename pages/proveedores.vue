@@ -30,12 +30,17 @@
                 </v-card-title>
               </v-row>
               <v-row>
-                <v-btn class="btnCardp" variant="text"> Ver proveedor </v-btn>
+                <v-btn class="btnCardp" variant="text"  block @click="openDialog(supplier);" > Ver proveedor </v-btn>
               </v-row>
             </v-col>
           </v-row>
         </v-card>
       </v-col>
+      <v-card v-if="dialog"  class="infopro" elevation="7">
+        <v-dialog v-model="dialog" width="auto" style="background: none !important; border-radius: 80px !important;">
+          <DescripcionPro :supplier="currentSupplier"></DescripcionPro>
+        </v-dialog>
+      </v-card>
       <v-btn fab dark large color="#5995fd" class="btn-flotante">
         <v-icon size="50">mdi-plus</v-icon>
       </v-btn>
@@ -44,7 +49,10 @@
 </template>
 <script setup>
 import axios from "axios";
+import DescripcionPro from '~/components/proveedor.vue';
 const suppliers = ref([]);
+const dialog = ref(false);
+const currentSupplier = ref(null);
 
 const getSuppliers = async () => {
   const url = "http://localhost:3001/suppliers";
@@ -52,6 +60,13 @@ const getSuppliers = async () => {
   suppliers.value = response.data;
 };
 getSuppliers();
+
+const openDialog = (supplier) => {
+  currentSupplier.value = supplier;
+  dialog.value = true;
+}
+
+
 </script>
 
 <style>
