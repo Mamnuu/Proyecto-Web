@@ -4,13 +4,13 @@
         <v-row>
             <v-col class="" cols="6">
                 <v-card class="cardImg">
-                <v-img  aspect-ratio="1/4" class="imagenP" cover
+                <v-img  aspect-ratio="1/4" class="imagenP fill-height" cover
                     :src=" producto.img ">
                 </v-img>
             
             </v-card>
                 <h3 class="precio">
-                    <v-icon> mdi-currency-usd </v-icon>
+                    <v-icon>mdi-currency-usd</v-icon>
                     {{ producto.precio }}
                 </h3>
                 
@@ -18,6 +18,7 @@
             <v-col cols="6">
                 <v-row class="info">
                     <v-col>
+                        <br>
                         <h3>{{ producto.nombre }}</h3>
                         <p>
                             <br>
@@ -59,7 +60,7 @@ const openDialog = (producto) => {
         width: 250px !important;
         height: 250px !important;
         text-align: center;
-        margin-top: 10%;
+        margin-top: 8%;
         
     }
 
