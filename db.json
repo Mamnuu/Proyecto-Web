@@ -129,6 +129,7 @@
       "nombre": "Carmen",
       "apellido": "restrepo",
       "correo": "cr@gmail.com",
+      "direccion": "123 Calle del Sol, Ciudad Primavera",
       "cargo": "cliente",
       "img" : "https://plus.unsplash.com/premium_photo-1687832783320-35671afbf484?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Zm90byUyMGRlJTIwcGVyZmlsfGVufDB8fDB8fHww&w=1000&q=80"
     },
@@ -137,6 +138,7 @@
       "nombre": "Armando",
       "apellido": "Zapata",
       "correo": "az@gmail.com",
+      "direccion": "456 Avenida de las Rosas",
       "cargo": "cliente",
       "img" : "https://www.blogdelfotografo.com/wp-content/uploads/2022/01/retrato-anillo-luz.webp"
     },
@@ -145,6 +147,7 @@
       "nombre": "Sofía",
       "apellido": "arango",
       "correo": "sa@gmail.com",
+      "direccion": "789 Calle del Bosque",
       "cargo": "cliente",
       "img" : "https://www.seoptimer.com/storage/images/2016/05/foto-de-perfil-adecuada.jpg"
     },
@@ -153,6 +156,7 @@
       "nombre": "Carolina",
       "apellido": "Corrales",
       "correo": "cc@gmail.com",
+      "direccion": "321 Camino del Río",
       "cargo": "cliente",
       "img" : "https://media.licdn.com/dms/image/C4D03AQFnohQzlY-XZw/profile-displayphoto-shrink_800_800/0/1624180767804?e=2147483647&v=beta&t=Vn6jKnvsAMS4C3WOX-3dkodb7wnJLezTpDhpPxbMjm8"
     },
@@ -161,6 +165,7 @@
       "nombre": "Mario",
       "apellido": "Aguirre",
       "correo": "ma@gmail.com",
+      "direccion": "555 Vía del Mar",
       "cargo": "cliente",
       "img" : "https://muhimu.es/wp-content/uploads/2017/04/FRENTE-NITIDA.jpg"
     },
@@ -169,6 +174,7 @@
       "nombre": "Cristian",
       "apellido": "Morales",
       "correo": "cm@gmail.com",
+      "direccion": "666 Ruta del Viento",
       "cargo": "cliente",
       "img" : "https://media.licdn.com/dms/image/C4D03AQExyXZIV7hP6w/profile-displayphoto-shrink_800_800/0/1631281341744?e=2147483647&v=beta&t=xwsiHNzN9b0Wgb75VaYvvBbDGv_XCus76WiZpyNJAMY"
     }
