@@ -10,7 +10,7 @@
         md="4"
         sm="6"
       >
-        <v-card class="productoCard" max-width="344" elevation="3">
+        <v-card class="productoCard" max-width="344" elevation="3" >
           <v-img :src="producto.img" height="200px" cover></v-img>
 
           <v-card-title>
@@ -23,10 +23,15 @@
           </v-card-subtitle>
 
           <v-card-actions>
-            <v-btn class="btnCard" variant="text"> Ver producto </v-btn>
+            <v-btn class="btnCard" variant="text"  block @click="openDialog(producto);"> Ver producto </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
+      <v-card v-if="dialog"  class="info" elevation="7">
+        <v-dialog v-model="dialog" width="auto" style="background: none !important; border-radius: 80px !important;">
+          <DescripcionP :producto="currentProduct"></DescripcionP>
+        </v-dialog>
+      </v-card>
       <v-btn fab dark large color=#5995fd class="btn-flotante">
         <v-icon size="50">mdi-plus</v-icon>
       </v-btn>
@@ -36,7 +41,11 @@
 <script setup>
 import Swal from "sweetalert2";
 import axios from "axios";
+import DescripcionP from '~/components/producto.vue';
+
 const productos = ref([]);
+const dialog = ref(false);
+const currentProduct = ref(null);
 
 const getProducts = async () => {
   const url = "http://localhost:3001/products";
@@ -67,6 +76,11 @@ Toast.fire({
 sessionStorage.setItem('LOGGEDUSER',"true")
 }
 
+const openDialog = (producto) => {
+  currentProduct.value = producto;
+  dialog.value = true;
+}
+
 
 </script>
 
@@ -78,8 +92,19 @@ sessionStorage.setItem('LOGGEDUSER',"true")
   font-size: 30px !important;
 }
 
+
+.info{
+  border-radius: 40px !important;
+}
+
 .btnCard {
   color: #5995fd !important;
+}
+
+.btnSalir {
+  background-color: #5995fd !important;
+  color: white !important;
+  font-weight: bold !important;
 }
 
 .productoCard {

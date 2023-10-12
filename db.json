@@ -27,37 +27,44 @@
       "id": 1,
       "nombre": "Chorizos grandes",
       "precio": 24000,
-      "img": "https://img.freepik.com/free-photo/grilled-sausage_144627-34250.jpg?w=2000"
+      "img": "https://img.freepik.com/free-photo/grilled-sausage_144627-34250.jpg?w=2000",
+      "descripcion": "Sumérgete en la auténtica experiencia culinaria española con nuestros Chorizos Grandes, una deliciosa fusión de tradición y sabor. Estos chorizos, elaborados con los ingredientes más selectos y cuidadosamente condimentados, son una auténtica delicia para los amantes de la carne y los sabores intensos."
+      
     },
     {
       "id": 2,
       "nombre": "Chorizo criollo",
       "precio": 7000,
-      "img": "https://bgcalimentosespeciales.com/wp-content/uploads/2021/07/CHORIZO-TXISTORRA-1.jpg"
+      "img": "https://bgcalimentosespeciales.com/wp-content/uploads/2021/07/CHORIZO-TXISTORRA-1.jpg",
+      "descripcion": "Sumérgete en la rica tradición culinaria de América Latina con nuestros Chorizos Criollos Artesanales. Estos chorizos, elaborados con esmero siguiendo recetas familiares transmitidas de generación en generación, capturan la esencia de la comida criolla en cada bocado."
     },
     {
       "id": 3,
       "nombre": "Chorizo premium",
       "precio": 30000,
-      "img": "https://i.ytimg.com/vi/RkdPXyz2B4s/maxresdefault.jpg"
+      "img": "https://i.ytimg.com/vi/RkdPXyz2B4s/maxresdefault.jpg",
+      "descripcion": "Sumérgete en un mundo de lujo culinario con nuestros Chorizos Premium, la joya de la corona en la selección de embutidos. Estos chorizos han sido cuidadosamente elaborados para satisfacer a los paladares más exigentes, fusionando calidad, sabor y tradición en cada mordisco."
     },
     {
       "id": 4,
       "nombre": "Chorizo artesanal",
       "precio": 15000,
-      "img": "https://cdn0.recetasgratis.net/es/posts/4/4/8/chorizos_a_la_criolla_20844_orig.jpg"
+      "img": "https://cdn0.recetasgratis.net/es/posts/4/4/8/chorizos_a_la_criolla_20844_orig.jpg",
+      "descripcion":"Sumérgete en la rica tradición culinaria de América Latina con nuestros Chorizos Criollos Artesanales. Estos chorizos, elaborados con esmero siguiendo recetas familiares transmitidas de generación en generación, capturan la esencia de la comida criolla en cada bocado."
     },
     {
       "id": 5,
-      "nombre": "Chorizos grandes",
+      "nombre": "Chorizos especiales",
       "precio": 24000,
-      "img": "https://progcarne.com/storage/app/uploads/public/629/000/14a/62900014ab1cc178930975.jpg"
+      "img": "https://progcarne.com/storage/app/uploads/public/629/000/14a/62900014ab1cc178930975.jpg",
+      "descripcion": "Descubre una experiencia culinaria única con nuestros Chorizos Especiales, una joya entre los embutidos. Estos chorizos han sido creados con pasión y dedicación, combinando los ingredientes más selectos y un proceso de elaboración artesanal. Cada bocado te transportará a un mundo de sabores inigualables."
     },
     {
       "id": 6,
-      "nombre": "Chorizos especiales",
+      "nombre": "Chorizos pequeños",
       "precio": 24000,
-      "img": "https://newluxbrand.com/wp-content/uploads/2022/02/Chorizos-caseros-Newlux-optimized.jpg"
+      "img": "https://newluxbrand.com/wp-content/uploads/2022/02/Chorizos-caseros-Newlux-optimized.jpg",
+      "descripcion": "Nuestros Chorizos Mini son la prueba de que las mejores cosas vienen en pequeños paquetes. Estos diminutos chorizos han sido elaborados con el mismo amor y atención que sus contrapartes más grandes, pero en un formato perfecto para picar y disfrutar en cualquier momento."
     }
   ],
   "sellers": [
