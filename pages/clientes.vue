@@ -30,12 +30,17 @@
                 </v-card-title>
               </v-row>
               <v-row>
-                <v-btn class="btnCardv" variant="text"> Ver cliente </v-btn>
+                <v-btn class="btnCardv" variant="text" block @click="openDialog(customer);"> Ver cliente </v-btn>
               </v-row>
             </v-col>
           </v-row>
         </v-card>
       </v-col>
+      <v-card v-if="dialog"  class="infoC" elevation="7">
+        <v-dialog v-model="dialog" width="auto" style="background: none !important; border-radius: 80px !important;">
+          <DescripcionC :customer="currentCustomer"></DescripcionC>
+        </v-dialog>
+      </v-card>
       <v-btn fab dark large color="#5995fd" class="btn-flotante">
         <v-icon size="50">mdi-plus</v-icon>
       </v-btn>
@@ -44,7 +49,11 @@
 </template>
 <script setup>
 import axios from "axios";
+import DescripcionC from '~/components/cliente.vue';
+
 const customers = ref([]);
+const dialog = ref(false);
+const currentCustomer = ref(null);
 
 const getCustomers = async () => {
   const url = "http://localhost:3001/customers";
@@ -52,6 +61,11 @@ const getCustomers = async () => {
   customers.value = response.data;
 };
 getCustomers();
+
+const openDialog = (customer) => {
+  currentCustomer.value = customer;
+  dialog.value = true;
+}
 </script>
 
 <style>
