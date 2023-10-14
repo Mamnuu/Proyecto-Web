@@ -29,7 +29,7 @@
       </v-col>
       <v-card v-if="dialog"  class="info" elevation="7">
         <v-dialog v-model="dialog" width="auto" style="background: none !important; border-radius: 80px !important;">
-          <DescripcionP :producto="currentProduct"></DescripcionP>
+          <DescripcionP :producto="currentProduct" :dialog="dialog"></DescripcionP>
         </v-dialog>
       </v-card>
       <v-btn fab dark large color=#5995fd class="btn-flotante">
@@ -52,8 +52,10 @@ const getProducts = async () => {
   const response = await axios.get(url);
   productos.value = response.data;
 };
-getProducts();
 
+onBeforeMount(() => {
+    getProducts();
+})
 //Alerta de inicio de sesion existoso
 
 let logged_user = sessionStorage.getItem('LOGGEDUSER')
