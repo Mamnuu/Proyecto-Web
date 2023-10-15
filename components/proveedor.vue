@@ -23,7 +23,7 @@
                         </ul>
                     </v-col>
                 </v-row>
-                <v-btn class="btn" icon color="#CF010B"><v-icon>mdi-trash-can-outline </v-icon></v-btn>
+                <v-btn  @click="supplierDelete(supplier)" class="btn" icon color="#CF010B"><v-icon>mdi-trash-can-outline </v-icon></v-btn>
                 <v-btn class="btnEdit" icon color="#5995fd"><v-icon>mdi-account-edit-outline </v-icon></v-btn>
             </v-col>
         </v-row>
@@ -31,12 +31,63 @@
 
 </template>
 
-<script>
-export default {
-    props: {
-        supplier: Object
-    }
+<script setup>
+
+import axios from "axios";
+import Swal from "sweetalert2";
+
+const emit = defineEmits(['closeDialog']);
+
+const props = defineProps({
+    supplier: {
+        type: Object,
+        required: true
+    },
+});
+
+const deleteSupplier= async (supplier) => {
+    const url = `http://localhost:3001/suppliers/${supplier.id}`
+    const { data } = await axios.delete(url)
 }
+
+const supplierDelete = (supplier) => {
+    emit('closeDialog')
+    let error = false
+    Swal.fire({
+        title: 'Estás seguro?',
+        text: "No podrás revertir esta acción!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, bórralo!',
+        cancelButtonText: 'Cancelar',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            try {
+                deleteSupplier(supplier);
+            } catch (error) {
+                error = true
+                console.log(error);
+            }
+            if (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'No pudo ser posible el borrado!',
+                })
+            }
+            else {
+                Swal.fire(
+                    'Borrado!',
+                    'Producto borrado con éxito.',
+                    'success'
+                )
+            }
+        }
+    })
+}
+
 </script>
 
 <style>

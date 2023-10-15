@@ -38,7 +38,7 @@
       </v-col>
       <v-card v-if="dialog"  class="infopro" elevation="7">
         <v-dialog v-model="dialog" width="auto" style="background: none !important; border-radius: 80px !important;">
-          <DescripcionPro :supplier="currentSupplier"></DescripcionPro>
+          <DescripcionPro :supplier="currentSupplier"  @closeDialog="closeDialog"></DescripcionPro>
         </v-dialog>
       </v-card>
       <v-btn fab dark large color="#5995fd" class="btn-flotante">
@@ -59,11 +59,18 @@ const getSuppliers = async () => {
   const response = await axios.get(url);
   suppliers.value = response.data;
 };
-getSuppliers();
+
+onBeforeMount(() => {
+  getSuppliers();
+})
 
 const openDialog = (supplier) => {
   currentSupplier.value = supplier;
   dialog.value = true;
+}
+
+const closeDialog = () => {
+  dialog.value = false;
 }
 
 
