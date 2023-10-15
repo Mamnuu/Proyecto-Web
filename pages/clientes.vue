@@ -38,7 +38,7 @@
       </v-col>
       <v-card v-if="dialog"  class="infoC" elevation="7">
         <v-dialog v-model="dialog" width="auto" style="background: none !important; border-radius: 80px !important;">
-          <DescripcionC :customer="currentCustomer"></DescripcionC>
+          <DescripcionC :customer="currentCustomer"  @closeDialog="closeDialog"></DescripcionC>
         </v-dialog>
       </v-card>
       <v-btn fab dark large color="#5995fd" class="btn-flotante">
@@ -60,8 +60,12 @@ const getCustomers = async () => {
   const response = await axios.get(url);
   customers.value = response.data;
 };
-getCustomers();
-
+onBeforeMount(() => {
+  getCustomers();
+})
+const closeDialog = () => {
+  dialog.value = false;
+}
 const openDialog = (customer) => {
   currentCustomer.value = customer;
   dialog.value = true;

@@ -29,7 +29,7 @@
       </v-col>
       <v-card v-if="dialog"  class="info" elevation="7">
         <v-dialog v-model="dialog" width="auto" style="background: none !important; border-radius: 80px !important;">
-          <DescripcionP :producto="currentProduct" :dialog="dialog"></DescripcionP>
+          <DescripcionP :producto="currentProduct" :dialog="dialog" @closeDialog="closeDialog"></DescripcionP>
         </v-dialog>
       </v-card>
       <v-btn fab dark large color=#5995fd class="btn-flotante">
@@ -56,6 +56,17 @@ const getProducts = async () => {
 onBeforeMount(() => {
     getProducts();
 })
+
+const closeDialog = () => {
+  dialog.value = false;
+}
+//Escuchador para el evento emitido desde el componente `productos.vue`
+watch(dialog, (newValue) => {
+  if (!newValue) {
+    dialog.value = false;
+  }
+});
+
 //Alerta de inicio de sesion existoso
 
 let logged_user = sessionStorage.getItem('LOGGEDUSER')

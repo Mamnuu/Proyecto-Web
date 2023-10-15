@@ -23,7 +23,7 @@
                         </ul>
                     </v-col>
                 </v-row>
-                <v-btn  icon color="#CF010B"><v-icon>mdi-trash-can-outline </v-icon></v-btn>
+                <v-btn  @click="sellerDelete(seller)" icon color="#CF010B"><v-icon>mdi-trash-can-outline </v-icon></v-btn>
                 <v-btn class="btnEdit" icon color="#5995fd"><v-icon>mdi-account-edit-outline </v-icon></v-btn>
             </v-col>
         </v-row>
@@ -32,12 +32,60 @@
 
 </template>
 
-<script>
+<script setup>
+import axios from "axios";
+import Swal from "sweetalert2";
 
-export default {
-    props: {
-        seller: Object
-    }
+const emit = defineEmits(['closeDialog']);
+
+const props = defineProps({
+    seller: {
+        type: Object,
+        required: true
+    },
+});
+
+
+const deleteSeller= async (seller) => {
+    const url = `http://localhost:3001/sellers/${seller.id}`
+    const { data } = await axios.delete(url)
+}
+const sellerDelete = (seller) => {
+    emit('closeDialog')
+    let error = false
+    Swal.fire({
+        title: 'Estás seguro?',
+        text: "No podrás revertir esta acción!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, bórralo!',
+        cancelButtonText: 'Cancelar',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            try {
+                deleteSeller(seller);
+            } catch (error) {
+                error = true
+                console.log(error);
+            }
+            if (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'No pudo ser posible el borrado!',
+                })
+            }
+            else {
+                Swal.fire(
+                    'Borrado!',
+                    'Producto borrado con éxito.',
+                    'success'
+                )
+            }
+        }
+    })
 }
 
 </script>
