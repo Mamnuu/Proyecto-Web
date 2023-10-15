@@ -1,4 +1,3 @@
-
 <template>
     <v-card class="informacion overflow-y-hidden">
         <v-row>
@@ -37,8 +36,9 @@
 <script setup>
 import axios from "axios";
 import Swal from "sweetalert2";
-// import {getProducts} from '~/pages/home.vue';
+
 const router = useRouter();
+const emit = defineEmits(['closeDialog'])
 const props = defineProps({
     producto: {
         type: Object,
@@ -52,6 +52,7 @@ const deleteProduct = async (product) => {
 }
 
 const productDelete = (product) => {
+    emit('closeDialog')
     let error = false
     Swal.fire({
         title: 'Estás seguro?',
@@ -76,27 +77,17 @@ const productDelete = (product) => {
                     title: 'Oops...',
                     text: 'No pudo ser posible el borrado!',
                 })
-            } 
+            }
             else {
                 Swal.fire(
                     'Borrado!',
                     'Producto borrado con éxito.',
                     'success'
                 )
-                router.push('/home');
             }
         }
     })
 }
-
-//Este codigo no afecta en nada
-// const dialog = ref(false);
-// const currentProduct = ref(null);
-
-// const openDialog = (producto) => {
-//     currentProduct.value = producto;
-//     dialog.value = true;
-// }
 
 
 </script>
