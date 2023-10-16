@@ -32,7 +32,7 @@
           <DescripcionP :producto="currentProduct" :dialog="dialog" @closeDialog="closeDialog"></DescripcionP>
         </v-dialog>
       </v-card>
-      <v-btn fab dark large color=#5995fd class="btn-flotante">
+      <v-btn fab dark large color=#5995fd class="btn-flotante" to="/crearProducto">
         <v-icon size="50">mdi-plus</v-icon>
       </v-btn>
     </v-row>
