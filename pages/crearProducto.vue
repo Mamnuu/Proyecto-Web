@@ -31,7 +31,7 @@
           placeholder="Precio"
           prepend-inner-icon="mdi-cash"
           variant="underlined"
-          :rules="precioRules"
+          :rules="[precioRules, Rules].flat()"
         ></v-text-field>
 
         <div class="text-subtitle-1 text-medium-emphasis">Descripción</div>
@@ -101,7 +101,7 @@ export default {
       }
 
       // Validación de solo números
-      if (/[0-9-]+/.test(this.precio)) {
+      if (!/[0-9-]+/.test(this.precio)) {
         errorMessage.value = "Solo se permiten números";
         Swal.fire({
           icon: "error",

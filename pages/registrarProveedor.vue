@@ -57,7 +57,7 @@
           placeholder="Número de contacto"
           prepend-inner-icon="mdi-card-account-phone-outline"
           variant="underlined"
-          :rules="Rules"
+          :rules="[Rules, contactoRules].flat()"
         ></v-text-field>
 
         <v-btn
@@ -87,6 +87,7 @@ export default {
   data: () => {
     return {
       Rules: [(v) => !!v || "El campo es obligatorio"],
+      contactoRules: [v => (/^[-+]?[0-9]*\.?[0-9]*$/.test(v)) || 'Solo se permiten números'],
       nombre: "",
       correo: "",
       producto: "",
@@ -113,6 +114,17 @@ export default {
         this.contacto == ""
       ) {
         errorMessage.value = "Por favor, ingresa todos los campos.";
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: errorMessage.value,
+        });
+        return;
+        
+      }
+       // Validación de solo números
+       if (!/[0-9-]+/.test(this.precio)) {
+        errorMessage.value = "Solo se permiten números";
         Swal.fire({
           icon: "error",
           title: "Oops...",
