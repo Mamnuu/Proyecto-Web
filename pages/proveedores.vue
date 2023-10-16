@@ -41,7 +41,7 @@
           <DescripcionPro :supplier="currentSupplier"  @closeDialog="closeDialog"></DescripcionPro>
         </v-dialog>
       </v-card>
-      <v-btn fab dark large color="#5995fd" class="btn-flotante">
+      <v-btn fab dark large color="#5995fd" class="btn-flotante" to="/registrarProveedor">
         <v-icon size="50">mdi-plus</v-icon>
       </v-btn>
     </v-row>

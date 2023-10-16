@@ -291,6 +291,15 @@
       "producto": "Emulsionantes y Estabilizantes",
       "contacto": "(901) 555-7890",
       "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnGzkJFVIEXgKOlvCesKdY7FNkZ5cxOV3JkQ&usqp=CAU"
+    },
+    {
+      "id": 7,
+      "nombre": "Cerdoexp",
+      "correo": "ce@gmail.com",
+      "producto": "Carne",
+      "contacto": "3214567809",
+      "img": "/images/imgproveedor.jpeg",
+      "cargo": "proveedor"
     }
   ]
 }
