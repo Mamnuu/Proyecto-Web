@@ -14,7 +14,7 @@
 
                     <div class="text-subtitle-1 text-medium-emphasis">Cargo</div>
 
-                    <v-select v-model="charge" density="compact" placeholder="Cargo"
+                    <v-select v-model="cargo" density="compact" placeholder="Cargo"
                         prepend-inner-icon="mdi-account-hard-hat-outline" :items="items" variant="underlined"></v-select>
 
                     <div class="text-subtitle-1 text-medium-emphasis">Correo electrónico</div>
@@ -51,6 +51,7 @@
 import axios from 'axios';
 import Swal from "sweetalert2";
 let nextUserId = 2;  // Contador para el ID secuencial
+const img = "/images/perfil-del-usuario.png"
 
 
 const errorMessage = ref('');
@@ -65,7 +66,7 @@ export default {
             ],
             fullName: '',
             lastname: '',
-            charge: 'Seleccionar',
+            cargo: 'Seleccionar',
             items: [
                 'Vendedor',
                 'Administrador',
@@ -92,7 +93,7 @@ export default {
             // Validación campos vacíos
             if (this.fullName == ''
                 || this.lastname == ''
-                || this.charge == 'Seleccionar'
+                || this.cargo == 'Seleccionar'
                 || this.email == ''
                 || this.password == ''
                 || this.confirmPassword == '') {
@@ -148,12 +149,13 @@ export default {
 
                 // Registra al usuario con el ID generado
                 const newUser = {
-                    id: userId,
+                    id: this.userId,
                     fullName: this.fullName,
                     lastname: this.lastname,
-                    charge: this.charge,
+                    cargo: this.cargo,
                     email: this.email,
-                    password: this.password
+                    password: this.password,
+                    img: img
                 };
 
                 // Añade el usuario al servidor
@@ -167,7 +169,7 @@ export default {
                 const response = await axios.post('http://localhost:3001/users', user);
                 console.log('Usuario agregado:', response.data);
                 // Redirección al home
-                this.$router.push('./');
+                this.$router.push('/vendedores');
                 Swal.fire(
                     {
                         icon: 'success',
