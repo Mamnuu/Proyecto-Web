@@ -173,6 +173,24 @@
       "cargo": "vendedor",
       "contacto": "345784325",
       "img": "https://img.freepik.com/foto-gratis/chico-guapo-seguro-posando-contra-pared-blanca_176420-32936.jpg"
+    },
+    {
+      "nombre": "Andrea",
+      "apellido": "Mejía",
+      "cargo": "Vendedor",
+      "correo": "am@gmail.com",
+      "password": "123",
+      "img": "/images/perfil-del-usuario.png",
+      "id": 7
+    },
+    {
+      "nombre": "Alicia",
+      "apellido": "medina",
+      "cargo": "Vendedor",
+      "correo": "ame@gmail.com",
+      "password": "123",
+      "img": "/images/perfil-del-usuario.png",
+      "id": 8
     }
   ],
   "customers": [
@@ -235,6 +253,16 @@
       "cargo": "cliente",
       "contacto": "345784325",
       "img": "https://media.licdn.com/dms/image/C4D03AQExyXZIV7hP6w/profile-displayphoto-shrink_800_800/0/1631281341744?e=2147483647&v=beta&t=xwsiHNzN9b0Wgb75VaYvvBbDGv_XCus76WiZpyNJAMY"
+    },
+    {
+      "id": 7,
+      "nombre": "Carlos",
+      "apellido": "Medina",
+      "correo": "carme@gmail.com",
+      "direccion": "cll26#67-9",
+      "contacto": "3142556789",
+      "img": "/images/perfil-del-usuario.png",
+      "cargo": "cliente"
     }
   ],
   "suppliers": [
@@ -291,6 +319,15 @@
       "producto": "Emulsionantes y Estabilizantes",
       "contacto": "(901) 555-7890",
       "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnGzkJFVIEXgKOlvCesKdY7FNkZ5cxOV3JkQ&usqp=CAU"
+    },
+    {
+      "id": 7,
+      "nombre": "Cerdoexp",
+      "correo": "ce@gmail.com",
+      "producto": "Carne",
+      "contacto": "3214567809",
+      "img": "/images/imgproveedor.jpeg",
+      "cargo": "proveedor"
     }
   ]
 }

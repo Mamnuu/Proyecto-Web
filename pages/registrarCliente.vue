@@ -7,42 +7,30 @@
         max-width="448"
         rounded="lg"
       >
-        <v-card-title style="text-align: center">Registrar</v-card-title>
+        <v-card-title style="text-align: center">Clientes</v-card-title>
         <v-card-subtitle style="text-align: center"
-          >Formulario para registro de vendedores y admins.</v-card-subtitle>
-        <br>
-        <div class="text-subtitle-1 text-medium-emphasis">Nombres</div>
+          >Formulario para el registro de clientes.</v-card-subtitle
+        >
+        <div class="text-subtitle-1 text-medium-emphasis">Nombre</div>
 
         <v-text-field
           v-model="nombre"
           density="compact"
-          placeholder="Nombres"
+          placeholder="Nombre"
           prepend-inner-icon="mdi-account-outline"
           variant="underlined"
           :rules="Rules"
         ></v-text-field>
-
-        <div class="text-subtitle-1 text-medium-emphasis">Apellidos</div>
+        <div class="text-subtitle-1 text-medium-emphasis">Apellido</div>
 
         <v-text-field
           v-model="apellido"
           density="compact"
-          placeholder="Apellidos"
+          placeholder="Apellido"
           prepend-inner-icon="mdi-account-outline"
           variant="underlined"
           :rules="Rules"
         ></v-text-field>
-
-        <div class="text-subtitle-1 text-medium-emphasis">Cargo</div>
-
-        <v-select
-          v-model="cargo"
-          density="compact"
-          placeholder="Cargo"
-          prepend-inner-icon="mdi-account-hard-hat-outline"
-          :items="items"
-          variant="underlined"
-        ></v-select>
 
         <div class="text-subtitle-1 text-medium-emphasis">
           Correo electrónico
@@ -57,33 +45,27 @@
           :rules="Rules"
         ></v-text-field>
 
-        <div class="text-subtitle-1 text-medium-emphasis">Contraseña</div>
+        <div class="text-subtitle-1 text-medium-emphasis">Dirección</div>
 
         <v-text-field
-          v-model="password"
-          :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
-          :type="visible ? 'text' : 'password'"
+          v-model="direccion"
           density="compact"
-          placeholder="Ingresar la contraseña"
-          prepend-inner-icon="mdi-lock-outline"
+          placeholder="Dirección"
+          prepend-inner-icon="mdi-directions"
           variant="underlined"
-          @click:append-inner="visible = !visible"
           :rules="Rules"
         ></v-text-field>
 
         <div class="text-subtitle-1 text-medium-emphasis">
-          Confirmar Contraseña
+          Número de contacto
         </div>
 
         <v-text-field
-          v-model="confirmPassword"
-          :append-inner-icon="confirmVisible ? 'mdi-eye-off' : 'mdi-eye'"
-          :type="confirmVisible ? 'text' : 'password'"
+          v-model="contacto"
           density="compact"
-          placeholder="Confirma la contraseña"
-          prepend-inner-icon="mdi-lock-outline"
+          placeholder="Número de contacto"
+          prepend-inner-icon="mdi-card-account-phone-outline"
           variant="underlined"
-          @click:append-inner="confirmVisible = !confirmVisible"
           :rules="Rules"
         ></v-text-field>
 
@@ -94,8 +76,7 @@
           size="large"
           variant="outlined"
           @click="register"
-        >
-          Registrar
+          >Registrar
         </v-btn>
       </v-card>
     </div>
@@ -105,8 +86,9 @@
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
-let nextUserId = 2; // Contador para el ID secuencial
+let nextCustomerId = 6; // Contador para el ID secuencial
 const img = "/images/perfil-del-usuario.png";
+const cargo = "cliente";
 
 const errorMessage = ref("");
 
@@ -116,35 +98,30 @@ export default {
       Rules: [(v) => !!v || "El campo es obligatorio"],
       nombre: "",
       apellido: "",
-      cargo: "Seleccionar",
-      items: ["Vendedor", "Administrador"],
       correo: "",
-      password: "",
-      confirmPassword: "",
-      visible: false,
-      confirmVisible: false,
+      direccion: "",
+      contacto: "",
     };
   },
   methods: {
-    async getUsers() {
+    async getCustomers() {
       try {
-        const response = await axios.get("http://localhost:3001/sellers");
-        this.users = response.data;
+        const response = await axios.get("http://localhost:3001/customers");
+        this.customers = response.data;
       } catch (error) {
-        console.error("Error al obtener usuarios:", error);
+        console.error("Error al obtener clientes:", error);
       }
     },
     async register() {
-      await this.getUsers();
+      await this.getCustomers();
 
       // Validación campos vacíos
       if (
         this.nombre == "" ||
         this.apellido == "" ||
-        this.cargo == "Seleccionar" ||
         this.correo == "" ||
-        this.password == "" ||
-        this.confirmPassword == ""
+        this.direccion == "" ||
+        this.contacto == ""
       ) {
         errorMessage.value = "Por favor, ingresa todos los campos.";
         Swal.fire({
@@ -167,69 +144,51 @@ export default {
         return;
       }
 
-      // Validación contraseñas coinciden
-      if (!this.password || !this.confirmPassword) {
-        errorMessage.value = "Por favor, ingresa tu contraseña.";
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: errorMessage.value,
-        });
-        return;
-      }
-
       // Verificar si existe el correo
-      const emailExists = this.users.some(
-        (user) => user.correo === this.correo
+      const emailExists = this.customers.some(
+        (customer) => customer.correo === this.correo
       );
 
       if (emailExists) {
         console.error("El correo electrónico ya está registrado.");
-      } else if (this.password !== this.confirmPassword) {
-        Swal.fire({
-          title: "Error",
-          text: "Las contraseñas no coinciden",
-          icon: "error",
-        });
       } else {
-        // Generación de ID secuencial única para el usuario
-        const userId = nextUserId;
+        // Generación de ID secuencial única para el proveedor
+        const customerId = nextCustomerId;
 
-        // Incrementa el contador para el siguiente usuario
-        nextUserId++;
+        // Incrementa el contador para el siguiente proveedor
+        nextCustomerId++;
 
-        // Registra al usuario con el ID generado
-        const newUser = {
-          id: this.userId,
+        // Registra al proveedor con el ID generado
+        const newCustomer = {
+          id: customerId,
           nombre: this.nombre,
           apellido: this.apellido,
-          cargo: this.cargo,
           correo: this.correo,
-          password: this.password,
+          direccion: this.direccion,
+          contacto: this.contacto,
           img: img,
+          cargo: cargo,
         };
 
-        // Añade el usuario al servidor
-        await this.addUser(newUser);
+        // Añade el proveedor al servidor
+        await this.addCustomer(newCustomer);
 
-        console.log("", newUser);
+        console.log("", newCustomer);
       }
     },
-    async addUser(user) {
+    async addCustomer(customer) {
       try {
         const response = await axios.post(
-          "http://localhost:3001/sellers",
-          user
-        );
-        console.log("Usuario agregado:", response.data);
+          "http://localhost:3001/customers", customer);
+        console.log("Cliente agregado:", response.data);
         // Redirección al home
-        this.$router.push("/vendedores");
+        this.$router.push("/clientes");
         Swal.fire({
           icon: "success",
           title: "Registro exitoso",
         });
       } catch (error) {
-        console.error("Error al agregar usuario:", error);
+        console.error("Error al agregar cliente:", error);
         Swal.fire({
           icon: "error",
           title: "Error en el registro:",

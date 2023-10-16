@@ -41,7 +41,7 @@
           <DescripcionC :customer="currentCustomer"  @closeDialog="closeDialog"></DescripcionC>
         </v-dialog>
       </v-card>
-      <v-btn fab dark large color="#5995fd" class="btn-flotante">
+      <v-btn fab dark large color="#5995fd" class="btn-flotante" to="/registrarCliente">
         <v-icon size="50">mdi-plus</v-icon>
       </v-btn>
     </v-row>

@@ -7,42 +7,19 @@
         max-width="448"
         rounded="lg"
       >
-        <v-card-title style="text-align: center">Registrar</v-card-title>
+        <v-card-title style="text-align: center">Proveedores</v-card-title>
         <v-card-subtitle style="text-align: center"
-          >Formulario para registro de vendedores y admins.</v-card-subtitle>
-        <br>
-        <div class="text-subtitle-1 text-medium-emphasis">Nombres</div>
+          >Formulario para el registro de proveedores.</v-card-subtitle>
+        <div class="text-subtitle-1 text-medium-emphasis">Nombre</div>
 
         <v-text-field
           v-model="nombre"
           density="compact"
-          placeholder="Nombres"
+          placeholder="Nombre"
           prepend-inner-icon="mdi-account-outline"
           variant="underlined"
           :rules="Rules"
         ></v-text-field>
-
-        <div class="text-subtitle-1 text-medium-emphasis">Apellidos</div>
-
-        <v-text-field
-          v-model="apellido"
-          density="compact"
-          placeholder="Apellidos"
-          prepend-inner-icon="mdi-account-outline"
-          variant="underlined"
-          :rules="Rules"
-        ></v-text-field>
-
-        <div class="text-subtitle-1 text-medium-emphasis">Cargo</div>
-
-        <v-select
-          v-model="cargo"
-          density="compact"
-          placeholder="Cargo"
-          prepend-inner-icon="mdi-account-hard-hat-outline"
-          :items="items"
-          variant="underlined"
-        ></v-select>
 
         <div class="text-subtitle-1 text-medium-emphasis">
           Correo electrónico
@@ -57,33 +34,29 @@
           :rules="Rules"
         ></v-text-field>
 
-        <div class="text-subtitle-1 text-medium-emphasis">Contraseña</div>
+        <div class="text-subtitle-1 text-medium-emphasis">
+          Producto que provee
+        </div>
 
         <v-text-field
-          v-model="password"
-          :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
-          :type="visible ? 'text' : 'password'"
+          v-model="producto"
           density="compact"
-          placeholder="Ingresar la contraseña"
-          prepend-inner-icon="mdi-lock-outline"
+          placeholder="Producto"
+          prepend-inner-icon="mdi-cart-outline"
           variant="underlined"
-          @click:append-inner="visible = !visible"
           :rules="Rules"
         ></v-text-field>
 
         <div class="text-subtitle-1 text-medium-emphasis">
-          Confirmar Contraseña
+          Número de contacto
         </div>
 
         <v-text-field
-          v-model="confirmPassword"
-          :append-inner-icon="confirmVisible ? 'mdi-eye-off' : 'mdi-eye'"
-          :type="confirmVisible ? 'text' : 'password'"
+          v-model="contacto"
           density="compact"
-          placeholder="Confirma la contraseña"
-          prepend-inner-icon="mdi-lock-outline"
+          placeholder="Número de contacto"
+          prepend-inner-icon="mdi-card-account-phone-outline"
           variant="underlined"
-          @click:append-inner="confirmVisible = !confirmVisible"
           :rules="Rules"
         ></v-text-field>
 
@@ -94,8 +67,7 @@
           size="large"
           variant="outlined"
           @click="register"
-        >
-          Registrar
+          >Registrar
         </v-btn>
       </v-card>
     </div>
@@ -105,8 +77,9 @@
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
-let nextUserId = 2; // Contador para el ID secuencial
-const img = "/images/perfil-del-usuario.png";
+let nextSupplierId = 6; // Contador para el ID secuencial
+const img = "/images/imgproveedor.jpeg";
+const cargo = "proveedor";
 
 const errorMessage = ref("");
 
@@ -115,36 +88,29 @@ export default {
     return {
       Rules: [(v) => !!v || "El campo es obligatorio"],
       nombre: "",
-      apellido: "",
-      cargo: "Seleccionar",
-      items: ["Vendedor", "Administrador"],
       correo: "",
-      password: "",
-      confirmPassword: "",
-      visible: false,
-      confirmVisible: false,
+      producto: "",
+      contacto: "",
     };
   },
   methods: {
-    async getUsers() {
+    async getSuppliers() {
       try {
-        const response = await axios.get("http://localhost:3001/sellers");
-        this.users = response.data;
+        const response = await axios.get("http://localhost:3001/suppliers");
+        this.suppliers = response.data;
       } catch (error) {
-        console.error("Error al obtener usuarios:", error);
+        console.error("Error al obtener proveedores:", error);
       }
     },
     async register() {
-      await this.getUsers();
+      await this.getSuppliers();
 
       // Validación campos vacíos
       if (
         this.nombre == "" ||
-        this.apellido == "" ||
-        this.cargo == "Seleccionar" ||
         this.correo == "" ||
-        this.password == "" ||
-        this.confirmPassword == ""
+        this.producto == "" ||
+        this.contacto == ""
       ) {
         errorMessage.value = "Por favor, ingresa todos los campos.";
         Swal.fire({
@@ -167,69 +133,53 @@ export default {
         return;
       }
 
-      // Validación contraseñas coinciden
-      if (!this.password || !this.confirmPassword) {
-        errorMessage.value = "Por favor, ingresa tu contraseña.";
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: errorMessage.value,
-        });
-        return;
-      }
-
       // Verificar si existe el correo
-      const emailExists = this.users.some(
-        (user) => user.correo === this.correo
+      const emailExists = this.suppliers.some(
+        (supplier) => supplier.correo === this.correo
       );
 
       if (emailExists) {
         console.error("El correo electrónico ya está registrado.");
-      } else if (this.password !== this.confirmPassword) {
-        Swal.fire({
-          title: "Error",
-          text: "Las contraseñas no coinciden",
-          icon: "error",
-        });
-      } else {
-        // Generación de ID secuencial única para el usuario
-        const userId = nextUserId;
+      } 
+      else {
+        // Generación de ID secuencial única para el proveedor
+        const supplierId = nextSupplierId;
 
-        // Incrementa el contador para el siguiente usuario
-        nextUserId++;
+        // Incrementa el contador para el siguiente proveedor
+        nextSupplierId++;
 
-        // Registra al usuario con el ID generado
-        const newUser = {
-          id: this.userId,
+        // Registra al proveedor con el ID generado
+        const newSupplier = {
+          id: supplierId,
           nombre: this.nombre,
-          apellido: this.apellido,
-          cargo: this.cargo,
           correo: this.correo,
-          password: this.password,
+          producto: this.producto,
+          contacto: this.contacto,
           img: img,
+          cargo: cargo,
         };
 
-        // Añade el usuario al servidor
-        await this.addUser(newUser);
+        // Añade el proveedor al servidor
+        await this.addSupplier(newSupplier);
 
-        console.log("", newUser);
+        console.log("", newSupplier);
       }
     },
-    async addUser(user) {
+    async addSupplier(supplier) {
       try {
         const response = await axios.post(
-          "http://localhost:3001/sellers",
-          user
+          "http://localhost:3001/suppliers",
+          supplier
         );
-        console.log("Usuario agregado:", response.data);
+        console.log("Proveedor agregado:", response.data);
         // Redirección al home
-        this.$router.push("/vendedores");
+        this.$router.push("/proveedores");
         Swal.fire({
           icon: "success",
           title: "Registro exitoso",
         });
       } catch (error) {
-        console.error("Error al agregar usuario:", error);
+        console.error("Error al agregar proveedor:", error);
         Swal.fire({
           icon: "error",
           title: "Error en el registro:",
