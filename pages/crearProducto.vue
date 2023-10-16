@@ -31,7 +31,7 @@
           placeholder="Precio"
           prepend-inner-icon="mdi-cash"
           variant="underlined"
-          :rules="Rules"
+          :rules="precioRules"
         ></v-text-field>
 
         <div class="text-subtitle-1 text-medium-emphasis">Descripción</div>
@@ -71,6 +71,7 @@ export default {
   data: () => {
     return {
       Rules: [(v) => !!v || "El campo es obligatorio"],
+      precioRules: [v => (/^[-+]?[0-9]*\.?[0-9]*$/.test(v)) || 'Solo se permiten números'],
       nombre: "",
       precio: "",
       descripcion: "",
@@ -91,6 +92,17 @@ export default {
       // Validación campos vacíos
       if (this.nombre == "" || this.precio == "" || this.descripcion == "") {
         errorMessage.value = "Por favor, ingresa todos los campos.";
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: errorMessage.value,
+        });
+        return;
+      }
+
+      // Validación de solo números
+      if (/[0-9-]+/.test(this.precio)) {
+        errorMessage.value = "Solo se permiten números";
         Swal.fire({
           icon: "error",
           title: "Oops...",
