@@ -7,15 +7,26 @@
         max-width="448"
         rounded="lg"
       >
-        <v-card-title style="text-align: center">Proveedores</v-card-title>
+        <v-card-title style="text-align: center">Clientes</v-card-title>
         <v-card-subtitle style="text-align: center"
-          >Formulario para el registro de proveedores.</v-card-subtitle>
+          >Formulario para el registro de clientes.</v-card-subtitle
+        >
         <div class="text-subtitle-1 text-medium-emphasis">Nombre</div>
 
         <v-text-field
           v-model="nombre"
           density="compact"
           placeholder="Nombre"
+          prepend-inner-icon="mdi-account-outline"
+          variant="underlined"
+          :rules="Rules"
+        ></v-text-field>
+        <div class="text-subtitle-1 text-medium-emphasis">Apellido</div>
+
+        <v-text-field
+          v-model="apellido"
+          density="compact"
+          placeholder="Apellido"
           prepend-inner-icon="mdi-account-outline"
           variant="underlined"
           :rules="Rules"
@@ -34,15 +45,13 @@
           :rules="Rules"
         ></v-text-field>
 
-        <div class="text-subtitle-1 text-medium-emphasis">
-          Producto que provee
-        </div>
+        <div class="text-subtitle-1 text-medium-emphasis">Dirección</div>
 
         <v-text-field
-          v-model="producto"
+          v-model="direccion"
           density="compact"
-          placeholder="Producto"
-          prepend-inner-icon="mdi-cart-outline"
+          placeholder="Dirección"
+          prepend-inner-icon="mdi-directions"
           variant="underlined"
           :rules="Rules"
         ></v-text-field>
@@ -77,9 +86,9 @@
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
-let nextSupplierId = 6; // Contador para el ID secuencial
-const img = "/images/imgproveedor.jpeg";
-const cargo = "proveedor";
+let nextCustomerId = 6; // Contador para el ID secuencial
+const img = "/images/perfil-del-usuario.png";
+const cargo = "cliente";
 
 const errorMessage = ref("");
 
@@ -88,28 +97,30 @@ export default {
     return {
       Rules: [(v) => !!v || "El campo es obligatorio"],
       nombre: "",
+      apellido: "",
       correo: "",
-      producto: "",
+      direccion: "",
       contacto: "",
     };
   },
   methods: {
-    async getSuppliers() {
+    async getCustomers() {
       try {
-        const response = await axios.get("http://localhost:3001/suppliers");
-        this.suppliers = response.data;
+        const response = await axios.get("http://localhost:3001/customers");
+        this.customers = response.data;
       } catch (error) {
-        console.error("Error al obtener proveedores:", error);
+        console.error("Error al obtener clientes:", error);
       }
     },
     async register() {
-      await this.getSuppliers();
+      await this.getCustomers();
 
       // Validación campos vacíos
       if (
         this.nombre == "" ||
+        this.apellido == "" ||
         this.correo == "" ||
-        this.producto == "" ||
+        this.direccion == "" ||
         this.contacto == ""
       ) {
         errorMessage.value = "Por favor, ingresa todos los campos.";
@@ -134,52 +145,50 @@ export default {
       }
 
       // Verificar si existe el correo
-      const emailExists = this.suppliers.some(
-        (supplier) => supplier.correo === this.correo
+      const emailExists = this.customers.some(
+        (customer) => customer.correo === this.correo
       );
 
       if (emailExists) {
         console.error("El correo electrónico ya está registrado.");
-      } 
-      else {
+      } else {
         // Generación de ID secuencial única para el proveedor
-        const supplierId = nextSupplierId;
+        const customerId = nextCustomerId;
 
         // Incrementa el contador para el siguiente proveedor
-        nextSupplierId++;
+        nextCustomerId++;
 
         // Registra al proveedor con el ID generado
-        const newSupplier = {
-          id: supplierId,
+        const newCustomer = {
+          id: customerId,
           nombre: this.nombre,
+          apellido: this.apellido,
           correo: this.correo,
-          producto: this.producto,
+          direccion: this.direccion,
           contacto: this.contacto,
           img: img,
           cargo: cargo,
         };
 
         // Añade el proveedor al servidor
-        await this.addSupplier(newSupplier);
+        await this.addCustomer(newCustomer);
 
-        console.log("", newSupplier);
+        console.log("", newCustomer);
       }
     },
-    async addSupplier(supplier) {
+    async addCustomer(customer) {
       try {
         const response = await axios.post(
-          "http://localhost:3001/suppliers",
-          supplier
-        );
-        console.log("Proveedor agregado:", response.data);
+          "http://localhost:3001/customers", customer);
+        console.log("Cliente agregado:", response.data);
         // Redirección al home
-        this.$router.push("/proveedores");
+        this.$router.push("/clientes");
         Swal.fire({
           icon: "success",
           title: "Registro exitoso",
         });
       } catch (error) {
-        console.error("Error al agregar proveedor:", error);
+        console.error("Error al agregar cliente:", error);
         Swal.fire({
           icon: "error",
           title: "Error en el registro:",
