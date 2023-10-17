@@ -188,7 +188,8 @@ definePageMeta({
   width: 100%;
   background-color: #fff;
   height: 100%;
-  overflow: hidden;
+  overflow:visible;
+  margin-top: 3%;
 }
 
 .register-container:before {
