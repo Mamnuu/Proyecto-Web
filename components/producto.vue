@@ -1,7 +1,7 @@
 <template>
     <v-card class="informacion overflow-y-hidden">
-        <v-row>
-            <v-col class="" cols="6">
+        <v-row class="rowinf">
+            <v-col class="infoimg" cols="6">
                 <v-card class="cardImg">
                     <v-img aspect-ratio="1/4" class="imagenP fill-height" cover :src="producto.img">
                     </v-img>
@@ -13,7 +13,7 @@
                 </h3>
 
             </v-col>
-            <v-col cols="6">
+            <v-col class="info2" cols="6">
                 <v-row class="info">
                     <v-col>
                         <br>
@@ -22,11 +22,16 @@
                             <br>
                             {{ producto.descripcion }}
                         </p>
+    
                         <br>
+                        <v-row class="btns"> 
                         <v-btn @click="productDelete(producto)" color="#CF010B">Eliminar</v-btn>
                         <v-btn @click="editProduct" color="#5995fd" class="btnE">Editar</v-btn>
+                        </v-row>
+
                     </v-col>
                 </v-row>
+             
             </v-col>
         </v-row>
     </v-card>
@@ -112,6 +117,25 @@ const productDelete = (product) => {
 
 }
 
+.rowinfo{
+    width: 400px !important;
+    height: 230px !important;
+}
+
+
+.infoimg{
+    width: 700px !important;
+    height: 330px !important;
+}
+
+.info2{
+    width: 700px !important;
+    height: 330px !important;
+    display: flex  !important;
+    flex-direction: column;
+ 
+}
+
 .precio {
     color: grey;
     margin-left: 30%;
@@ -134,7 +158,10 @@ const productDelete = (product) => {
     align-items: center !important;
     justify-content: center !important;
     flex-direction: column !important;
+    
 }
+
+
 
 .info {
     margin-bottom: 5%;
