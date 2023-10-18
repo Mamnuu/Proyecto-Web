@@ -24,9 +24,8 @@
                         </p>
                         <br>
                         <v-btn @click="productDelete(producto)" color="#CF010B">Eliminar</v-btn>
-                        <v-btn color="#5995fd" class="btnE">Editar</v-btn>
+                        <v-btn @click="editProduct" color="#5995fd" class="btnE">Editar</v-btn>
                     </v-col>
-
                 </v-row>
             </v-col>
         </v-row>
@@ -45,6 +44,16 @@ const props = defineProps({
         required: true
     },
 });
+
+const editProduct = () => {
+    // Obtiene el id del producto
+    const productId = props.producto.id;
+
+    // Navega a la ruta editar_producto/{id}
+    router.push({
+        path: `/editar_producto/${productId}`,
+    });
+};
 
 const deleteProduct = async (product) => {
     const url = `http://localhost:3001/products/${product.id}`
