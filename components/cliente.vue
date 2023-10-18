@@ -22,7 +22,7 @@
                     </v-col>
                 </v-row>
                 <v-btn @click="productCustomer(customer)" class="btn" icon color="#CF010B"><v-icon>mdi-trash-can-outline </v-icon></v-btn>
-                <v-btn class="btnEdit" icon color="#5995fd"><v-icon>mdi-account-edit-outline </v-icon></v-btn>
+                <v-btn  @click="editCustomer" class="btnEdit" icon color="#5995fd"><v-icon>mdi-account-edit-outline </v-icon></v-btn>
             </v-col>
         </v-row>
     </v-card>
@@ -31,7 +31,7 @@
 <script setup>
 import axios from "axios";
 import Swal from "sweetalert2";
-
+const router = useRouter();
 const emit = defineEmits(['closeDialog'])
 const props = defineProps({
     customer: {
@@ -39,6 +39,17 @@ const props = defineProps({
         required: true
     },
 });
+
+const editCustomer = () => {
+    // Obtiene el id del producto
+    const customerId = props.customer.id;
+
+    // Navega a la ruta editar_producto/{id}
+    router.push({
+        path: `/editar_cliente/${customerId}`,
+    });
+};
+
 
 const deleteCustomer = async (customer) => {
     const url = `http://localhost:3001/customers/${customer.id}`
