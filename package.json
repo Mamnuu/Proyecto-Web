@@ -19,6 +19,7 @@
     "@jamescoyle/vue-icon": "^0.1.2",
     "@mdi/font": "^7.2.96",
     "@mdi/js": "^7.2.96",
+    "@nuxtjs/router": "^1.7.0",
     "axios": "^1.5.1",
     "sweetalert2": "^11.7.31",
     "vuetify": "^3.3.20",
