@@ -24,8 +24,8 @@
                     <h3 class="tit">EasyMA</h3>
                     <br>
                     <p class="p">
-                        Optimiza tu tiempo y maximiza tus resultados con el CMS web EasyMA.
-                        Conecta tus datos, equipos y clientes en una plataforma de CMS
+                        Optimiza tu tiempo y maximiza tus resultados con el CMR web EasyMA.
+                        Conecta tus datos, equipos y clientes en una plataforma de CMR
                         que crece junto a tu negocio.
                     </p>
                 </div>
