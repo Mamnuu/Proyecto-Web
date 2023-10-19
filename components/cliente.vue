@@ -116,11 +116,12 @@ const productCustomer = (customer) => {
 .informacionC {
     width: 420px !important;
     /* Establece el ancho deseado */
-    height: 230px !important;
+    height: 250px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     flex-direction: column !important;
+    margin-top: 5%;
 }
 
 

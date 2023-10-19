@@ -35,6 +35,7 @@
       <v-card v-if="dialog"  class="infor" elevation="7">
         <v-dialog v-model="dialog" width="auto" style="background: none !important; border-radius: 80px !important;">
           <DescripcionV :seller="currentSeller"  @closeDialog="closeDialog"></DescripcionV>
+          <v-btn class="btnCerrar "  @click="dialog = false" icon elevation="0"><v-icon class="iconC">mdi-close</v-icon></v-btn>
         </v-dialog>
       </v-card>
       <v-btn fab dark large color=#5995fd class="btn-flotante2" @click="getSellers">

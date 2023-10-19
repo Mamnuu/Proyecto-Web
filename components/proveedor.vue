@@ -166,7 +166,7 @@ const supplierDelete = (supplier) => {
     }
     
     .infoPro{
-        margin-top: 5%;
+        margin-top: 10%;
         margin-right: 3%;
         display: flex ;
         flex-direction: column;

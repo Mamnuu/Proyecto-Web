@@ -30,6 +30,7 @@
       <v-card v-if="dialog"  class="info" elevation="7">
         <v-dialog v-model="dialog" width="auto" style="background: none !important; border-radius: 80px !important;">
           <DescripcionP :producto="currentProduct" :dialog="dialog" @closeDialog="closeDialog"></DescripcionP>
+          <v-btn class="btnCerrar "  @click="dialog = false" icon elevation="0"><v-icon class="iconC">mdi-close</v-icon></v-btn>
         </v-dialog>
       </v-card>
       <v-btn fab dark large color=#5995fd class="btn-flotante2" @click="getProducts">
@@ -105,6 +106,18 @@ const openDialog = (producto) => {
   font-family: sans-serif;
   font-weight: bold;
   text-align: center;
+  font-size: 30px !important;
+}
+
+.btnCerrar{
+  position: absolute;
+  top: -3%;
+  right: 1%;
+  outline: none !important;
+  border: 0 !important;
+}
+
+.iconC{
   font-size: 30px !important;
 }
 

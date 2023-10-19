@@ -39,6 +39,7 @@
       <v-card v-if="dialog"  class="infoC" elevation="7">
         <v-dialog v-model="dialog" width="auto" style="background: none !important; border-radius: 80px !important;">
           <DescripcionC :customer="currentCustomer"  @closeDialog="closeDialog"></DescripcionC>
+          <v-btn class="btnCerrarC"  @click="dialog = false" icon elevation="0"><v-icon class="iconC">mdi-close</v-icon></v-btn>
         </v-dialog>
       </v-card>
       <v-btn fab dark large color=#5995fd class="btn-flotante2" @click="getCustomers">
@@ -85,6 +86,7 @@ const openDialog = (customer) => {
   margin-top: 10px !important;
 }
 
+
 .btnCardv {
   color: #5995fd !important;
   margin-right: 25px !important;
@@ -112,4 +114,14 @@ const openDialog = (customer) => {
   width: 100px !important;
   height: 100px !important;
 }
+
+.btnCerrarC{
+  position: absolute;
+  top: 8%;
+  right: 1%;
+  outline: none !important;
+  border: 0 !important;
+}
+
+
 </style>

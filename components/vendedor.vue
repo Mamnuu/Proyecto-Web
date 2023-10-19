@@ -23,7 +23,7 @@
                                 <li><b>Correo eléctronico: </b></li>
                                 <li class="li"> {{ seller.correo }}</li> <br>
                                 <li><b>Contacto: </b></li>
-                                <li class="li"> {{ seller.contacto }}</li> <br>
+                                <li class="li"> {{ seller.contacto }}</li> 
                         </ul>
                     </v-col>
                 </v-row>
@@ -109,7 +109,7 @@ const sellerDelete = (seller) => {
 <style>
     .informacionV{
         width: 450px !important; /* Establece el ancho deseado */
-        height: 300px !important;
+        height: 290px !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
@@ -157,7 +157,7 @@ const sellerDelete = (seller) => {
     }
 
     .btnsV{
-        margin-top: 2% !important;
+        margin-bottom: 10%;
         display: flex;
         justify-content: space-between;
     }
@@ -165,7 +165,7 @@ const sellerDelete = (seller) => {
    
 
     .infov{
-        margin-top: 7%;
+        margin-top: 10%;
         margin-right: 3%;
         display: flex ;
         flex-direction: column;

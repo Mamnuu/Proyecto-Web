@@ -1,5 +1,5 @@
 <template>
-    <v-card class="informacion overflow-y-hidden">
+    <v-card class="informacion overflow-y-hidden" >
         <v-row class="rowinf">
             <v-col class="infoimg" cols="6">
                 <v-card class="cardImg">
@@ -16,6 +16,7 @@
             <v-col class="info2" cols="6">
                 <v-row class="info">
                     <v-col>
+                        
                         <br>
                         <h3>{{ producto.nombre }}</h3>
                         <p>
@@ -30,6 +31,7 @@
                         </v-row>
 
                     </v-col>
+                    
                 </v-row>
              
             </v-col>
@@ -160,7 +162,6 @@ const productDelete = (product) => {
     flex-direction: column !important;
     
 }
-
 
 
 .info {
