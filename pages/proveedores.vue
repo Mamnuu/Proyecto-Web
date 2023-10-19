@@ -41,6 +41,9 @@
           <DescripcionPro :supplier="currentSupplier"  @closeDialog="closeDialog"></DescripcionPro>
         </v-dialog>
       </v-card>
+      <v-btn fab dark large color=#5995fd class="btn-flotante2" @click="getSuppliers">
+        <v-icon size="50">mdi-reload</v-icon>
+      </v-btn>
       <v-btn fab dark large color="#5995fd" class="btn-flotante" to="/registrarProveedor">
         <v-icon size="50">mdi-plus</v-icon>
       </v-btn>

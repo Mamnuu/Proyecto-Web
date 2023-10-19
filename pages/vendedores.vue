@@ -37,6 +37,9 @@
           <DescripcionV :seller="currentSeller"  @closeDialog="closeDialog"></DescripcionV>
         </v-dialog>
       </v-card>
+      <v-btn fab dark large color=#5995fd class="btn-flotante2" @click="getSellers">
+        <v-icon size="50">mdi-reload</v-icon>
+      </v-btn>
       <v-btn fab dark large color="#5995fd" class="btn-flotante" to="/register">
         <v-icon size="50">mdi-plus</v-icon>
       </v-btn>
@@ -86,7 +89,6 @@ const openDialog = (seller) => {
   margin-top: 10px;
   margin-bottom: 20px;
 }
-
 .sellersCard {
   background-color: whitesmoke !important;
   color: black;
