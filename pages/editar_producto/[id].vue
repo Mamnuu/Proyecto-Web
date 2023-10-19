@@ -10,7 +10,7 @@
         <v-card-title style="text-align: center">{{
           foundProduct.nombre
         }}</v-card-title>
-        <v-card-subtitle style="text-align: center">Editar:</v-card-subtitle>
+        <v-card-subtitle style="text-align: center">Formulario para actualizar productos</v-card-subtitle>
         <br />
         <div class="text-subtitle-1 text-medium-emphasis">Nombre</div>
 
@@ -35,24 +35,11 @@
         ></v-text-field>
 
         <div class="text-subtitle-1 text-medium-emphasis">Descripción</div>
+        <v-textarea name="input-7-4" v-model="foundProduct.descripcion" density="compact"
+          prepend-inner-icon="text-box-outline" :rules="Rules"></v-textarea>
 
-        <v-textarea
-          name="input-7-4"
-          v-model="foundProduct.descripcion"
-          density="compact"
-          prepend-inner-icon="text-box-outline"
-          :rules="Rules"
-        ></v-textarea>
-
-        <v-btn
-          block
-          class="mb-8"
-          color="#5995fd"
-          size="large"
-          variant="outlined"
-          @click="handleSubmit"
-        >
-          Registrar
+        <v-btn block class="mb-8" color="#5995fd" size="large" variant="outlined" @click="validatefields">
+          Actualizar
         </v-btn>
       </v-card>
     </div>
@@ -96,7 +83,7 @@ const getProducts = async () => {
   const response = await axios.get(url);
   products.value = response.data;
 };
-const handleSubmit = async () => {
+const validatefields = async () => {
   if (
     foundProduct.value.nombre == "" ||
     foundProduct.value.precio == "" ||
@@ -121,9 +108,9 @@ const handleSubmit = async () => {
     });
     return;
   }
-  await register();
+  await update();
 };
-const register = async () => {
+const update = async () => {
   try {
     await updateProducts();
     console.log("Producto actualizado correctamente");
