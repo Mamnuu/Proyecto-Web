@@ -1,100 +1,57 @@
 <template>
   <div class="register-container">
     <div class="form-container">
-      <v-card
-        class="mx-auto pa-6 pb-2"
-        elevation="20"
-        max-width="448"
-        rounded="lg"
-      >
+      <v-card class="mx-auto pa-6 pb-2" elevation="20" max-width="448" rounded="lg">
         <v-card-title style="text-align: center">Registrar</v-card-title>
-        <v-card-subtitle style="text-align: center"
-          >Formulario para registro de vendedores y admins.</v-card-subtitle>
+        <v-card-subtitle style="text-align: center">Formulario para registro de vendedores y admins.</v-card-subtitle>
         <br>
         <div class="text-subtitle-1 text-medium-emphasis">Nombres</div>
 
-        <v-text-field
-          v-model="nombre"
-          density="compact"
-          placeholder="Nombres"
-          prepend-inner-icon="mdi-account-outline"
-          variant="underlined"
-          :rules="Rules"
-        ></v-text-field>
+        <v-text-field v-model="nombre" density="compact" placeholder="Nombres" prepend-inner-icon="mdi-account-outline"
+          variant="underlined" :rules="Rules"></v-text-field>
 
         <div class="text-subtitle-1 text-medium-emphasis">Apellidos</div>
 
-        <v-text-field
-          v-model="apellido"
-          density="compact"
-          placeholder="Apellidos"
-          prepend-inner-icon="mdi-account-outline"
-          variant="underlined"
-          :rules="Rules"
-        ></v-text-field>
+        <v-text-field v-model="apellido" density="compact" placeholder="Apellidos"
+          prepend-inner-icon="mdi-account-outline" variant="underlined" :rules="Rules"></v-text-field>
 
         <div class="text-subtitle-1 text-medium-emphasis">Cargo</div>
 
-        <v-select
-          v-model="cargo"
-          density="compact"
-          placeholder="Cargo"
-          prepend-inner-icon="mdi-account-hard-hat-outline"
-          :items="items"
-          variant="underlined"
-        ></v-select>
+        <v-select v-model="cargo" density="compact" placeholder="Cargo" prepend-inner-icon="mdi-account-hard-hat-outline"
+          :items="items" variant="underlined"></v-select>
 
         <div class="text-subtitle-1 text-medium-emphasis">
           Correo electrónico
         </div>
 
-        <v-text-field
-          v-model="correo"
-          density="compact"
-          placeholder="Correo electrónico"
-          prepend-inner-icon="mdi-email-outline"
-          variant="underlined"
-          :rules="Rules"
-        ></v-text-field>
+        <v-text-field v-model="correo" density="compact" placeholder="Correo electrónico"
+          prepend-inner-icon="mdi-email-outline" variant="underlined" :rules="Rules"></v-text-field>
+
+        <div class="text-subtitle-1 text-medium-emphasis">
+          Número de contacto
+        </div>
+
+        <v-text-field v-model="contacto" density="compact" placeholder="Número de contacto"
+          prepend-inner-icon="mdi-card-account-phone-outline" variant="underlined"
+          :rules="[Rules, contactoRules].flat()"></v-text-field>
 
         <div class="text-subtitle-1 text-medium-emphasis">Contraseña</div>
 
-        <v-text-field
-          v-model="password"
-          :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
-          :type="visible ? 'text' : 'password'"
-          density="compact"
-          placeholder="Ingresar la contraseña"
-          prepend-inner-icon="mdi-lock-outline"
-          variant="underlined"
-          @click:append-inner="visible = !visible"
-          :rules="Rules"
-        ></v-text-field>
+        <v-text-field v-model="password" :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
+          :type="visible ? 'text' : 'password'" density="compact" placeholder="Ingresar la contraseña"
+          prepend-inner-icon="mdi-lock-outline" variant="underlined" @click:append-inner="visible = !visible"
+          :rules="Rules"></v-text-field>
 
         <div class="text-subtitle-1 text-medium-emphasis">
           Confirmar Contraseña
         </div>
 
-        <v-text-field
-          v-model="confirmPassword"
-          :append-inner-icon="confirmVisible ? 'mdi-eye-off' : 'mdi-eye'"
-          :type="confirmVisible ? 'text' : 'password'"
-          density="compact"
-          placeholder="Confirma la contraseña"
-          prepend-inner-icon="mdi-lock-outline"
-          variant="underlined"
-          @click:append-inner="confirmVisible = !confirmVisible"
-          :rules="Rules"
-        ></v-text-field>
+        <v-text-field v-model="confirmPassword" :append-inner-icon="confirmVisible ? 'mdi-eye-off' : 'mdi-eye'"
+          :type="confirmVisible ? 'text' : 'password'" density="compact" placeholder="Confirma la contraseña"
+          prepend-inner-icon="mdi-lock-outline" variant="underlined"
+          @click:append-inner="confirmVisible = !confirmVisible" :rules="Rules"></v-text-field>
 
-        <v-btn
-          block
-          class="mb-8"
-          color="#5995fd"
-          size="large"
-          variant="outlined"
-          @click="register"
-        >
+        <v-btn block class="mb-8" color="#5995fd" size="large" variant="outlined" @click="register">
           Registrar
         </v-btn>
       </v-card>
@@ -114,11 +71,13 @@ export default {
   data: () => {
     return {
       Rules: [(v) => !!v || "El campo es obligatorio"],
+      contactoRules: [v => (/^[0-9]+|[()\.]+/.test(v)) || 'Solo se permiten números'],
       nombre: "",
       apellido: "",
       cargo: "Seleccionar",
       items: ["Vendedor", "Administrador"],
       correo: "",
+      contacto: "",
       password: "",
       confirmPassword: "",
       visible: false,
@@ -143,10 +102,22 @@ export default {
         this.apellido == "" ||
         this.cargo == "Seleccionar" ||
         this.correo == "" ||
+        this.contacto == "" ||
         this.password == "" ||
         this.confirmPassword == ""
       ) {
         errorMessage.value = "Por favor, ingresa todos los campos.";
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: errorMessage.value,
+        });
+        return;
+      }
+
+      // Validación de solo números
+      if (!(/^[0-9]+|[()\.]+/.test(this.contacto))) {
+        errorMessage.value = "Solo se permiten números";
         Swal.fire({
           icon: "error",
           title: "Oops...",
@@ -205,6 +176,7 @@ export default {
           apellido: this.apellido,
           cargo: this.cargo,
           correo: this.correo,
+          contacto: this.contacto,
           password: this.password,
           img: img,
         };

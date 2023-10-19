@@ -96,7 +96,7 @@ export default {
   data: () => {
     return {
       Rules: [(v) => !!v || "El campo es obligatorio"],
-      contactoRules: [v => (/^[-+]?[0-9]*\.?[0-9]*$/.test(v)) || 'Solo se permiten números'],
+      contactoRules: [v => (/^[0-9]+|[()\.]+/.test(v)) || 'Solo se permiten números'],
       nombre: "",
       apellido: "",
       correo: "",
@@ -134,7 +134,7 @@ export default {
       }
 
       // Validación de solo números
-      if (!/[0-9-]+/.test(this.contacto)) {
+      if (!(/^[0-9]+|[()\.]+/.test(this.contacto))) {
         errorMessage.value = "Solo se permiten números";
         Swal.fire({
           icon: "error",
