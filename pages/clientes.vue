@@ -41,6 +41,9 @@
           <DescripcionC :customer="currentCustomer"  @closeDialog="closeDialog"></DescripcionC>
         </v-dialog>
       </v-card>
+      <v-btn fab dark large color=#5995fd class="btn-flotante2" @click="getCustomers">
+        <v-icon size="50">mdi-reload</v-icon>
+      </v-btn>
       <v-btn fab dark large color="#5995fd" class="btn-flotante" to="/registrarCliente">
         <v-icon size="50">mdi-plus</v-icon>
       </v-btn>
