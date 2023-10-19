@@ -1,33 +1,63 @@
 <template>
   <div class="register-container">
     <div class="form-container">
-      <v-card class="mx-auto pa-6 pb-2" elevation="20" max-width="448" rounded="lg">
-        <v-card-title style="text-align: center">{{ foundProduct.nombre }}</v-card-title>
+      <v-card
+        class="mx-auto pa-6 pb-2"
+        elevation="20"
+        max-width="448"
+        rounded="lg"
+      >
+        <v-card-title style="text-align: center">{{
+          foundProduct.nombre
+        }}</v-card-title>
         <v-card-subtitle style="text-align: center">Editar:</v-card-subtitle>
         <br />
         <div class="text-subtitle-1 text-medium-emphasis">Nombre</div>
 
-        <v-text-field v-model="foundProduct.nombre" density="compact" placeholder="Nombre"
-          prepend-inner-icon="mdi-account-outline" variant="underlined" :rules="Rules"></v-text-field>
+        <v-text-field
+          v-model="foundProduct.nombre"
+          density="compact"
+          placeholder="Nombre"
+          prepend-inner-icon="mdi-account-outline"
+          variant="underlined"
+          :rules="Rules"
+        ></v-text-field>
 
         <div class="text-subtitle-1 text-medium-emphasis">Precio</div>
 
-        <v-text-field v-model="foundProduct.precio" density="compact" placeholder="Precio" prepend-inner-icon="mdi-cash"
-          variant="underlined" :rules="[precioRules, Rules].flat()"></v-text-field>
+        <v-text-field
+          v-model="foundProduct.precio"
+          density="compact"
+          placeholder="Precio"
+          prepend-inner-icon="mdi-cash"
+          variant="underlined"
+          :rules="[precioRules, Rules].flat()"
+        ></v-text-field>
 
         <div class="text-subtitle-1 text-medium-emphasis">Descripción</div>
 
-        <v-textarea name="input-7-4" v-model="foundProduct.descripcion" density="compact"
-          prepend-inner-icon="text-box-outline" :rules="Rules"></v-textarea>
+        <v-textarea
+          name="input-7-4"
+          v-model="foundProduct.descripcion"
+          density="compact"
+          prepend-inner-icon="text-box-outline"
+          :rules="Rules"
+        ></v-textarea>
 
-        <v-btn block class="mb-8" color="#5995fd" size="large" variant="outlined" @click="register">
+        <v-btn
+          block
+          class="mb-8"
+          color="#5995fd"
+          size="large"
+          variant="outlined"
+          @click="handleSubmit"
+        >
           Registrar
         </v-btn>
       </v-card>
     </div>
   </div>
 </template>
-
 
 <script setup>
 import axios from "axios";
@@ -41,13 +71,17 @@ let foundProduct = ref({});
 const errorMessage = ref("");
 
 const Rules = [(v) => !!v || "Este campo es requerido"];
-const precioRules = [v => (/^[-+]?[0-9]*\.?[0-9]*$/.test(v)) || 'Solo se permiten números'];
+const precioRules = [
+  (v) => /^[-+]?[0-9]*\.?[0-9]*$/.test(v) || "Solo se permiten números",
+];
 
 onBeforeMount(async () => {
   try {
     await getProducts();
     console.log(products.value);
-    foundProduct.value = products.value.find((product) => product.id == productId);
+    foundProduct.value = products.value.find(
+      (product) => product.id == productId
+    );
     if (!foundProduct) {
       throw new Error("Producto no encontrado");
     }
@@ -57,13 +91,38 @@ onBeforeMount(async () => {
   }
 });
 
-
 const getProducts = async () => {
   const url = "http://localhost:3001/products";
   const response = await axios.get(url);
   products.value = response.data;
 };
+const handleSubmit = async () => {
+  if (
+    foundProduct.value.nombre == "" ||
+    foundProduct.value.precio == "" ||
+    foundProduct.value.descripcion == ""
+  ) {
+    errorMessage.value = "Por favor, ingresa todos los campos.";
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: errorMessage.value,
+    });
+    return;
+  }
 
+  // Validación de solo números
+  if (!/[0-9-]+/.test(foundProduct.value.precio)) {
+    errorMessage.value = "Solo se permiten números,";
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: errorMessage.value,
+    });
+    return;
+  }
+  await register();
+};
 const register = async () => {
   try {
     await updateProducts();
@@ -80,7 +139,7 @@ const register = async () => {
   } catch (error) {
     console.log(errorMessage);
   }
-}
+};
 
 const updateProducts = async () => {
   const url = `http://localhost:3001/products/${foundProduct.value.id}`;
@@ -91,7 +150,7 @@ const updateProducts = async () => {
 
 definePageMeta({
   layout: "blank",
-})
+});
 </script>
 
 <style scoped>
