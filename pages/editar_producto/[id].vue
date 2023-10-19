@@ -2,8 +2,8 @@
   <div class="register-container">
     <div class="form-container">
       <v-card class="mx-auto pa-6 pb-2" elevation="20" max-width="448" rounded="lg">
-        <v-card-title style="text-align: center">{{ foundProduct.nombre }}</v-card-title>
-        <v-card-subtitle style="text-align: center">Editar:</v-card-subtitle>
+        <v-card-title style="text-align: center">Productos</v-card-title>
+        <v-card-subtitle style="text-align: center">Formulario para actualizar productos</v-card-subtitle>
         <br />
         <div class="text-subtitle-1 text-medium-emphasis">Nombre</div>
 

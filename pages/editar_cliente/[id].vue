@@ -2,8 +2,8 @@
   <div class="register-container">
     <div class="form-container">
       <v-card class="mx-auto pa-6 pb-2" elevation="20" max-width="448" rounded="lg">
-        <v-card-title style="text-align: center">Editar a {{ foundCustomer.nombre }}</v-card-title>
-        <v-card-subtitle style="text-align: center">Formulario para el registro de clientes.</v-card-subtitle>
+        <v-card-title style="text-align: center">Clientes</v-card-title>
+        <v-card-subtitle style="text-align: center">Formulario para actualizar clientes</v-card-subtitle>
         <div class="text-subtitle-1 text-medium-emphasis">Nombre</div>
 
         <v-text-field v-model="foundCustomer.nombre" density="compact" placeholder="Nombre"
@@ -77,7 +77,7 @@ const update = async () => {
     await updateCustomers();
     console.log("Cliente actualizado correctamente");
     router.push({
-      path: `/home`,
+      path: `/clientes`,
     });
     Swal.fire({
       icon: "success",
