@@ -97,7 +97,6 @@ const validatefields = async () => {
     });
     return;
   }
-
   // Validación de solo números
   if (!/[0-9-]+/.test(foundProduct.value.precio)) {
     errorMessage.value = "Solo se permiten números,";

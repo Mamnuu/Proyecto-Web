@@ -40,6 +40,7 @@
 <script setup>
 import axios from "axios";
 import { useRoute } from "vue-router";
+import Swal from "sweetalert2";
 const suppliers = ref([]);
 const route = useRoute();
 const router = useRouter();

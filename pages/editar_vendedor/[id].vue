@@ -4,6 +4,7 @@
   <script setup>
   import axios from "axios";
   import { useRoute } from "vue-router";
+  import Swal from "sweetalert2";
   const sellers = ref([]);
   const route = useRoute();
   const sellerId = Number(route.params.id); // Asegúrate de que el id sea de tipo número

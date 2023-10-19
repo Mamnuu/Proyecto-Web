@@ -1,39 +1,82 @@
 <template>
   <div class="register-container">
     <div class="form-container">
-      <v-card class="mx-auto pa-6 pb-2" elevation="20" max-width="448" rounded="lg">
+      <v-card
+        class="mx-auto pa-6 pb-2"
+        elevation="20"
+        max-width="448"
+        rounded="lg"
+      >
         <v-card-title style="text-align: center">Clientes</v-card-title>
-        <v-card-subtitle style="text-align: center">Formulario para actualizar clientes</v-card-subtitle>
+        <v-card-subtitle style="text-align: center"
+          >Formulario para actualizar clientes</v-card-subtitle
+        >
         <div class="text-subtitle-1 text-medium-emphasis">Nombre</div>
 
-        <v-text-field v-model="foundCustomer.nombre" density="compact" placeholder="Nombre"
-          prepend-inner-icon="mdi-account-outline" variant="underlined" :rules="Rules"></v-text-field>
+        <v-text-field
+          v-model="foundCustomer.nombre"
+          density="compact"
+          placeholder="Nombre"
+          prepend-inner-icon="mdi-account-outline"
+          variant="underlined"
+          :rules="Rules"
+        ></v-text-field>
         <div class="text-subtitle-1 text-medium-emphasis">Apellido</div>
 
-        <v-text-field v-model="foundCustomer.apellido" density="compact" placeholder="Apellido"
-          prepend-inner-icon="mdi-account-outline" variant="underlined" :rules="Rules"></v-text-field>
+        <v-text-field
+          v-model="foundCustomer.apellido"
+          density="compact"
+          placeholder="Apellido"
+          prepend-inner-icon="mdi-account-outline"
+          variant="underlined"
+          :rules="Rules"
+        ></v-text-field>
 
         <div class="text-subtitle-1 text-medium-emphasis">
           Correo electrónico
         </div>
 
-        <v-text-field v-model="foundCustomer.correo" density="compact" placeholder="Correo electrónico"
-          prepend-inner-icon="mdi-email-outline" variant="underlined" :rules="Rules"></v-text-field>
+        <v-text-field
+          v-model="foundCustomer.correo"
+          density="compact"
+          placeholder="Correo electrónico"
+          prepend-inner-icon="mdi-email-outline"
+          variant="underlined"
+          :rules="Rules"
+        ></v-text-field>
 
         <div class="text-subtitle-1 text-medium-emphasis">Dirección</div>
 
-        <v-text-field v-model="foundCustomer.direccion" density="compact" placeholder="Dirección"
-          prepend-inner-icon="mdi-directions" variant="underlined" :rules="Rules"></v-text-field>
+        <v-text-field
+          v-model="foundCustomer.direccion"
+          density="compact"
+          placeholder="Dirección"
+          prepend-inner-icon="mdi-directions"
+          variant="underlined"
+          :rules="Rules"
+        ></v-text-field>
 
         <div class="text-subtitle-1 text-medium-emphasis">
           Número de contacto
         </div>
 
-        <v-text-field v-model="foundCustomer.contacto" density="compact" placeholder="Número de contacto"
-          prepend-inner-icon="mdi-card-account-phone-outline" variant="underlined"
-          :rules="[contactoRules, Rules].flat()"></v-text-field>
+        <v-text-field
+          v-model="foundCustomer.contacto"
+          density="compact"
+          placeholder="Número de contacto"
+          prepend-inner-icon="mdi-card-account-phone-outline"
+          variant="underlined"
+          :rules="[contactoRules, Rules].flat()"
+        ></v-text-field>
 
-        <v-btn block class="mb-8" color="#5995fd" size="large" variant="outlined" @click="update">Actualizar
+        <v-btn
+          block
+          class="mb-8"
+          color="#5995fd"
+          size="large"
+          variant="outlined"
+          @click="validatefields"
+          >Actualizar
         </v-btn>
       </v-card>
     </div>
@@ -42,6 +85,7 @@
 <script setup>
 import axios from "axios";
 import { useRoute } from "vue-router";
+import Swal from "sweetalert2";
 const customers = ref([]);
 const route = useRoute();
 const router = useRouter();
@@ -50,13 +94,17 @@ let foundCustomer = ref({});
 const errorMessage = ref("");
 
 const Rules = [(v) => !!v || "Este campo es requerido"];
-const contactoRules = [v => (/^[-+]?[0-9]*\.?[0-9]*$/.test(v)) || 'Solo se permiten números'];
+const contactoRules = [
+  (v) => /^[-+]?[0-9]*\.?[0-9]*$/.test(v) || "Solo se permiten números",
+];
 
 onBeforeMount(async () => {
   try {
     await getCustomers();
     console.log(customers.value);
-    foundCustomer.value = customers.value.find((customer) => customer.id == customerId);
+    foundCustomer.value = customers.value.find(
+      (customer) => customer.id == customerId
+    );
     if (!foundCustomer) {
       throw new Error("Cliente no encontrado");
     }
@@ -71,7 +119,47 @@ const getCustomers = async () => {
   const response = await axios.get(url);
   customers.value = response.data;
 };
+const validatefields = async () => {
+  if (
+    foundCustomer.value.nombre == "" ||
+    foundCustomer.value.apellido == "" ||
+    foundCustomer.value.correo == "" ||
+    foundCustomer.value.direccion == "" ||
+    foundCustomer.value.contacto == ""
+  ) {
+    errorMessage.value = "Por favor, ingresa todos los campos.";
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: errorMessage.value,
+    });
+    return;
+  }
 
+  // Validación de solo números
+  if (!/[0-9-]+/.test(foundCustomer.value.contacto)) {
+    errorMessage.value = "Solo se permiten números";
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: errorMessage.value,
+    });
+    return;
+  }
+
+  // Validación correo válido
+  if (!foundCustomer.value.correo || !/^\S+@\S+\.\S+$/.test(foundCustomer.value.correo)) {
+    console.log("Por favor, ingresa un correo electrónico válido.");
+    errorMessage.value = "Por favor, ingresa un correo electrónico válido.";
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: errorMessage.value,
+    });
+    return;
+  }
+  await update();
+};
 const update = async () => {
   try {
     await updateCustomers();
@@ -88,18 +176,18 @@ const update = async () => {
   } catch (error) {
     console.log(errorMessage);
   }
-}
+};
 
 const updateCustomers = async () => {
   const url = `http://localhost:3001/customers/${foundCustomer.value.id}`;
   const response = await axios.put(url, foundCustomer.value);
   console.log(response);
-  costumers.value = response.data;
+  customers.value = response.data;
 };
 
 definePageMeta({
   layout: "blank",
-})
+});
 </script>
 
 <style scoped>

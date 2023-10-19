@@ -134,7 +134,7 @@ export default {
       }
 
       // Validación de solo números
-      if (!/[0-9-]+/.test(this.precio)) {
+      if (!/[0-9-]+/.test(this.contacto)) {
         errorMessage.value = "Solo se permiten números";
         Swal.fire({
           icon: "error",
