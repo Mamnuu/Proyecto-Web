@@ -77,7 +77,7 @@
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
-let nextSupplierId = 6; // Contador para el ID secuencial
+let nextSupplierId = 8; // Contador para el ID secuencial
 const img = "/images/imgproveedor.jpeg";
 const cargo = "proveedor";
 

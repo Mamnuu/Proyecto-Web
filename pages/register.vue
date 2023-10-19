@@ -62,7 +62,7 @@
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
-let nextUserId = 2; // Contador para el ID secuencial
+let nextUserId = 9; // Contador para el ID secuencial
 const img = "/images/perfil-del-usuario.png";
 
 const errorMessage = ref("");
