@@ -64,13 +64,13 @@ const sellerDelete = (seller) => {
     emit('closeDialog')
     let error = false
     Swal.fire({
-        title: 'Estás seguro?',
-        text: "No podrás revertir esta acción!",
+        title: '¿Estás seguro?',
+        text: "¡No podrás revertir esta acción!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Sí, bórralo!',
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: '¡Sí, bórralo!',
         cancelButtonText: 'Cancelar',
     }).then((result) => {
         if (result.isConfirmed) {

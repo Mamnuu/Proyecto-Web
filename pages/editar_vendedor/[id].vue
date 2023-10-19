@@ -31,7 +31,7 @@
           :rules="[Rules, contactoRules].flat()"></v-text-field>
 
 
-        <v-btn block class="mb-8" color="#5995fd" size="large" variant="outlined" @click="update">
+        <v-btn block class="mb-8" color="#5995fd" size="large" variant="outlined" @click="validateFields">
           Actualizar
         </v-btn>
       </v-card>
@@ -51,7 +51,7 @@ const errorMessage = ref("");
 
 
 const Rules = [(v) => !!v || "Este campo es requerido"];
-const contactoRules = [v => (/^[-+]?[0-9]*\.?[0-9]*$/.test(v)) || 'Solo se permiten números'];
+const contactoRules = [v => (/^[0-9]+|[()\.]+/.test(v)) || 'Solo se permiten números'];
 
 onBeforeMount(async () => {
   try {
@@ -72,6 +72,47 @@ const getSellers = async () => {
   const response = await axios.get(url);
   sellers.value = response.data;
 };
+
+
+const validateFields = async () => {
+  if (
+    foundSeller.value.nombre == "" ||
+    foundSeller.value.apellido == "" ||
+    foundSeller.value.correo == "" ||
+    foundSeller.value.contacto == ""
+  ) {
+    errorMessage.value = "Por favor, ingresa todos los campos.";
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: errorMessage.value,
+    });
+    return;
+  }
+  // Validación de solo números
+  if (!/[0-9-]+/.test(foundSeller.value.contacto)) {
+    errorMessage.value = "Solo se permiten números";
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: errorMessage.value,
+    });
+    return;
+  }
+
+    // Validación correo válido
+    if (!foundSeller.value.correo || !/^\S+@\S+\.\S+$/.test(foundSeller.value.correo)) {
+    console.log("Por favor, ingresa un correo electrónico válido.");
+    errorMessage.value = "Por favor, ingresa un correo electrónico válido.";
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: errorMessage.value,
+    });
+    return;
+  }
+  await update();
+}
 
 const update = async () => {
   try {
@@ -124,7 +165,8 @@ definePageMeta({
   width: 100%;
   background-color: #fff;
   height: 100%;
-  overflow: hidden;
+  overflow:visible;
+  margin-top: 3%;
 }
 
 .register-container:before {
