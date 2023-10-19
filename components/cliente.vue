@@ -15,14 +15,19 @@
             <v-col cols="6">
                 <v-row class="infoC">
                     <v-col>
-                        <ul>
-                            <li class="li"> Dirección: {{ customer.direccion }}</li> <br>
-                            <li class="li"> Correo eléctronico: {{ customer.correo }}</li>
+                        <ul class="ulInfoC">
+                            <li><b> Dirección: </b></li>
+                            <li class="li">{{ customer.direccion }}</li> <br>
+                            <li><b>Correo eléctronico:</b></li>
+                            <li class="li"> {{ customer.correo }}</li>
                         </ul>
                     </v-col>
                 </v-row>
-                <v-btn @click="productCustomer(customer)" class="btn" icon color="#CF010B"><v-icon>mdi-trash-can-outline </v-icon></v-btn>
-                <v-btn  @click="editCustomer" class="btnEdit" icon color="#5995fd"><v-icon>mdi-account-edit-outline </v-icon></v-btn>
+                <v-row class="btnsC"> 
+                    <v-btn @click="productCustomer(customer)" class="btn1c" icon color="#CF010B"><v-icon>mdi-trash-can-outline </v-icon></v-btn>
+                    <v-btn  @click="editCustomer" class="btn2c" icon color="#5995fd"><v-icon>mdi-account-edit-outline </v-icon></v-btn>
+                </v-row>
+
             </v-col>
         </v-row>
     </v-card>
@@ -104,7 +109,7 @@ const productCustomer = (customer) => {
     width: 120px !important;
     height: 120px !important;
     text-align: center;
-    margin-top: 2%;
+    margin-top: 5%;
 
 }
 
@@ -118,12 +123,6 @@ const productCustomer = (customer) => {
     flex-direction: column !important;
 }
 
-li {
-    font-family: sans-serif;
-    font-weight: bold;
-    text-align: center;
-
-}
 
 .infoC {
     margin-top: 10%;
@@ -131,10 +130,27 @@ li {
 
 }
 
+.ulInfoC{
+    list-style-type: none;
+}
+
+.btn1c{
+    margin-left: 5%;
+}
+
+.btn2c{
+    margin-right: 20%;
+}
+
+.btnsC{
+    margin-top: 5% !important;
+    display: flex;
+    justify-content: space-between;
+}
+
 .nombreC {
-    font-family: sans-serif;
-    font-weight: bold;
     text-align: center;
+    margin-top: 4%;
 
 }
 </style>

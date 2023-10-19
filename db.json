@@ -110,13 +110,6 @@
       "precio": 24000,
       "img": "https://newluxbrand.com/wp-content/uploads/2022/02/Chorizos-caseros-Newlux-optimized.jpg",
       "descripcion": "Nuestros Chorizos Mini son la prueba de que las mejores cosas vienen en pequeños paquetes. Estos diminutos chorizos han sido elaborados con el mismo amor y atención que sus contrapartes más grandes, pero en un formato perfecto para picar y disfrutar en cualquier momento."
-    },
-    {
-      "nombre": "Choricito",
-      "precio": "13000",
-      "descripcion": "Atrévete a probar este delicioso choricito",
-      "img": "/images/imgChorizos.jpg",
-      "id": 7
     }
   ],
   "sellers": [
@@ -125,7 +118,7 @@
       "nombre": "Alicia",
       "apellido": "ramirez",
       "correo": "ar@gmail.com",
-      "cargo": "vendedor",
+      "cargo": "Vendedor",
       "contacto": "3207608976",
       "img": "https://www.webconsultas.com/sites/default/files/styles/wch_image_schema/public/articulos/perfil-resilencia.jpg"
     },
@@ -134,7 +127,7 @@
       "nombre": "Juan",
       "apellido": "Zapata",
       "correo": "jz@gmail.com",
-      "cargo": "vendedor",
+      "cargo": "Vendedor",
       "contacto": "3134675890",
       "img": "https://img.freepik.com/foto-gratis/joven-confiado_1098-20868.jpg"
     },
@@ -143,7 +136,7 @@
       "nombre": "Carlos",
       "apellido": "Bustamante",
       "correo": "cb@gmail.com",
-      "cargo": "vendedor",
+      "cargo": "Vendedor",
       "contacto": "3156489234",
       "img": "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?cs=srgb&dl=pexels-justin-shaifer-1222271.jpg&fm=jpg"
     },
@@ -152,7 +145,7 @@
       "nombre": "Elkin",
       "apellido": "Casas",
       "correo": "ec@gmail.com",
-      "cargo": "vendedor",
+      "cargo": "Vendedor",
       "contacto": "3148791567",
       "img": "https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cGVyc29uYXxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80"
     },
@@ -161,7 +154,7 @@
       "nombre": "Marta",
       "apellido": "Aguirre",
       "correo": "ma@gmail.com",
-      "cargo": "vendedor",
+      "cargo": "Vendedor",
       "contacto": "323875412",
       "img": "https://img.freepik.com/foto-gratis/retrato-hermoso-mujer-joven-posicion-pared-gris_231208-10760.jpg"
     },
@@ -169,8 +162,8 @@
       "id": 6,
       "nombre": "Valentina",
       "apellido": "Medina",
-      "correo": "vm@gmail.com",
-      "cargo": "vendedor",
+      "correo": "vim@gmail.com",
+      "cargo": "Vendedor",
       "contacto": "345784325",
       "img": "https://img.freepik.com/foto-gratis/chico-guapo-seguro-posando-contra-pared-blanca_176420-32936.jpg"
     },

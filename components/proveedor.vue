@@ -4,6 +4,7 @@
             <v-col class="col1" cols="6">
                 <h3 class="nombre">
                     {{ supplier.nombre }}
+                    <br>
                 </h3>
                 <v-card class="cardimgpr">
                 <v-img  aspect-ratio="1/4" class="imagenPro" cover
@@ -13,18 +14,25 @@
                 </v-card>
                
             </v-col>
-            <v-col cols="6">
+            <v-col class="col2" cols="6">
                 <v-row class="infoPro">
                     <v-col>
-                        <ul>
-                                <li class="li"> Producto: {{ supplier.producto }}</li> <br>
-                                <li class="li"> Correo eléctronico: {{ supplier.correo }}</li> 
-                                <li class="li"> Contacto: {{ supplier.contacto }}</li> 
+                        <ul class="ulInfo">
+                                <li><b>Producto: </b> </li>
+                                <li class="li">{{ supplier.producto }}</li> <br>
+                                <li><b>Correo eléctronico:</b> </li>
+                                <li class="li">{{ supplier.correo }}</li> <br>
+                                <li><b>Contacto: </b> </li>
+                                <li class="li">{{ supplier.contacto }}</li> 
                         </ul>
                     </v-col>
                 </v-row>
-                <v-btn  @click="supplierDelete(supplier)" class="btn" icon color="#CF010B"><v-icon>mdi-trash-can-outline </v-icon></v-btn>
-                <v-btn @click="editSupplier" class="btnEdit" icon color="#5995fd"><v-icon>mdi-account-edit-outline </v-icon></v-btn>
+                <v-row class="btnsP"> 
+                    <v-btn  @click="supplierDelete(supplier)" class="btn1" icon color="#CF010B"><v-icon>mdi-trash-can-outline </v-icon></v-btn>
+                    <v-btn @click="editSupplier" class="btn2" icon color="#5995fd"><v-icon>mdi-account-edit-outline </v-icon></v-btn>
+                </v-row>
+
+                
             </v-col>
         </v-row>
     </v-card>
@@ -104,7 +112,7 @@ const supplierDelete = (supplier) => {
 
     .informacionPro{
         width: 450px !important; /* Establece el ancho deseado */
-        height: 280px !important;
+        height: 310px !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
@@ -112,27 +120,64 @@ const supplierDelete = (supplier) => {
     }
 
     .cardimgpr{
-        margin-left: 20%;
+        margin-left: 23%;
         display:flex;
         border-radius: 50% !important;
         width: 120px !important;
         height: 120px !important;
         text-align: center;
-        margin-top: 4%;
+        margin-top: 10%;
         
+    }
+
+    .col1{
+        width: 330px;
+        height: 260px;
+    }
+
+    .col2{
+        width: 360px !important;
+        height: 300px !important;
+    }
+
+    .ulInfo{
+        list-style-type: none;
+       
     }
 
     li{
-        font-family: sans-serif;
-        font-weight: bold;
-        text-align: center;
+        font-family: 'Open Sans', sans-serif !important;
+        text-align: justify !important;
         
     }
 
-    .infoPro{
-        margin-top: 10%;
-        margin-right: 3%;
+    .btnsP{
+        margin-top: 5% !important;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .btn1{
+        margin-left: 5%;
+    }
+
+    .btn2{
+        margin-right: 20%;
+    }
     
+    .infoPro{
+        margin-top: 5%;
+        margin-right: 3%;
+        display: flex ;
+        flex-direction: column;
+        text-align: left;
+        line-height: 1.5;
+    
+    }
+
+    .nombre{
+        text-align: center;
+        margin-top: 10%;
     }
 
 

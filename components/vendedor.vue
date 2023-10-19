@@ -2,9 +2,10 @@
     <v-card class="informacionV overflow-y-hidden" >
         <v-row>
             <v-col class="col1" cols="6">
-                <h4 class="nombre">
+                <h3 class="nombreV">
                     {{ seller.nombre + " " +  seller.apellido }}
-                </h4>
+                </h3>
+                
                 <v-card class="cardimgv">
                 <v-img  aspect-ratio="1/4" class="imagenV" cover
                     :src=" seller.img ">
@@ -16,15 +17,20 @@
             <v-col cols="6">
                 <v-row class="infov">
                     <v-col>
-                        <ul>
-                                <li class="li"> Cargo: {{ seller.cargo }}</li> <br>
-                                <li class="li"> Correo eléctronico: {{ seller.correo }}</li> <br>
-                                <li class="li"> Contacto: {{ seller.contacto }}</li> <br>
+                        <ul class="ulInfoV">
+                                <li><b>Cargo:</b></li>
+                                <li class="li"> {{ seller.cargo }}</li> <br>
+                                <li><b>Correo eléctronico: </b></li>
+                                <li class="li"> {{ seller.correo }}</li> <br>
+                                <li><b>Contacto: </b></li>
+                                <li class="li"> {{ seller.contacto }}</li> <br>
                         </ul>
                     </v-col>
                 </v-row>
-                <v-btn  @click="sellerDelete(seller)" icon color="#CF010B"><v-icon>mdi-trash-can-outline </v-icon></v-btn>
-                <v-btn @click="editSeller" class="btnEdit" icon color="#5995fd"><v-icon>mdi-account-edit-outline </v-icon></v-btn>
+                <v-row class="btnsV"> 
+                    <v-btn  @click="sellerDelete(seller)" class="btn1v" icon color="#CF010B"><v-icon>mdi-trash-can-outline </v-icon></v-btn>
+                    <v-btn @click="editSeller" class="btn2v" icon color="#5995fd"><v-icon>mdi-account-edit-outline </v-icon></v-btn>
+                </v-row>
             </v-col>
         </v-row>
     </v-card>
@@ -102,8 +108,8 @@ const sellerDelete = (seller) => {
 
 <style>
     .informacionV{
-        width: 420px !important; /* Establece el ancho deseado */
-        height: 280px !important;
+        width: 450px !important; /* Establece el ancho deseado */
+        height: 300px !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
@@ -127,7 +133,7 @@ const sellerDelete = (seller) => {
     }
 
     .cardimgv {
-        margin-left: 14%;
+        margin-left: 20%;
         display:flex;
         border-radius: 50% !important;
         width: 120px !important;
@@ -137,14 +143,39 @@ const sellerDelete = (seller) => {
         
     }
 
-    li{
-        font-family: sans-serif;
-        font-weight: bold;
-        text-align: center;
+    .ulInfoV{
+        list-style-type: none;
+       
     }
+
+    .btn1v{
+        margin-left: 5%;
+    }
+
+    .btn2v{
+        margin-right: 20%;
+    }
+
+    .btnsV{
+        margin-top: 2% !important;
+        display: flex;
+        justify-content: space-between;
+    }
+
+   
 
     .infov{
+        margin-top: 7%;
+        margin-right: 3%;
+        display: flex ;
+        flex-direction: column;
+        text-align: left;
+        line-height: 1.5;
+    }
+    
+    .nombreV{
+        text-align: center;
         margin-top: 10%;
     }
-
+    
 </style>
