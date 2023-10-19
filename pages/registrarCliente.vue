@@ -86,7 +86,7 @@
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
-let nextCustomerId = 6; // Contador para el ID secuencial
+let nextCustomerId = 8; // Contador para el ID secuencial
 const img = "/images/perfil-del-usuario.png";
 const cargo = "cliente";
 
@@ -96,7 +96,7 @@ export default {
   data: () => {
     return {
       Rules: [(v) => !!v || "El campo es obligatorio"],
-      contactoRules: [v => (/^[-+]?[0-9]*\.?[0-9]*$/.test(v)) || 'Solo se permiten números'],
+      contactoRules: [v => (/^[0-9]+|[()\.]+/.test(v)) || 'Solo se permiten números'],
       nombre: "",
       apellido: "",
       correo: "",
@@ -134,7 +134,7 @@ export default {
       }
 
       // Validación de solo números
-      if (!/[0-9-]+/.test(this.contacto)) {
+      if (!(/^[0-9]+|[()\.]+/.test(this.contacto))) {
         errorMessage.value = "Solo se permiten números";
         Swal.fire({
           icon: "error",

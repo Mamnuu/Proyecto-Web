@@ -62,7 +62,7 @@
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
-let nextProductId = 6; // Contador para el ID secuencial
+let nextProductId = 8; // Contador para el ID secuencial
 const img = "/images/imgChorizos.jpg";
 
 const errorMessage = ref("");
