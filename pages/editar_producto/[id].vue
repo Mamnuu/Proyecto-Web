@@ -20,8 +20,8 @@
         <v-textarea name="input-7-4" v-model="foundProduct.descripcion" density="compact"
           prepend-inner-icon="text-box-outline" :rules="Rules"></v-textarea>
 
-        <v-btn block class="mb-8" color="#5995fd" size="large" variant="outlined" @click="register">
-          Registrar
+        <v-btn block class="mb-8" color="#5995fd" size="large" variant="outlined" @click="update">
+          Actualizar
         </v-btn>
       </v-card>
     </div>
@@ -64,7 +64,7 @@ const getProducts = async () => {
   products.value = response.data;
 };
 
-const register = async () => {
+const update = async () => {
   try {
     await updateProducts();
     console.log("Producto actualizado correctamente");
