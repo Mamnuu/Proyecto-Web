@@ -110,13 +110,6 @@
       "precio": 24000,
       "img": "https://newluxbrand.com/wp-content/uploads/2022/02/Chorizos-caseros-Newlux-optimized.jpg",
       "descripcion": "Nuestros Chorizos Mini son la prueba de que las mejores cosas vienen en pequeños paquetes. Estos diminutos chorizos han sido elaborados con el mismo amor y atención que sus contrapartes más grandes, pero en un formato perfecto para picar y disfrutar en cualquier momento."
-    },
-    {
-      "nombre": "Choricito",
-      "precio": "13000",
-      "descripcion": "Delicioso choricito",
-      "img": "/images/imgChorizos.jpg",
-      "id": 7
     }
   ],
   "sellers": [
