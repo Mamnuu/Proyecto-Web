@@ -42,76 +42,81 @@
 <style src="./styles.index.css"></style>
 <script setup>
 import axios from "axios";
-import Swal from "sweetalert2"; 
-import * as config from '../config/default.json'
+import Swal from "sweetalert2";
+import * as config from "../config/default.json";
 
-
-
-const email = ref('');
-const password = ref('');
-const errorMessage = ref('');
+onBeforeMount(() => {
+  signout();
+});
+const signout = () => {
+  localStorage.removeItem("token");
+};
+const email = ref("");
+const password = ref("");
+const errorMessage = ref("");
 
 const handleSubmit = async () => {
-    // Validación del correo electrónico
-    if (!email.value || !/^\S+@\S+\.\S+$/.test(email.value)) {
-        errorMessage.value = 'Por favor, ingresa un correo electrónico válido.';
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: errorMessage.value,
-        })
-        return;
-    }
+  // Validación del correo electrónico
+  if (!email.value || !/^\S+@\S+\.\S+$/.test(email.value)) {
+    errorMessage.value = "Por favor, ingresa un correo electrónico válido.";
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: errorMessage.value,
+    });
+    return;
+  }
 
-    // Validación de la contraseña
-    if (!password.value) {
-        errorMessage.value = 'Por favor, ingresa tu contraseña.';
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: errorMessage.value,
-        })
-        return;
-    }
+  // Validación de la contraseña
+  if (!password.value) {
+    errorMessage.value = "Por favor, ingresa tu contraseña.";
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: errorMessage.value,
+    });
+    return;
+  }
 
-    errorMessage.value = '';
-    await login();
+  errorMessage.value = "";
+  await login();
 };
 
-
 const login = async () => {
-    try {
-
-    const url = `${config.api_host}/login`
-    const { data } = await axios.post(url, { email: email.value, password: password.value })
+  try {
+    const url = `${config.api_host}/login`;
+    const { data } = await axios.post(url, {
+      email: email.value,
+      password: password.value,
+    });
 
     if (data?.ok == true) {
       // Redireccionar al home, guardar el token
       console.log(data?.info);
-      const token = data?.info?.token
-      localStorage.setItem('token', token)
-      useRouter().push('/home')
+      const token = data?.info?.token;
+      localStorage.setItem("token", token);
+      useRouter().push("/home");
       // useRoute(')
     } else {
       Swal.fire({
-        title: 'Error!',
+        title: "Error!",
         text: data?.message,
-        icon: 'error'
-      })
+        icon: "error",
+      });
     }
-    }catch (error) {
+  } catch (error) {
     console.error(error);
     Swal.fire({
-      title: 'Error!',
-      text: 'Ha ocurrido un error al conectarse.',
-      icon: 'error'
-    })
+      title: "Error!",
+      text: "Ha ocurrido un error al conectarse.",
+      icon: "error",
+    });
   }
-}
+};
 
 definePageMeta({
-    layout: "blank",
-})
+  layout: "blank",
+});
 </script>
 
 <style>
