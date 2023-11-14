@@ -1,5 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  runtimeConfig: {
+    apiHost: "",
+    public: {
+    },
+  },
   devtools: { enabled: true },
   modules: [
     'vuetify-nuxt-module'

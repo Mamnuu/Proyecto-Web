@@ -10,7 +10,7 @@
         md="4"
         sm="6"
       >
-        <v-card class="productoCard" max-width="344" elevation="3" >
+        <v-card class="productoCard" max-width="344" elevation="3">
           <v-img :src="producto.img" height="200px" cover></v-img>
 
           <v-card-title>
@@ -23,20 +23,51 @@
           </v-card-subtitle>
 
           <v-card-actions>
-            <v-btn class="btnCard" variant="text"  block @click="openDialog(producto);"> Ver producto </v-btn>
+            <v-btn
+              class="btnCard"
+              variant="text"
+              block
+              @click="openDialog(producto)"
+            >
+              Ver producto
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
-      <v-card v-if="dialog"  class="info" elevation="7">
-        <v-dialog v-model="dialog" width="auto" style="background: none !important; border-radius: 80px !important;">
-          <DescripcionP :producto="currentProduct" :dialog="dialog" @closeDialog="closeDialog"></DescripcionP>
-          <v-btn class="btnCerrar "  @click="dialog = false" icon elevation="0"><v-icon class="iconC">mdi-close</v-icon></v-btn>
+      <v-card v-if="dialog" class="info" elevation="7">
+        <v-dialog
+          v-model="dialog"
+          width="auto"
+          style="background: none !important; border-radius: 80px !important"
+        >
+          <DescripcionP
+            :producto="currentProduct"
+            :dialog="dialog"
+            @closeDialog="closeDialog"
+          ></DescripcionP>
+          <v-btn class="btnCerrar" @click="dialog = false" icon elevation="0"
+            ><v-icon class="iconC">mdi-close</v-icon></v-btn
+          >
         </v-dialog>
       </v-card>
-      <v-btn fab dark large color=#5995fd class="btn-flotante2" @click="getProducts">
+      <v-btn
+        fab
+        dark
+        large
+        color="#5995fd"
+        class="btn-flotante2"
+        @click="getProducts"
+      >
         <v-icon size="50">mdi-reload</v-icon>
       </v-btn>
-      <v-btn fab dark large color=#5995fd class="btn-flotante" to="/crearProducto">
+      <v-btn
+        fab
+        dark
+        large
+        color="#5995fd"
+        class="btn-flotante"
+        to="/crearProducto"
+      >
         <v-icon size="50">mdi-plus</v-icon>
       </v-btn>
     </v-row>
@@ -45,25 +76,28 @@
 <script setup>
 import Swal from "sweetalert2";
 import axios from "axios";
-import DescripcionP from '~/components/producto.vue';
+import DescripcionP from "~/components/producto.vue";
+import config from "~/config/default.json";
 
 const productos = ref([]);
 const dialog = ref(false);
 const currentProduct = ref(null);
 
 const getProducts = async () => {
-  const url = "http://localhost:3001/products";
-  const response = await axios.get(url);
+  const url = `${config.api_host}/products`;
+  const token = localStorage.getItem("token")
+  const headers = getHeaders(token);
+  const { data } = await axios.get(url, { headers });
   productos.value = response.data;
 };
 
 onBeforeMount(() => {
-    getProducts();
-})
+  getProducts();
+});
 
 const closeDialog = () => {
   dialog.value = false;
-}
+};
 //Escuchador para el evento emitido desde el componente `productos.vue`
 watch(dialog, (newValue) => {
   if (!newValue) {
@@ -73,32 +107,30 @@ watch(dialog, (newValue) => {
 
 //Alerta de inicio de sesion existoso
 
-let logged_user = sessionStorage.getItem('LOGGEDUSER')
-if(logged_user != "true"){
+let logged_user = sessionStorage.getItem("LOGGEDUSER");
+if (logged_user != "true") {
   const Toast = Swal.mixin({
-  toast: true,
-  position: "top-end",
-  showConfirmButton: false,
-  timer: 3000,
-  timerProgressBar: true,
-  didOpen: (toast) => {
-    toast.addEventListener("mouseenter", Swal.stopTimer);
-    toast.addEventListener("mouseleave", Swal.resumeTimer);
-  },
-});
-Toast.fire({
-  icon: "success",
-  title: "Inicio de sesión exitoso",
-});
-sessionStorage.setItem('LOGGEDUSER',"true")
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+  Toast.fire({
+    icon: "success",
+    title: "Inicio de sesión exitoso",
+  });
+  sessionStorage.setItem("LOGGEDUSER", "true");
 }
 
 const openDialog = (producto) => {
   currentProduct.value = producto;
   dialog.value = true;
-}
-
-
+};
 </script>
 
 <style>
@@ -109,7 +141,7 @@ const openDialog = (producto) => {
   font-size: 30px !important;
 }
 
-.btnCerrar{
+.btnCerrar {
   position: absolute;
   top: -3%;
   right: 1%;
@@ -117,12 +149,11 @@ const openDialog = (producto) => {
   border: 0 !important;
 }
 
-.iconC{
+.iconC {
   font-size: 30px !important;
 }
 
-
-.info{
+.info {
   border-radius: 40px !important;
 }
 

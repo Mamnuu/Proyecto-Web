@@ -54,6 +54,8 @@
 <script setup>
 import axios from "axios";
 import DescripcionPro from '~/components/proveedor.vue';
+import config from "../../config/default.json";
+
 const suppliers = ref([]);
 const dialog = ref(false);
 const currentSupplier = ref(null);

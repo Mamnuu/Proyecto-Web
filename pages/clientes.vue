@@ -18,8 +18,8 @@
         >
           <v-row>
             <v-col>
-              <v-card class="cardimg" >
-                <v-img cover :src="customer.img"  class="imgv"></v-img>
+              <v-card class="cardimg">
+                <v-img cover :src="customer.img" class="imgv"></v-img>
               </v-card>
             </v-col>
             <v-col>
@@ -30,22 +30,52 @@
                 </v-card-title>
               </v-row>
               <v-row>
-                <v-btn class="btnCardv" variant="text" block @click="openDialog(customer);"> Ver cliente </v-btn>
+                <v-btn
+                  class="btnCardv"
+                  variant="text"
+                  block
+                  @click="openDialog(customer)"
+                >
+                  Ver cliente
+                </v-btn>
               </v-row>
             </v-col>
           </v-row>
         </v-card>
       </v-col>
-      <v-card v-if="dialog"  class="infoC" elevation="7">
-        <v-dialog v-model="dialog" width="auto" style="background: none !important; border-radius: 80px !important;">
-          <DescripcionC :customer="currentCustomer"  @closeDialog="closeDialog"></DescripcionC>
-          <v-btn class="btnCerrarC"  @click="dialog = false" icon elevation="0"><v-icon class="iconC">mdi-close</v-icon></v-btn>
+      <v-card v-if="dialog" class="infoC" elevation="7">
+        <v-dialog
+          v-model="dialog"
+          width="auto"
+          style="background: none !important; border-radius: 80px !important"
+        >
+          <DescripcionC
+            :customer="currentCustomer"
+            @closeDialog="closeDialog"
+          ></DescripcionC>
+          <v-btn class="btnCerrarC" @click="dialog = false" icon elevation="0"
+            ><v-icon class="iconC">mdi-close</v-icon></v-btn
+          >
         </v-dialog>
       </v-card>
-      <v-btn fab dark large color=#5995fd class="btn-flotante2" @click="getCustomers">
+      <v-btn
+        fab
+        dark
+        large
+        color="#5995fd"
+        class="btn-flotante2"
+        @click="getCustomers"
+      >
         <v-icon size="50">mdi-reload</v-icon>
       </v-btn>
-      <v-btn fab dark large color="#5995fd" class="btn-flotante" to="/registrarCliente">
+      <v-btn
+        fab
+        dark
+        large
+        color="#5995fd"
+        class="btn-flotante"
+        to="/registrarCliente"
+      >
         <v-icon size="50">mdi-plus</v-icon>
       </v-btn>
     </v-row>
@@ -53,27 +83,28 @@
 </template>
 <script setup>
 import axios from "axios";
-import DescripcionC from '~/components/cliente.vue';
+import DescripcionC from "~/components/cliente.vue";
+import config from "../../config/default.json";
 
 const customers = ref([]);
 const dialog = ref(false);
 const currentCustomer = ref(null);
 
 const getCustomers = async () => {
-  const url = "http://localhost:3001/customers";
-  const response = await axios.get(url);
-  customers.value = response.data;
+  const url = `${config.api_host}/customers`;
+  const headers = getHeaders();
+  const { data } = await axios.get(url, { headers });
 };
 onBeforeMount(() => {
   getCustomers();
-})
+});
 const closeDialog = () => {
   dialog.value = false;
-}
+};
 const openDialog = (customer) => {
   currentCustomer.value = customer;
   dialog.value = true;
-}
+};
 </script>
 
 <style>
@@ -85,7 +116,6 @@ const openDialog = (customer) => {
   margin-left: 10px !important;
   margin-top: 10px !important;
 }
-
 
 .btnCardv {
   color: #5995fd !important;
@@ -105,23 +135,20 @@ const openDialog = (customer) => {
 .imgv {
   object-fit: cover !important;
   border-radius: 20% !important;
-
 }
 .cardimg {
-  display:flex;
+  display: flex;
   margin-left: 10px !important;
   border-radius: 50% !important;
   width: 100px !important;
   height: 100px !important;
 }
 
-.btnCerrarC{
+.btnCerrarC {
   position: absolute;
   top: 8%;
   right: 1%;
   outline: none !important;
   border: 0 !important;
 }
-
-
 </style>
