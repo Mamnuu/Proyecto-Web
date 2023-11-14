@@ -78,6 +78,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import DescripcionP from "~/components/producto.vue";
 import config from "~/config/default.json";
+import { getHeaders } from "~/src/auth/jwt.js";
 
 const productos = ref([]);
 const dialog = ref(false);

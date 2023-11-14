@@ -1,6 +1,6 @@
 <template>
-  <v-layout>
-    <v-navigation-drawer expand-on-hover rail>
+  <v-layout v-if="!loading" >
+    <v-navigation-drawer expand-on-hover rail >
       <v-list>
         <v-list-item :prepend-avatar="user.img" :title="user.fullName"
           :subtitle="user.email"></v-list-item>
@@ -25,10 +25,26 @@
   </v-layout>
 </template>
 <script setup>
+
+import axios from 'axios'
+import config from '../config/default.json'
+
+const loading = ref(true)
+onBeforeMount(() => {
+  console.log(localStorage);
+  const token = localStorage.getItem('token')
+  if (token) {
+    loading.value = false
+  } else {
+    useRouter().push('/')
+  }
+})
+
 const user = ref({ 'id': 'usuario', "email": "email" });
-let stringUser = sessionStorage.getItem('USER');
+/*let stringUser = localStorage.getItem('USER');
 if (stringUser) {
   let json = JSON.parse(stringUser);
   user.value = json;
-}
+}*/
+
 </script>
