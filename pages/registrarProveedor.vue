@@ -1,73 +1,37 @@
 <template>
   <div class="register-container">
     <div class="form-container">
-      <v-card
-        class="mx-auto pa-6 pb-2"
-        elevation="20"
-        max-width="448"
-        rounded="lg"
-      >
+      <v-card class="mx-auto pa-6 pb-2" elevation="20" max-width="448" rounded="lg">
         <v-card-title style="text-align: center">Proveedores</v-card-title>
-        <v-card-subtitle style="text-align: center"
-          >Formulario para el registro de proveedores.</v-card-subtitle>
+        <v-card-subtitle style="text-align: center">Formulario para el registro de proveedores.</v-card-subtitle>
         <div class="text-subtitle-1 text-medium-emphasis">Nombre</div>
 
-        <v-text-field
-          v-model="nombre"
-          density="compact"
-          placeholder="Nombre"
-          prepend-inner-icon="mdi-account-outline"
-          variant="underlined"
-          :rules="Rules"
-        ></v-text-field>
+        <v-text-field v-model="nombre" density="compact" placeholder="Nombre" prepend-inner-icon="mdi-account-outline"
+          variant="underlined" :rules="Rules"></v-text-field>
 
         <div class="text-subtitle-1 text-medium-emphasis">
           Correo electrónico
         </div>
 
-        <v-text-field
-          v-model="correo"
-          density="compact"
-          placeholder="Correo electrónico"
-          prepend-inner-icon="mdi-email-outline"
-          variant="underlined"
-          :rules="Rules"
-        ></v-text-field>
+        <v-text-field v-model="correo" density="compact" placeholder="Correo electrónico"
+          prepend-inner-icon="mdi-email-outline" variant="underlined" :rules="Rules"></v-text-field>
 
         <div class="text-subtitle-1 text-medium-emphasis">
           Producto que provee
         </div>
 
-        <v-text-field
-          v-model="producto"
-          density="compact"
-          placeholder="Producto"
-          prepend-inner-icon="mdi-cart-outline"
-          variant="underlined"
-          :rules="Rules"
-        ></v-text-field>
+        <v-text-field v-model="producto" density="compact" placeholder="Producto" prepend-inner-icon="mdi-cart-outline"
+          variant="underlined" :rules="Rules"></v-text-field>
 
         <div class="text-subtitle-1 text-medium-emphasis">
           Número de contacto
         </div>
 
-        <v-text-field
-          v-model="contacto"
-          density="compact"
-          placeholder="Número de contacto"
-          prepend-inner-icon="mdi-card-account-phone-outline"
-          variant="underlined"
-          :rules="[Rules, contactoRules].flat()"
-        ></v-text-field>
+        <v-text-field v-model="contacto" density="compact" placeholder="Número de contacto"
+          prepend-inner-icon="mdi-card-account-phone-outline" variant="underlined"
+          :rules="[Rules, contactoRules].flat()"></v-text-field>
 
-        <v-btn
-          block
-          class="mb-8"
-          color="#5995fd"
-          size="large"
-          variant="outlined"
-          @click="register"
-          >Registrar
+        <v-btn block class="mb-8" color="#5995fd" size="large" variant="outlined" @click="register">Registrar
         </v-btn>
       </v-card>
     </div>
@@ -77,7 +41,9 @@
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
-let nextSupplierId = 8; // Contador para el ID secuencial
+import * as config from "../config/default.json";
+import { getHeaders } from "~/src/auth/jwt.js";
+let nextProviderId = 8; // Contador para el ID secuencial
 const img = "/images/imgproveedor.jpeg";
 const cargo = "proveedor";
 
@@ -92,19 +58,23 @@ export default {
       correo: "",
       producto: "",
       contacto: "",
+      providers: []
     };
   },
   methods: {
-    async getSuppliers() {
+    async getProviders() {
       try {
-        const response = await axios.get("http://localhost:3001/suppliers");
-        this.suppliers = response.data;
+        const url = `${config.api_host}/providers`;
+        const token = localStorage.getItem("token")
+        const headers = getHeaders(token);
+        const { data } = await axios.get(url, { headers });
+        this.providers = data.info;
       } catch (error) {
         console.error("Error al obtener proveedores:", error);
       }
     },
     async register() {
-      await this.getSuppliers();
+      await this.getProviders();
 
       // Validación campos vacíos
       if (
@@ -120,10 +90,10 @@ export default {
           text: errorMessage.value,
         });
         return;
-        
+
       }
-       // Validación de solo números
-       if (!(/^[0-9]+|[()\.]+/.test(this.contacto))) {
+      // Validación de solo números
+      if (!(/^[0-9]+|[()\.]+/.test(this.contacto))) {
 
         errorMessage.value = "Solo se permiten números";
         Swal.fire({
@@ -147,23 +117,23 @@ export default {
       }
 
       // Verificar si existe el correo
-      const emailExists = this.suppliers.some(
-        (supplier) => supplier.correo === this.correo
+      const emailExists = this.providers.some(
+        (provider) => provider.correo === this.correo
       );
 
       if (emailExists) {
         console.error("El correo electrónico ya está registrado.");
-      } 
+      }
       else {
         // Generación de ID secuencial única para el proveedor
-        const supplierId = nextSupplierId;
+        const providerId = nextProviderId;
 
         // Incrementa el contador para el siguiente proveedor
-        nextSupplierId++;
+        nextProviderId++;
 
         // Registra al proveedor con el ID generado
-        const newSupplier = {
-          id: supplierId,
+        const newProvider = {
+          id: providerId,
           nombre: this.nombre,
           correo: this.correo,
           producto: this.producto,
@@ -173,17 +143,17 @@ export default {
         };
 
         // Añade el proveedor al servidor
-        await this.addSupplier(newSupplier);
+        await this.addProvider(newProvider);
 
-        console.log("", newSupplier);
+        console.log("", newProvider);
       }
     },
-    async addSupplier(supplier) {
+    async addProvider(provider) {
       try {
-        const response = await axios.post(
-          "http://localhost:3001/suppliers",
-          supplier
-        );
+        const url = `${config.api_host}/providers`;
+        const token = localStorage.getItem("token")
+        const headers = getHeaders(token);
+        const response = await axios.post(url, provider, { headers });
         console.log("Proveedor agregado:", response.data);
         // Redirección al home
         this.$router.push("/proveedores");
@@ -226,7 +196,7 @@ definePageMeta({
   width: 100%;
   background-color: #fff;
   height: 100%;
-  overflow:visible;
+  overflow: visible;
   margin-top: 3%;
 }
 

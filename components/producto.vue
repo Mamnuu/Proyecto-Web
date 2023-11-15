@@ -42,6 +42,8 @@
 <script setup>
 import axios from "axios";
 import Swal from "sweetalert2";
+import * as config from "../config/default.json";
+import { getHeaders } from "~/src/auth/jwt.js";
 
 const router = useRouter();
 const emit = defineEmits(['closeDialog'])
@@ -63,8 +65,10 @@ const editProduct = () => {
 };
 
 const deleteProduct = async (product) => {
-    const url = `http://localhost:3001/products/${product.id}`
-    const { data } = await axios.delete(url)
+    const url = `${config.api_host}/products/${product._id}`;
+    const token = localStorage.getItem("token")
+    const headers = getHeaders(token);
+    const { data } = await axios.delete(url,{ headers })
 }
 
 const productDelete = (product) => {

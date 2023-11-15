@@ -20,7 +20,7 @@
               <v-row>
                 <br />
                 <v-card-title class="titulov">
-                  {{ seller.nombre }} 
+                  {{ seller.name }} 
                 </v-card-title>
               </v-row>
               <v-row>
@@ -50,6 +50,8 @@
 <script setup>
 import axios from "axios";
 import DescripcionV from '~/components/vendedor.vue';
+import * as config from "../config/default.json";
+import { getHeaders } from "~/src/auth/jwt.js";
 const sellers = ref([]);
 const currentSeller = ref(null);
 const dialog = ref(false);
@@ -59,9 +61,11 @@ const closeDialog = () => {
 }
 
 const getSellers = async () => {
-  const url = "http://localhost:3001/sellers";
-  const response = await axios.get(url);
-  sellers.value = response.data;
+  const url = `${config.api_host}/sellers`;
+  const token = localStorage.getItem("token")
+  const headers = getHeaders(token);
+  const { data } = await axios.get(url, { headers });
+  sellers.value = data.info;
 };
 
 onBeforeMount(() => {

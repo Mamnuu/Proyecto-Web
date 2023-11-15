@@ -3,7 +3,7 @@
         <v-row>
             <v-col class="col1" cols="6">
                 <h3 class="nombreV">
-                    {{ seller.nombre + " " +  seller.apellido }}
+                    {{ seller.name + " " +  seller.lastname }}
                 </h3>
                 
                 <v-card class="cardimgv">
@@ -19,16 +19,16 @@
                     <v-col>
                         <ul class="ulInfoV">
                                 <li><b>Cargo:</b></li>
-                                <li class="li"> {{ seller.cargo }}</li> <br>
+                                <li class="li"> {{ seller.charge }}</li> <br>
                                 <li><b>Correo eléctronico: </b></li>
-                                <li class="li"> {{ seller.correo }}</li> <br>
+                                <li class="li"> {{ seller.email }}</li> <br>
                                 <li><b>Contacto: </b></li>
-                                <li class="li"> {{ seller.contacto }}</li> 
+                                <li class="li"> {{ seller.contact }}</li> 
                         </ul>
                     </v-col>
                 </v-row>
                 <v-row class="btnsV"> 
-                    <v-btn  @click="sellerDelete(seller)" class="btn1v" icon color="#CF010B"><v-icon>mdi-trash-can-outline </v-icon></v-btn>
+                    <v-btn  @click="sellerDeleteAlert(seller)" class="btn1v" icon color="#CF010B"><v-icon>mdi-trash-can-outline </v-icon></v-btn>
                     <v-btn @click="editSeller" class="btn2v" icon color="#5995fd"><v-icon>mdi-account-edit-outline </v-icon></v-btn>
                 </v-row>
             </v-col>
@@ -41,6 +41,8 @@
 <script setup>
 import axios from "axios";
 import Swal from "sweetalert2";
+import * as config from "../config/default.json";
+import { getHeaders } from "~/src/auth/jwt.js";
 const router = useRouter();
 const emit = defineEmits(['closeDialog']);
 
@@ -63,10 +65,12 @@ const editSeller = () => {
 
 
 const deleteSeller= async (seller) => {
-    const url = `http://localhost:3001/sellers/${seller.id}`
-    const { data } = await axios.delete(url)
+    const url = `${config.api_host}/sellers/${seller._id}`;
+    const token = localStorage.getItem("token")
+    const headers = getHeaders(token);
+    const { data } = await axios.delete(url,{ headers })
 }
-const sellerDelete = (seller) => {
+const sellerDeleteAlert = (seller) => {
     emit('closeDialog')
     let error = false
     Swal.fire({

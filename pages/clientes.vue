@@ -26,7 +26,7 @@
               <v-row>
                 <br />
                 <v-card-title class="tituloc">
-                  {{ customer.nombre }}
+                  {{ customer.name }}
                 </v-card-title>
               </v-row>
               <v-row>
@@ -84,7 +84,8 @@
 <script setup>
 import axios from "axios";
 import DescripcionC from "~/components/cliente.vue";
-import config from "../../config/default.json";
+import * as config from "../config/default.json";
+import { getHeaders } from "~/src/auth/jwt.js";
 
 const customers = ref([]);
 const dialog = ref(false);
@@ -92,8 +93,10 @@ const currentCustomer = ref(null);
 
 const getCustomers = async () => {
   const url = `${config.api_host}/customers`;
-  const headers = getHeaders();
+  const token = localStorage.getItem("token")
+  const headers = getHeaders(token);
   const { data } = await axios.get(url, { headers });
+  customers.value = data.info
 };
 onBeforeMount(() => {
   getCustomers();

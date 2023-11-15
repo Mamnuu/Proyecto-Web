@@ -62,6 +62,8 @@
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
+import * as config from "../config/default.json";
+import { getHeaders } from "~/src/auth/jwt.js";
 let nextUserId = 9; // Contador para el ID secuencial
 const img = "/images/perfil-del-usuario.png";
 
@@ -82,13 +84,17 @@ export default {
       confirmPassword: "",
       visible: false,
       confirmVisible: false,
+      user: []
     };
   },
   methods: {
     async getUsers() {
       try {
-        const response = await axios.get("http://localhost:3001/sellers");
-        this.users = response.data;
+        const url = `${config.api_host}/providers`;
+        const token = localStorage.getItem("token")
+        const headers = getHeaders(token);
+        const { data } = await axios.get(url, { headers });
+        this.users = data.info;
       } catch (error) {
         console.error("Error al obtener usuarios:", error);
       }
@@ -171,13 +177,13 @@ export default {
 
         // Registra al usuario con el ID generado
         const newUser = {
-          id: this.userId,
-          nombre: this.nombre,
-          apellido: this.apellido,
-          cargo: this.cargo,
-          correo: this.correo,
-          contacto: this.contacto,
-          password: this.password,
+          id: userId,
+          name: this.nombre,
+          lastname: this.apellido,
+          charge: this.cargo,
+          email: this.correo,
+          contact: this.contacto,
+          // password: this.password,
           img: img,
         };
 
@@ -189,10 +195,10 @@ export default {
     },
     async addUser(user) {
       try {
-        const response = await axios.post(
-          "http://localhost:3001/sellers",
-          user
-        );
+        const url = `${config.api_host}/sellers`;
+        const token = localStorage.getItem("token")
+        const headers = getHeaders(token);
+        const response = await axios.post(url, user, { headers });
         console.log("Usuario agregado:", response.data);
         // Redirección al home
         this.$router.push("/vendedores");

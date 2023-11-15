@@ -1,57 +1,26 @@
 <template>
   <div class="register-container">
     <div class="form-container">
-      <v-card
-        class="mx-auto pa-6 pb-2"
-        elevation="20"
-        max-width="448"
-        rounded="lg"
-      >
+      <v-card class="mx-auto pa-6 pb-2" elevation="20" max-width="448" rounded="lg">
         <v-card-title style="text-align: center">Productos</v-card-title>
-        <v-card-subtitle style="text-align: center"
-          >Formulario para la creación de productos.</v-card-subtitle
-        >
+        <v-card-subtitle style="text-align: center">Formulario para la creación de productos.</v-card-subtitle>
         <br />
         <div class="text-subtitle-1 text-medium-emphasis">Nombre</div>
 
-        <v-text-field
-          v-model="nombre"
-          density="compact"
-          placeholder="Nombre"
-          prepend-inner-icon="mdi-account-outline"
-          variant="underlined"
-          :rules="Rules"
-        ></v-text-field>
+        <v-text-field v-model="nombre" density="compact" placeholder="Nombre" prepend-inner-icon="mdi-account-outline"
+          variant="underlined" :rules="Rules"></v-text-field>
 
         <div class="text-subtitle-1 text-medium-emphasis">Precio</div>
 
-        <v-text-field
-          v-model="precio"
-          density="compact"
-          placeholder="Precio"
-          prepend-inner-icon="mdi-cash"
-          variant="underlined"
-          :rules="[precioRules, Rules].flat()"
-        ></v-text-field>
+        <v-text-field v-model="precio" density="compact" placeholder="Precio" prepend-inner-icon="mdi-cash"
+          variant="underlined" :rules="[precioRules, Rules].flat()"></v-text-field>
 
         <div class="text-subtitle-1 text-medium-emphasis">Descripción</div>
 
-        <v-textarea
-          name="input-7-4"
-          v-model="descripcion"
-          density="compact"
-          prepend-inner-icon="text-box-outline"
-          :rules="Rules"
-        ></v-textarea>
+        <v-textarea name="input-7-4" v-model="descripcion" density="compact" prepend-inner-icon="text-box-outline"
+          :rules="Rules"></v-textarea>
 
-        <v-btn
-          block
-          class="mb-8"
-          color="#5995fd"
-          size="large"
-          variant="outlined"
-          @click="register"
-        >
+        <v-btn block class="mb-8" color="#5995fd" size="large" variant="outlined" @click="register">
           Registrar
         </v-btn>
       </v-card>
@@ -62,8 +31,11 @@
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
+import * as config from "../config/default.json";
+import { getHeaders } from "~/src/auth/jwt.js";
 let nextProductId = 8; // Contador para el ID secuencial
 const img = "/images/imgChorizos.jpg";
+
 
 const errorMessage = ref("");
 
@@ -75,15 +47,18 @@ export default {
       nombre: "",
       precio: "",
       descripcion: "",
+      products: []
     };
   },
   methods: {
     async getProducts() {
       try {
-        const response = await axios.get("http://localhost:3001/products");
+        const url = `${config.api_host}/products`;
+        const response = await axios.get(url);
         this.products = response.data;
       } catch (error) {
-        console.error("Error al obtenter los productos", error);
+        console.error("Error al obtener los productos", error);
+        console.log(this.products);
       }
     },
     async register() {
@@ -125,12 +100,14 @@ export default {
         // Incrementa el contador para el siguiente usuario
         nextProductId++;
 
+        // const precioFormateado = parseFloat(this.precio);
+
         // Registra al usuario con el ID generado
         const newProduct = {
-          id: this.productId,
-          nombre: this.nombre,
-          precio: this.precio,
-          descripcion: this.descripcion,
+          id: productId,
+          name: this.nombre,
+          price: this.precio,
+          description: this.descripcion,
           img: img,
         };
 
@@ -142,10 +119,10 @@ export default {
     },
     async addProduct(product) {
       try {
-        const response = await axios.post(
-          "http://localhost:3001/products",
-          product
-        );
+        const url = `${config.api_host}/products`;
+        const token = localStorage.getItem("token")
+        const headers = getHeaders(token);
+        const response = await axios.post(url, product, { headers });
         console.log("Producto agregado:", response.data);
         // Redirección al home
         this.$router.push("/home");
@@ -188,7 +165,7 @@ definePageMeta({
   width: 100%;
   background-color: #fff;
   height: 100%;
-  overflow:visible;
+  overflow: visible;
   margin-top: 3%;
 }
 

@@ -3,23 +3,12 @@
     <h3 class="titulo">Proveedores</h3>
     <br />
     <v-row>
-      <v-col
-        v-for="supplier in suppliers"
-        :key="supplier.id"
-        cols="12"
-        md="4"
-        sm="6"
-      >
-        <v-card
-          class="supplierCard"
-          max-width="300"
-          max-height="200"
-          elevation="3"
-        >
+      <v-col v-for="supplier in providers" :key="supplier.id" cols="12" md="4" sm="6">
+        <v-card class="supplierCard" max-width="300" max-height="200" elevation="3">
           <v-row>
             <v-col>
-              <v-card class="cardimg" >
-                <v-img cover :src="supplier.img"  class="imgv"></v-img>
+              <v-card class="cardimg">
+                <v-img cover :src="supplier.img" class="imgv"></v-img>
               </v-card>
             </v-col>
             <v-col>
@@ -30,19 +19,20 @@
                 </v-card-title>
               </v-row>
               <v-row>
-                <v-btn class="btnCardp" variant="text"  block @click="openDialog(supplier);" > Ver proveedor </v-btn>
+                <v-btn class="btnCardp" variant="text" block @click="openDialog(supplier);"> Ver proveedor </v-btn>
               </v-row>
             </v-col>
           </v-row>
         </v-card>
       </v-col>
-      <v-card v-if="dialog"  class="infopro" elevation="7">
+      <v-card v-if="dialog" class="infopro" elevation="7">
         <v-dialog v-model="dialog" width="auto" style="background: none !important; border-radius: 80px !important;">
-          <DescripcionPro :supplier="currentSupplier"  @closeDialog="closeDialog"></DescripcionPro>
-          <v-btn class="btnCerrar "  @click="dialog = false" icon elevation="0"><v-icon class="iconC">mdi-close</v-icon></v-btn>
+          <DescripcionPro :provider="currentSupplier" @closeDialog="closeDialog"></DescripcionPro>
+          <v-btn class="btnCerrar " @click="dialog = false" icon elevation="0"><v-icon
+              class="iconC">mdi-close</v-icon></v-btn>
         </v-dialog>
       </v-card>
-      <v-btn fab dark large color=#5995fd class="btn-flotante2" @click="getSuppliers">
+      <v-btn fab dark large color=#5995fd class="btn-flotante2" @click="getProviders">
         <v-icon size="50">mdi-reload</v-icon>
       </v-btn>
       <v-btn fab dark large color="#5995fd" class="btn-flotante" to="/registrarProveedor">
@@ -54,20 +44,24 @@
 <script setup>
 import axios from "axios";
 import DescripcionPro from '~/components/proveedor.vue';
-import config from "../../config/default.json";
+import * as config from "../config/default.json";
+import { getHeaders } from "~/src/auth/jwt.js";
 
-const suppliers = ref([]);
+const providers = ref([]);
 const dialog = ref(false);
 const currentSupplier = ref(null);
 
-const getSuppliers = async () => {
-  const url = "http://localhost:3001/suppliers";
-  const response = await axios.get(url);
-  suppliers.value = response.data;
+const getProviders = async () => {
+  const url = `${config.api_host}/providers`;
+  const token = localStorage.getItem("token")
+  const headers = getHeaders(token);
+  const { data } = await axios.get(url, { headers });
+  providers.value = data.info;
+
 };
 
 onBeforeMount(() => {
-  getSuppliers();
+  getProviders();
 })
 
 const openDialog = (supplier) => {
@@ -113,8 +107,9 @@ const closeDialog = () => {
   border-radius: 20% !important;
 
 }
+
 .cardimg {
-  display:flex;
+  display: flex;
   margin-left: 10px !important;
   border-radius: 50% !important;
   width: 100px !important;

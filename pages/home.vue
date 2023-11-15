@@ -89,7 +89,6 @@ const getProducts = async () => {
   const token = localStorage.getItem("token")
   const headers = getHeaders(token);
   const { data } = await axios.get(url, { headers });
-  // productos.value = response.data;
   productos.value = data.info;
 };
 

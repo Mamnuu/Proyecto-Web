@@ -3,7 +3,7 @@
         <v-row>
             <v-col class="col1" cols="6">
                 <h3 class="nombreC">
-                    {{ customer.nombre + " " + customer.apellido }}
+                    {{ customer.name + " " + customer.lastname }}
                 </h3>
                 <v-card class="cardimgc">
                     <v-img aspect-ratio="1/4" class="imagenC" cover :src="customer.img">
@@ -17,14 +17,14 @@
                     <v-col>
                         <ul class="ulInfoC">
                             <li><b> Dirección: </b></li>
-                            <li class="li">{{ customer.direccion }}</li> <br>
+                            <li class="li">{{ customer.address }}</li> <br>
                             <li><b>Correo eléctronico:</b></li>
-                            <li class="li"> {{ customer.correo }}</li>
+                            <li class="li"> {{ customer.email }}</li>
                         </ul>
                     </v-col>
                 </v-row>
                 <v-row class="btnsC"> 
-                    <v-btn @click="productCustomer(customer)" class="btn1c" icon color="#CF010B"><v-icon>mdi-trash-can-outline </v-icon></v-btn>
+                    <v-btn @click="customerDeleteAlert(customer)" class="btn1c" icon color="#CF010B"><v-icon>mdi-trash-can-outline </v-icon></v-btn>
                     <v-btn  @click="editCustomer" class="btn2c" icon color="#5995fd"><v-icon>mdi-account-edit-outline </v-icon></v-btn>
                 </v-row>
 
@@ -36,6 +36,8 @@
 <script setup>
 import axios from "axios";
 import Swal from "sweetalert2";
+import * as config from "../config/default.json";
+import { getHeaders } from "~/src/auth/jwt.js";
 const router = useRouter();
 const emit = defineEmits(['closeDialog'])
 const props = defineProps({
@@ -44,7 +46,7 @@ const props = defineProps({
         required: true
     },
 });
-
+ 
 const editCustomer = () => {
     // Obtiene el id del producto
     const customerId = props.customer.id;
@@ -57,11 +59,14 @@ const editCustomer = () => {
 
 
 const deleteCustomer = async (customer) => {
-    const url = `http://localhost:3001/customers/${customer.id}`
-    const { data } = await axios.delete(url)
+    console.log(typeof customer._id);
+    const url = `${config.api_host}/customers/${customer._id}`;
+    const token = localStorage.getItem("token")
+    const headers = getHeaders(token);
+    const { data } = await axios.delete(url,{ headers })
 }
 
-const productCustomer = (customer) => {
+const customerDeleteAlert = (customer) => {
     emit('closeDialog')
     let error = false
     Swal.fire({

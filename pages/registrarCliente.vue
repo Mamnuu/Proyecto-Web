@@ -1,82 +1,39 @@
 <template>
   <div class="register-container">
     <div class="form-container">
-      <v-card
-        class="mx-auto pa-6 pb-2"
-        elevation="20"
-        max-width="448"
-        rounded="lg"
-      >
+      <v-card class="mx-auto pa-6 pb-2" elevation="20" max-width="448" rounded="lg">
         <v-card-title style="text-align: center">Clientes</v-card-title>
-        <v-card-subtitle style="text-align: center"
-          >Formulario para el registro de clientes.</v-card-subtitle
-        >
+        <v-card-subtitle style="text-align: center">Formulario para el registro de clientes.</v-card-subtitle>
         <div class="text-subtitle-1 text-medium-emphasis">Nombre</div>
 
-        <v-text-field
-          v-model="nombre"
-          density="compact"
-          placeholder="Nombre"
-          prepend-inner-icon="mdi-account-outline"
-          variant="underlined"
-          :rules="Rules"
-        ></v-text-field>
+        <v-text-field v-model="nombre" density="compact" placeholder="Nombre" prepend-inner-icon="mdi-account-outline"
+          variant="underlined" :rules="Rules"></v-text-field>
         <div class="text-subtitle-1 text-medium-emphasis">Apellido</div>
 
-        <v-text-field
-          v-model="apellido"
-          density="compact"
-          placeholder="Apellido"
-          prepend-inner-icon="mdi-account-outline"
-          variant="underlined"
-          :rules="Rules"
-        ></v-text-field>
+        <v-text-field v-model="apellido" density="compact" placeholder="Apellido" prepend-inner-icon="mdi-account-outline"
+          variant="underlined" :rules="Rules"></v-text-field>
 
         <div class="text-subtitle-1 text-medium-emphasis">
           Correo electrónico
         </div>
 
-        <v-text-field
-          v-model="correo"
-          density="compact"
-          placeholder="Correo electrónico"
-          prepend-inner-icon="mdi-email-outline"
-          variant="underlined"
-          :rules="Rules"
-        ></v-text-field>
+        <v-text-field v-model="correo" density="compact" placeholder="Correo electrónico"
+          prepend-inner-icon="mdi-email-outline" variant="underlined" :rules="Rules"></v-text-field>
 
         <div class="text-subtitle-1 text-medium-emphasis">Dirección</div>
 
-        <v-text-field
-          v-model="direccion"
-          density="compact"
-          placeholder="Dirección"
-          prepend-inner-icon="mdi-directions"
-          variant="underlined"
-          :rules="Rules"
-        ></v-text-field>
+        <v-text-field v-model="direccion" density="compact" placeholder="Dirección" prepend-inner-icon="mdi-directions"
+          variant="underlined" :rules="Rules"></v-text-field>
 
         <div class="text-subtitle-1 text-medium-emphasis">
           Número de contacto
         </div>
 
-        <v-text-field
-          v-model="contacto"
-          density="compact"
-          placeholder="Número de contacto"
-          prepend-inner-icon="mdi-card-account-phone-outline"
-          variant="underlined"
-          :rules= "[contactoRules, Rules].flat()"
-        ></v-text-field>
+        <v-text-field v-model="contacto" density="compact" placeholder="Número de contacto"
+          prepend-inner-icon="mdi-card-account-phone-outline" variant="underlined"
+          :rules="[contactoRules, Rules].flat()"></v-text-field>
 
-        <v-btn
-          block
-          class="mb-8"
-          color="#5995fd"
-          size="large"
-          variant="outlined"
-          @click="register"
-          >Registrar
+        <v-btn block class="mb-8" color="#5995fd" size="large" variant="outlined" @click="register">Registrar
         </v-btn>
       </v-card>
     </div>
@@ -86,6 +43,8 @@
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
+import * as config from "../config/default.json";
+import { getHeaders } from "~/src/auth/jwt.js";
 let nextCustomerId = 8; // Contador para el ID secuencial
 const img = "/images/perfil-del-usuario.png";
 const cargo = "cliente";
@@ -102,13 +61,17 @@ export default {
       correo: "",
       direccion: "",
       contacto: "",
+      customers: []
     };
   },
   methods: {
     async getCustomers() {
       try {
-        const response = await axios.get("http://localhost:3001/customers");
-        this.customers = response.data;
+        const url = `${config.api_host}/customers`;
+        const token = localStorage.getItem("token")
+        const headers = getHeaders(token);
+        const { data } = await axios.get(url, { headers });
+        this.customers = data.info;
       } catch (error) {
         console.error("Error al obtener clientes:", error);
       }
@@ -173,13 +136,13 @@ export default {
         // Registra al proveedor con el ID generado
         const newCustomer = {
           id: customerId,
-          nombre: this.nombre,
-          apellido: this.apellido,
-          correo: this.correo,
-          direccion: this.direccion,
-          contacto: this.contacto,
+          name: this.nombre,
+          lastname: this.apellido,
+          email: this.correo,
+          address: this.direccion,
+          contact: this.contacto,
           img: img,
-          cargo: cargo,
+          charge: cargo,
         };
 
         // Añade el proveedor al servidor
@@ -190,8 +153,10 @@ export default {
     },
     async addCustomer(customer) {
       try {
-        const response = await axios.post(
-          "http://localhost:3001/customers", customer);
+        const url = `${config.api_host}/customers`;
+        const token = localStorage.getItem("token")
+        const headers = getHeaders(token);
+        const response = await axios.post(url, customer, { headers });
         console.log("Cliente agregado:", response.data);
         // Redirección al home
         this.$router.push("/clientes");
@@ -234,7 +199,7 @@ definePageMeta({
   width: 100%;
   background-color: #fff;
   height: 100%;
-  overflow:visible;
+  overflow: visible;
   margin-top: 3%;
 }
 
