@@ -14,12 +14,12 @@
           <v-img :src="producto.img" height="200px" cover></v-img>
 
           <v-card-title>
-            {{ producto.nombre }}
+            {{ producto.name }}
           </v-card-title>
 
           <v-card-subtitle>
             <v-icon> mdi-currency-usd </v-icon>
-            {{ producto.precio }}
+            {{ producto.price }}
           </v-card-subtitle>
 
           <v-card-actions>
@@ -89,7 +89,8 @@ const getProducts = async () => {
   const token = localStorage.getItem("token")
   const headers = getHeaders(token);
   const { data } = await axios.get(url, { headers });
-  productos.value = response.data;
+  // productos.value = response.data;
+  productos.value = data.info;
 };
 
 onBeforeMount(() => {

@@ -9,7 +9,7 @@
                 </v-card>
                 <h3 class="precio">
                     <v-icon>mdi-currency-usd</v-icon>
-                    {{ producto.precio }}
+                    {{ producto.price }}
                 </h3>
 
             </v-col>
@@ -18,10 +18,10 @@
                     <v-col>
                         
                         <br>
-                        <h3>{{ producto.nombre }}</h3>
+                        <h3>{{ producto.name }}</h3>
                         <p>
                             <br>
-                            {{ producto.descripcion }}
+                            {{ producto.description }}
                         </p>
     
                         <br>

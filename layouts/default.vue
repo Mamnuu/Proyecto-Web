@@ -44,6 +44,8 @@ onBeforeMount(() => {
 })
 
 const user = ref({ 'id': 'usuario', "email": "email" });
+
+
 /*let stringUser = localStorage.getItem('USER');
 if (stringUser) {
   let json = JSON.parse(stringUser);
