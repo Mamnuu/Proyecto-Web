@@ -133,24 +133,18 @@ export default {
         // Creación de objeto FormData para enviar la imagen
 
         const formData = new FormData();
-        console.log("impresión imagen")
-        console.log(this.image[0])
-        formData.append("img", this.image[0])
-        console.log("impresión formdata")
-        console.log(formData.get("img"))
+
+
         // Registra al usuario con el ID generado
-        const newProduct = {
-          id: productId,
-          name: this.nombre,
-          price: this.precio,
-          description: this.descripcion,
-          img: formData.get("img"),
-        };
-
+        formData.append("id", productId)
+        formData.append("name", this.nombre)
+        formData.append("price", this.precio)
+        formData.append("description", this.descripcion)
+        formData.append("img", this.image[0])
         // Añade el usuario al servidor
-        await this.addProduct(newProduct);
+        await this.addProduct(formData);
 
-        console.log("", newProduct);
+        console.log("", formData);
       }
     },
     async addProduct(product) {
