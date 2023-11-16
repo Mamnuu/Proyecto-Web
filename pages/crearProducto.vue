@@ -1,30 +1,63 @@
 <template>
   <div class="register-container">
     <div class="form-container">
-      <v-card class="mx-auto pa-6 pb-2" elevation="20" max-width="448" rounded="lg">
+      <v-card
+        class="mx-auto pa-6 pb-2"
+        elevation="20"
+        max-width="448"
+        rounded="lg"
+      >
         <v-card-title style="text-align: center">Productos</v-card-title>
-        <v-card-subtitle style="text-align: center">Formulario para la creación de productos.</v-card-subtitle>
+        <v-card-subtitle style="text-align: center"
+          >Formulario para la creación de productos.</v-card-subtitle
+        >
         <br />
         <div class="text-subtitle-1 text-medium-emphasis">Nombre</div>
 
-        <v-text-field v-model="nombre" density="compact" placeholder="Nombre" prepend-inner-icon="mdi-account-outline"
-          variant="underlined" :rules="Rules"></v-text-field>
+        <v-text-field
+          v-model="nombre"
+          density="compact"
+          placeholder="Nombre"
+          prepend-inner-icon="mdi-account-outline"
+          variant="underlined"
+          :rules="Rules"
+        ></v-text-field>
 
         <div class="text-subtitle-1 text-medium-emphasis">Precio</div>
 
-        <v-text-field v-model="precio" density="compact" placeholder="Precio" prepend-inner-icon="mdi-cash"
-          variant="underlined" :rules="[precioRules, Rules].flat()"></v-text-field>
+        <v-text-field
+          v-model.number="precio"
+          density="compact"
+          placeholder="Precio"
+          prepend-inner-icon="mdi-cash"
+          variant="underlined"
+          :rules="[precioRules, Rules].flat()"
+        ></v-text-field>
 
         <div class="text-subtitle-1 text-medium-emphasis">Descripción</div>
 
-        <v-textarea name="input-7-4" v-model="descripcion" density="compact"
-          prepend-inner-icon="text-box-outline"></v-textarea>
+        <v-textarea
+          name="input-7-4"
+          v-model="descripcion"
+          density="compact"
+          prepend-inner-icon="text-box-outline"
+        ></v-textarea>
 
         <div class="text-subtitle-1 text-medium-emphasis">Subir imágen</div>
 
-        <v-file-input v-model="imagen" density="compact" label="Subir" :rules="imageRules"></v-file-input>
+        <v-file-input
+          v-model="image"
+          label="Subir"
+        ></v-file-input>
 
-        <v-btn block class="mb-8" color="#5995fd" size="large" variant="outlined" @click="register">
+        <v-btn
+          block
+          class="mb-8"
+          color="#5995fd"
+          size="large"
+          variant="outlined"
+          @click="register"
+        >
           Registrar
         </v-btn>
       </v-card>
@@ -33,12 +66,14 @@
 </template>
 
 <script>
+definePageMeta({
+  layout: "default",
+});
 import axios from "axios";
 import Swal from "sweetalert2";
-import * as config from "../config/default.json";
+import config from "~/config/default.json";
 import { getHeaders } from "~/src/auth/jwt.js";
 let nextProductId = 8; // Contador para el ID secuencial
-
 
 const errorMessage = ref("");
 
@@ -46,20 +81,20 @@ export default {
   data: () => {
     return {
       Rules: [(v) => !!v || "El campo es obligatorio"],
-      precioRules: [v => (/^[-+]?[0-9]*\.?[0-9]*$/.test(v)) || 'Solo se permiten números'],
-      imageRules: [v => !v || !v.length || v[0].size < 2000000 || 'Solo se permiten imágenes de 2mb o menos'],
+      precioRules: [
+        (v) => /^[-+]?[0-9]*\.?[0-9]*$/.test(v) || "Solo se permiten números",
+      ],
       nombre: "",
       precio: "",
       descripcion: "",
-      imagen: null,
-      products: []
+      image: null,
+      products: [],
     };
   },
   methods: {
-
     async register() {
-
       // Validación campos vacíos
+      console.log(this.image[0])
       if (this.nombre == "" || this.precio == "" || this.descripcion == "") {
         errorMessage.value = "Por favor, ingresa todos los campos.";
         Swal.fire({
@@ -96,17 +131,20 @@ export default {
         nextProductId++;
 
         // Creación de objeto FormData para enviar la imagen
-        const img = new FormData();
-        img.append("img", this.imagen);
-        console.log(img);
 
+        const formData = new FormData();
+        console.log("impresión imagen")
+        console.log(this.image[0])
+        formData.append("img", this.image[0])
+        console.log("impresión formdata")
+        console.log(formData.get("img"))
         // Registra al usuario con el ID generado
         const newProduct = {
           id: productId,
           name: this.nombre,
           price: this.precio,
           description: this.descripcion,
-          img: img,
+          img: formData.get("img"),
         };
 
         // Añade el usuario al servidor
@@ -118,7 +156,7 @@ export default {
     async addProduct(product) {
       try {
         const url = `${config.api_host}/products`;
-        const token = localStorage.getItem("token")
+        const token = localStorage.getItem("token");
         const headers = getHeaders(token);
         const response = await axios.post(url, product, { headers });
         console.log("Producto agregado", response.data);
