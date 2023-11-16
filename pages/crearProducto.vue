@@ -17,8 +17,12 @@
 
         <div class="text-subtitle-1 text-medium-emphasis">Descripción</div>
 
-        <v-textarea name="input-7-4" v-model="descripcion" density="compact" prepend-inner-icon="text-box-outline"
-          :rules="Rules"></v-textarea>
+        <v-textarea name="input-7-4" v-model="descripcion" density="compact"
+          prepend-inner-icon="text-box-outline"></v-textarea>
+
+        <div class="text-subtitle-1 text-medium-emphasis">Subir imágen</div>
+
+        <v-file-input v-model="imagen" density="compact" label="Subir" :rules="imageRules"></v-file-input>
 
         <v-btn block class="mb-8" color="#5995fd" size="large" variant="outlined" @click="register">
           Registrar
@@ -34,7 +38,6 @@ import Swal from "sweetalert2";
 import * as config from "../config/default.json";
 import { getHeaders } from "~/src/auth/jwt.js";
 let nextProductId = 8; // Contador para el ID secuencial
-const img = "/images/imgChorizos.jpg";
 
 
 const errorMessage = ref("");
@@ -44,25 +47,17 @@ export default {
     return {
       Rules: [(v) => !!v || "El campo es obligatorio"],
       precioRules: [v => (/^[-+]?[0-9]*\.?[0-9]*$/.test(v)) || 'Solo se permiten números'],
+      imageRules: [v => !v || !v.length || v[0].size < 2000000 || 'Solo se permiten imágenes de 2mb o menos'],
       nombre: "",
       precio: "",
       descripcion: "",
+      imagen: null,
       products: []
     };
   },
   methods: {
-    async getProducts() {
-      try {
-        const url = `${config.api_host}/products`;
-        const response = await axios.get(url);
-        this.products = response.data;
-      } catch (error) {
-        console.error("Error al obtener los productos", error);
-        console.log(this.products);
-      }
-    },
+
     async register() {
-      await this.getProducts();
 
       // Validación campos vacíos
       if (this.nombre == "" || this.precio == "" || this.descripcion == "") {
@@ -92,7 +87,7 @@ export default {
       );
 
       if (productExists) {
-        console.error("El producto ya está registrado.");
+        console.error("El producto ya está registrado");
       } else {
         // Generación de ID secuencial única para el producto
         const productId = nextProductId;
@@ -100,7 +95,10 @@ export default {
         // Incrementa el contador para el siguiente usuario
         nextProductId++;
 
-        // const precioFormateado = parseFloat(this.precio);
+        // Creación de objeto FormData para enviar la imagen
+        const img = new FormData();
+        img.append("img", this.imagen);
+        console.log(img);
 
         // Registra al usuario con el ID generado
         const newProduct = {
@@ -123,7 +121,7 @@ export default {
         const token = localStorage.getItem("token")
         const headers = getHeaders(token);
         const response = await axios.post(url, product, { headers });
-        console.log("Producto agregado:", response.data);
+        console.log("Producto agregado", response.data);
         // Redirección al home
         this.$router.push("/home");
         Swal.fire({
@@ -131,10 +129,10 @@ export default {
           title: "Registro exitoso",
         });
       } catch (error) {
-        console.error("Error al agregar producto:", error);
+        console.error("Error al agregar producto", error);
         Swal.fire({
           icon: "error",
-          title: "Error en el registro:",
+          title: "Error en el registro",
         });
       }
     },
