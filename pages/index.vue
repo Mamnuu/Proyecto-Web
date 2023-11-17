@@ -94,7 +94,11 @@ const login = async () => {
       // Redireccionar al home, guardar el token
       console.log(data?.info);
       const token = data?.info?.token;
+      const name = data?.info?.name;
+      const email = data?.info?.email;
       localStorage.setItem("token", token);
+      localStorage.setItem("name", name);
+      localStorage.setItem("email", email);
       useRouter().push("/home");
       // useRoute(')
     } else {

@@ -2,7 +2,7 @@
   <v-layout v-if="!loading" >
     <v-navigation-drawer expand-on-hover rail >
       <v-list>
-        <v-list-item :prepend-avatar="user.img" :title="user.fullName"
+        <v-list-item prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg" :title="user.name"
           :subtitle="user.email"></v-list-item>
       </v-list>
 
@@ -32,10 +32,22 @@ import config from '../config/default.json'
 const signout =()=>{
   localStorage.removeItem("token")
 }
+const user = ref({ 'name': 'name', "email": "email" });
+
+const getUser =()=>{
+  const name= localStorage.getItem("name");
+  const email= localStorage.getItem("email");
+  user.value.name = name;
+  user.value.email = email;
+
+}
 const loading = ref(true)
 onBeforeMount(() => {
   console.log(localStorage);
+  const name= localStorage.getItem("name");
+  const email= localStorage.getItem("email");
   const token = localStorage.getItem('token')
+  getUser();
   if (token) {
     loading.value = false
   } else {
@@ -43,13 +55,5 @@ onBeforeMount(() => {
   }
 })
 
-const user = ref({ 'id': 'usuario', "email": "email" });
-
-
-/*let stringUser = localStorage.getItem('USER');
-if (stringUser) {
-  let json = JSON.parse(stringUser);
-  user.value = json;
-}*/
 
 </script>
