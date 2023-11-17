@@ -3,7 +3,7 @@
     <div class="form-container">
       <v-card class="mx-auto pa-6 pb-2" elevation="20" max-width="448" rounded="lg">
         <v-card-title style="text-align: center">Registrar</v-card-title>
-        <v-card-subtitle style="text-align: center">Formulario para registro de vendedores y admins.</v-card-subtitle>
+        <v-card-subtitle style="text-align: center">Formulario para registro de vendedores.</v-card-subtitle>
         <br>
         <div class="text-subtitle-1 text-medium-emphasis">Nombres</div>
 
@@ -15,10 +15,6 @@
         <v-text-field v-model="apellido" density="compact" placeholder="Apellidos"
           prepend-inner-icon="mdi-account-outline" variant="underlined" :rules="Rules"></v-text-field>
 
-        <div class="text-subtitle-1 text-medium-emphasis">Cargo</div>
-
-        <v-select v-model="cargo" density="compact" placeholder="Cargo" prepend-inner-icon="mdi-account-hard-hat-outline"
-          :items="items" variant="underlined"></v-select>
 
         <div class="text-subtitle-1 text-medium-emphasis">
           Correo electrónico
@@ -51,6 +47,10 @@
           prepend-inner-icon="mdi-lock-outline" variant="underlined"
           @click:append-inner="confirmVisible = !confirmVisible" :rules="Rules"></v-text-field>
 
+        <div class="text-subtitle-1 text-medium-emphasis">Subir imágen</div>
+
+        <v-file-input v-model="image" label="Subir"></v-file-input>
+
         <v-btn block class="mb-8" color="#5995fd" size="large" variant="outlined" @click="register">
           Registrar
         </v-btn>
@@ -65,7 +65,6 @@ import Swal from "sweetalert2";
 import * as config from "../config/default.json";
 import { getHeaders } from "~/src/auth/jwt.js";
 let nextUserId = 9; // Contador para el ID secuencial
-const img = "/images/perfil-del-usuario.png";
 
 const errorMessage = ref("");
 
@@ -76,37 +75,24 @@ export default {
       contactoRules: [v => (/^[0-9]+|[()\.]+/.test(v)) || 'Solo se permiten números'],
       nombre: "",
       apellido: "",
-      cargo: "Seleccionar",
-      items: ["Vendedor", "Administrador"],
       correo: "",
       contacto: "",
       password: "",
       confirmPassword: "",
       visible: false,
       confirmVisible: false,
+      image: null,
       user: []
     };
   },
   methods: {
-    async getUsers() {
-      try {
-        const url = `${config.api_host}/providers`;
-        const token = localStorage.getItem("token")
-        const headers = getHeaders(token);
-        const { data } = await axios.get(url, { headers });
-        this.users = data.info;
-      } catch (error) {
-        console.error("Error al obtener usuarios:", error);
-      }
-    },
+
     async register() {
-      await this.getUsers();
 
       // Validación campos vacíos
       if (
         this.nombre == "" ||
         this.apellido == "" ||
-        this.cargo == "Seleccionar" ||
         this.correo == "" ||
         this.contacto == "" ||
         this.password == "" ||
@@ -180,13 +166,14 @@ export default {
           id: userId,
           name: this.nombre,
           lastname: this.apellido,
-          charge: this.cargo,
           email: this.correo,
           contact: this.contacto,
           // password: this.password,
-          img: img,
         };
 
+        const url = `${config.api_host}/products`;
+        const token = localStorage.getItem("token");
+        const headers = getHeaders(token);
         // Añade el usuario al servidor
         await this.addUser(newUser);
 
@@ -241,7 +228,7 @@ definePageMeta({
   width: 100%;
   background-color: #fff;
   height: 100%;
-  overflow:visible;
+  overflow: visible;
   margin-top: 3%;
 }
 
