@@ -93,7 +93,14 @@ onBeforeMount(() => {
 });
 const closeDialog = () => {
   dialog.value = false;
+  getCustomers();
 };
+watch(dialog, (newValue) => {
+  if (!newValue) {
+    dialog.value = false;
+    getCustomers();
+  }
+});
 const openDialog = (customer) => {
   currentCustomer.value = customer;
   dialog.value = true;

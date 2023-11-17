@@ -56,6 +56,12 @@ const dialog = ref(false);
 const closeDialog = () => {
   dialog.value = false;
 }
+watch(dialog, (newValue) => {
+  if (!newValue) {
+    dialog.value = false;
+    getSellers();
+  }
+});
 
 const getSellers = async () => {
   const url = `${config.api_host}/sellers`;

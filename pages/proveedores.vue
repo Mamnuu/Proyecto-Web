@@ -68,7 +68,15 @@ const openDialog = (supplier) => {
 
 const closeDialog = () => {
   dialog.value = false;
+  getProviders();
 }
+
+watch(dialog, (newValue) => {
+  if (!newValue) {
+    dialog.value = false;
+    getProviders();
+  }
+});
 
 
 </script>

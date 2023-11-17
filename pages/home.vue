@@ -43,6 +43,7 @@
             :producto="currentProduct"
             :dialog="dialog"
             @closeDialog="closeDialog"
+            @pageLoad="pageLoad"
           ></DescripcionP>
           <v-btn class="btnCerrar" @click="dialog = false" icon elevation="0"
             ><v-icon class="iconC">mdi-close</v-icon></v-btn
@@ -91,11 +92,18 @@ onBeforeMount(() => {
 
 const closeDialog = () => {
   dialog.value = false;
+  getProducts();
 };
+const pageLoad = () => {
+  getProducts();
+};
+
 //Escuchador para el evento emitido desde el componente `productos.vue`
 watch(dialog, (newValue) => {
   if (!newValue) {
     dialog.value = false;
+    getProducts();
+    
   }
 });
 
@@ -118,7 +126,6 @@ if (logged_user != "true") {
     icon: "success",
     title: "Inicio de sesión exitoso",
   });
-  sessionStorage.setItem("LOGGEDUSER", "true");
 }
 
 const openDialog = (producto) => {

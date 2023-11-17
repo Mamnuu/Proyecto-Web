@@ -48,7 +48,7 @@ const formatToCOP = (value) => {
     return value.toLocaleString('es-CO', { style: 'currency', currency: 'COP' });
   }
 const router = useRouter();
-const emit = defineEmits(['closeDialog'])
+const emit = defineEmits(['closeDialog',])
 const props = defineProps({
     producto: {
         type: Object,
