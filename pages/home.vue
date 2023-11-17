@@ -18,8 +18,7 @@
           </v-card-title>
 
           <v-card-subtitle>
-            <v-icon> mdi-currency-usd </v-icon>
-            {{ producto.price }}
+            {{ formatToCOP(parseFloat(producto.price)) }}
           </v-card-subtitle>
 
           <v-card-actions>
@@ -55,16 +54,6 @@
         dark
         large
         color="#5995fd"
-        class="btn-flotante2"
-        @click="getProducts"
-      >
-        <v-icon size="50">mdi-reload</v-icon>
-      </v-btn>
-      <v-btn
-        fab
-        dark
-        large
-        color="#5995fd"
         class="btn-flotante"
         to="/crearProducto"
       >
@@ -83,6 +72,10 @@ import { getHeaders } from "~/src/auth/jwt.js";
 const productos = ref([]);
 const dialog = ref(false);
 const currentProduct = ref(null);
+
+const formatToCOP = (value) => {
+    return value.toLocaleString('es-CO', { style: 'currency', currency: 'COP' });
+  }
 
 const getProducts = async () => {
   const url = `${config.api_host}/products`;
@@ -189,25 +182,6 @@ const openDialog = (producto) => {
 }
 .btn-flotante:hover {
   background-color: #2c2fa5; /* Color de fondo al pasar el cursor */
-  box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.3);
-  transform: translateY(-7px);
-}
-.btn-flotante2 {
-  size: 50px !important;
-  color: #ffffff; /* Color del texto */
-  border-radius: 50px !important; /* Borde del boton */
-  position: fixed !important;
-  bottom: 110px !important;
-  right: 40px;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-  margin-left: 80% !important;
-  margin-top: 100px !important;
-  width: 80px !important;
-  height: 80px !important;
-  background-color: #5a26ba !important;
-}
-.btn-flotante2:hover {
-  background-color: #643dc6 !important; /* Color de fondo al pasar el cursor */
   box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.3);
   transform: translateY(-7px);
 }

@@ -38,9 +38,6 @@
           <v-btn class="btnCerrar "  @click="dialog = false" icon elevation="0"><v-icon class="iconC">mdi-close</v-icon></v-btn>
         </v-dialog>
       </v-card>
-      <v-btn fab dark large color=#5995fd class="btn-flotante2" @click="getSellers">
-        <v-icon size="50">mdi-reload</v-icon>
-      </v-btn>
       <v-btn fab dark large color="#5995fd" class="btn-flotante" to="/register">
         <v-icon size="50">mdi-plus</v-icon>
       </v-btn>

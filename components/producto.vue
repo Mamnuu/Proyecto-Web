@@ -8,8 +8,7 @@
 
                 </v-card>
                 <h3 class="precio">
-                    <v-icon>mdi-currency-usd</v-icon>
-                    {{ producto.price }}
+                    {{ formatToCOP(parseFloat(producto.price)) }}
                 </h3>
 
             </v-col>
@@ -45,6 +44,9 @@ import Swal from "sweetalert2";
 import * as config from "../config/default.json";
 import { getHeaders } from "~/src/auth/jwt.js";
 
+const formatToCOP = (value) => {
+    return value.toLocaleString('es-CO', { style: 'currency', currency: 'COP' });
+  }
 const router = useRouter();
 const emit = defineEmits(['closeDialog'])
 const props = defineProps({
