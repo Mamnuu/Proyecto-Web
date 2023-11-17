@@ -59,7 +59,7 @@ const props = defineProps({
 
 const editProvider = () => {
     // Obtiene el id del producto
-    const providerId = props.provider.id;
+    const providerId = props.provider._id;
 
     // Navega a la ruta editar_producto/{id}
     router.push({

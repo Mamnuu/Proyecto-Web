@@ -7,26 +7,26 @@
         <br>
         <div class="text-subtitle-1 text-medium-emphasis">Nombres</div>
 
-        <v-text-field v-model="foundSeller.nombre" density="compact" placeholder="Nombres"
+        <v-text-field v-model="foundSeller.name" density="compact" placeholder="Nombres"
           prepend-inner-icon="mdi-account-outline" variant="underlined" :rules="Rules"></v-text-field>
 
         <div class="text-subtitle-1 text-medium-emphasis">Apellidos</div>
 
-        <v-text-field v-model="foundSeller.apellido" density="compact" placeholder="Apellidos"
+        <v-text-field v-model="foundSeller.lastname" density="compact" placeholder="Apellidos"
           prepend-inner-icon="mdi-account-outline" variant="underlined" :rules="Rules"></v-text-field>
 
         <div class="text-subtitle-1 text-medium-emphasis">
           Correo electrónico
         </div>
 
-        <v-text-field v-model="foundSeller.correo" density="compact" placeholder="Correo electrónico"
+        <v-text-field v-model="foundSeller.email" density="compact" placeholder="Correo electrónico"
           prepend-inner-icon="mdi-email-outline" variant="underlined" :rules="Rules"></v-text-field>
 
         <div class="text-subtitle-1 text-medium-emphasis">
           Número de contacto
         </div>
 
-        <v-text-field v-model="foundSeller.contacto" density="compact" placeholder="Número de contacto"
+        <v-text-field v-model="foundSeller.contact" density="compact" placeholder="Número de contacto"
           prepend-inner-icon="mdi-card-account-phone-outline" variant="underlined"
           :rules="[Rules, contactoRules].flat()"></v-text-field>
 
@@ -42,10 +42,13 @@
 import axios from "axios";
 import { useRoute } from "vue-router";
 import Swal from "sweetalert2";
+import config from "~/config/default.json";
+import { getHeaders } from "~/src/auth/jwt.js";
+
 const sellers = ref([]);
 const route = useRoute();
 const router = useRouter();
-const sellerId = Number(route.params.id); // Asegúrate de que el id sea de tipo número
+const sellerId = route.params.id; // Asegúrate de que el id sea de tipo número
 let foundSeller = ref({});
 const errorMessage = ref("");
 
@@ -57,7 +60,7 @@ onBeforeMount(async () => {
   try {
     await getSellers();
     console.log(sellers.value);
-    foundSeller.value = sellers.value.find((seller) => seller.id == sellerId);
+    foundSeller.value = sellers.value.find((seller) => seller._id == sellerId);
     if (!foundSeller) {
       throw new Error("Vendedor no encontrado");
     }
@@ -68,18 +71,20 @@ onBeforeMount(async () => {
 });
 
 const getSellers = async () => {
-  const url = "http://localhost:3001/sellers";
-  const response = await axios.get(url);
-  sellers.value = response.data;
+  const url = `${config.api_host}/sellers`;
+  const token = localStorage.getItem("token")
+  const headers = getHeaders(token);
+  const { data } = await axios.get(url, { headers });
+  sellers.value = data.info;
 };
 
 
 const validateFields = async () => {
   if (
-    foundSeller.value.nombre == "" ||
-    foundSeller.value.apellido == "" ||
-    foundSeller.value.correo == "" ||
-    foundSeller.value.contacto == ""
+    foundSeller.value.name == "" ||
+    foundSeller.value.lastname == "" ||
+    foundSeller.value.email == "" ||
+    foundSeller.value.contact == ""
   ) {
     errorMessage.value = "Por favor, ingresa todos los campos.";
     Swal.fire({
@@ -90,7 +95,7 @@ const validateFields = async () => {
     return;
   }
   // Validación de solo números
-  if (!/[0-9-]+/.test(foundSeller.value.contacto)) {
+  if (!/[0-9-]+/.test(foundSeller.value.contact)) {
     errorMessage.value = "Solo se permiten números";
     Swal.fire({
       icon: "error",
@@ -101,7 +106,7 @@ const validateFields = async () => {
   }
 
     // Validación correo válido
-    if (!foundSeller.value.correo || !/^\S+@\S+\.\S+$/.test(foundSeller.value.correo)) {
+    if (!foundSeller.value.email || !/^\S+@\S+\.\S+$/.test(foundSeller.value.email)) {
     console.log("Por favor, ingresa un correo electrónico válido.");
     errorMessage.value = "Por favor, ingresa un correo electrónico válido.";
     Swal.fire({
@@ -133,8 +138,11 @@ const update = async () => {
 }
 
 const updateSellers = async () => {
-  const url = `http://localhost:3001/sellers/${foundSeller.value.id}`;
-  const response = await axios.put(url, foundSeller.value);
+  console.log(foundSeller.value);
+  const url = `${config.api_host}/sellers/${foundSeller.value._id}`;
+  const token = localStorage.getItem("token");
+  const headers = getHeaders(token);
+  const response = await axios.put(url, foundSeller.value, { headers });
   console.log(response);
   sellers.value = response.data;
 };
