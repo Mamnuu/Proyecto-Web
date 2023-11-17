@@ -14,7 +14,7 @@
         <div class="text-subtitle-1 text-medium-emphasis">Nombre</div>
 
         <v-text-field
-          v-model="foundCustomer.nombre"
+          v-model="foundCustomer.name"
           density="compact"
           placeholder="Nombre"
           prepend-inner-icon="mdi-account-outline"
@@ -24,7 +24,7 @@
         <div class="text-subtitle-1 text-medium-emphasis">Apellido</div>
 
         <v-text-field
-          v-model="foundCustomer.apellido"
+          v-model="foundCustomer.lastname"
           density="compact"
           placeholder="Apellido"
           prepend-inner-icon="mdi-account-outline"
@@ -37,7 +37,7 @@
         </div>
 
         <v-text-field
-          v-model="foundCustomer.correo"
+          v-model="foundCustomer.email"
           density="compact"
           placeholder="Correo electrónico"
           prepend-inner-icon="mdi-email-outline"
@@ -48,7 +48,7 @@
         <div class="text-subtitle-1 text-medium-emphasis">Dirección</div>
 
         <v-text-field
-          v-model="foundCustomer.direccion"
+          v-model="foundCustomer.address"
           density="compact"
           placeholder="Dirección"
           prepend-inner-icon="mdi-directions"
@@ -61,7 +61,7 @@
         </div>
 
         <v-text-field
-          v-model="foundCustomer.contacto"
+          v-model="foundCustomer.contact"
           density="compact"
           placeholder="Número de contacto"
           prepend-inner-icon="mdi-card-account-phone-outline"
@@ -86,10 +86,13 @@
 import axios from "axios";
 import { useRoute } from "vue-router";
 import Swal from "sweetalert2";
+import config from "~/config/default.json";
+import { getHeaders } from "~/src/auth/jwt.js";
+
 const customers = ref([]);
 const route = useRoute();
 const router = useRouter();
-const customerId = Number(route.params.id); // Asegúrate de que el id sea de tipo número
+const customerId = route.params.id; // Asegúrate de que el id sea de tipo número
 let foundCustomer = ref({});
 const errorMessage = ref("");
 
@@ -103,7 +106,7 @@ onBeforeMount(async () => {
     await getCustomers();
     console.log(customers.value);
     foundCustomer.value = customers.value.find(
-      (customer) => customer.id == customerId
+      (customer) => customer._id == customerId
     );
     if (!foundCustomer) {
       throw new Error("Cliente no encontrado");
@@ -115,17 +118,19 @@ onBeforeMount(async () => {
 });
 
 const getCustomers = async () => {
-  const url = "http://localhost:3001/customers";
-  const response = await axios.get(url);
-  customers.value = response.data;
+  const url = `${config.api_host}/customers`;
+  const token = localStorage.getItem("token")
+  const headers = getHeaders(token);
+  const { data } = await axios.get(url, { headers });
+  customers.value = data.info
 };
 const validatefields = async () => {
   if (
-    foundCustomer.value.nombre == "" ||
-    foundCustomer.value.apellido == "" ||
-    foundCustomer.value.correo == "" ||
-    foundCustomer.value.direccion == "" ||
-    foundCustomer.value.contacto == ""
+    foundCustomer.value.name == "" ||
+    foundCustomer.value.lastname == "" ||
+    foundCustomer.value.email == "" ||
+    foundCustomer.value.address == "" ||
+    foundCustomer.value.contact == ""
   ) {
     errorMessage.value = "Por favor, ingresa todos los campos.";
     Swal.fire({
@@ -137,7 +142,7 @@ const validatefields = async () => {
   }
 
   // Validación de solo números
-  if (!/[0-9-]+/.test(foundCustomer.value.contacto)) {
+  if (!/[0-9-]+/.test(foundCustomer.value.contact)) {
     errorMessage.value = "Solo se permiten números";
     Swal.fire({
       icon: "error",
@@ -148,7 +153,7 @@ const validatefields = async () => {
   }
 
   // Validación correo válido
-  if (!foundCustomer.value.correo || !/^\S+@\S+\.\S+$/.test(foundCustomer.value.correo)) {
+  if (!foundCustomer.value.email || !/^\S+@\S+\.\S+$/.test(foundCustomer.value.email)) {
     console.log("Por favor, ingresa un correo electrónico válido.");
     errorMessage.value = "Por favor, ingresa un correo electrónico válido.";
     Swal.fire({
@@ -179,8 +184,11 @@ const update = async () => {
 };
 
 const updateCustomers = async () => {
-  const url = `http://localhost:3001/customers/${foundCustomer.value.id}`;
-  const response = await axios.put(url, foundCustomer.value);
+  console.log(foundCustomer.value);
+  const url = `${config.api_host}/customers/${foundCustomer.value._id}`;
+  const token = localStorage.getItem("token");
+  const headers = getHeaders(token);
+  const response = await axios.put(url, foundCustomer.value, { headers });
   console.log(response);
   customers.value = response.data;
 };

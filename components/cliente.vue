@@ -49,7 +49,7 @@ const props = defineProps({
  
 const editCustomer = () => {
     // Obtiene el id del producto
-    const customerId = props.customer.id;
+    const customerId = props.customer._id;
 
     // Navega a la ruta editar_producto/{id}
     router.push({
@@ -59,7 +59,6 @@ const editCustomer = () => {
 
 
 const deleteCustomer = async (customer) => {
-    console.log(typeof customer._id);
     const url = `${config.api_host}/customers/${customer._id}`;
     const token = localStorage.getItem("token")
     const headers = getHeaders(token);

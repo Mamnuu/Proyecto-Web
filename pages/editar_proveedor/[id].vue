@@ -78,10 +78,13 @@
 import axios from "axios";
 import { useRoute } from "vue-router";
 import Swal from "sweetalert2";
+import config from "~/config/default.json";
+import { getHeaders } from "~/src/auth/jwt.js";
+
 const suppliers = ref([]);
 const route = useRoute();
 const router = useRouter();
-const supplierId = Number(route.params.id); // Asegúrate de que el id sea de tipo número
+const supplierId = route.params.id; // Asegúrate de que el id sea de tipo número
 let foundSupplier = ref({});
 const errorMessage = ref("");
 
@@ -92,10 +95,10 @@ const contactoRules = [
 
 onBeforeMount(async () => {
   try {
-    await getSuppliers();
+    await getProviders();
     console.log(suppliers.value);
     foundSupplier.value = suppliers.value.find(
-      (supplier) => supplier.id == supplierId
+      (supplier) => supplier._id == supplierId
     );
     if (!foundSupplier) {
       throw new Error("Proveedor no encontrado");
@@ -106,10 +109,14 @@ onBeforeMount(async () => {
   }
 });
 
-const getSuppliers = async () => {
-  const url = "http://localhost:3001/suppliers";
-  const response = await axios.get(url);
-  suppliers.value = response.data;
+
+const getProviders = async () => {
+  const url = `${config.api_host}/providers`;
+  const token = localStorage.getItem("token")
+  const headers = getHeaders(token);
+  const { data } = await axios.get(url, { headers });
+  suppliers.value = data.info;
+
 };
 const validatefields = async () => {
   if (
@@ -169,8 +176,11 @@ const update = async () => {
 };
 
 const updateSuppliers = async () => {
-  const url = `http://localhost:3001/suppliers/${foundSupplier.value.id}`;
-  const response = await axios.put(url, foundSupplier.value);
+  console.log(foundSupplier.value);
+  const url = `${config.api_host}/providers/${foundSupplier.value._id}`;
+  const token = localStorage.getItem("token");
+  const headers = getHeaders(token);
+  const response = await axios.put(url, foundSupplier.value, { headers });
   console.log(response);
   suppliers.value = response.data;
 };

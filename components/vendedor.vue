@@ -55,7 +55,7 @@ const props = defineProps({
 
 const editSeller = () => {
     // Obtiene el id del producto
-    const sellerId = props.seller.id;
+    const sellerId = props.seller._id;
 
     // Navega a la ruta editar_producto/{id}
     router.push({

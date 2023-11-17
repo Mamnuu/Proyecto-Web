@@ -1,41 +1,24 @@
 <template>
   <div class="register-container">
     <div class="form-container">
-      <v-card
-        class="mx-auto pa-6 pb-2"
-        elevation="20"
-        max-width="448"
-        rounded="lg"
-      >
+      <v-card class="mx-auto pa-6 pb-2" elevation="20" max-width="448" rounded="lg">
         <v-card-title style="text-align: center">{{
-          foundProduct.nombre
+          foundProduct.name
         }}</v-card-title>
         <v-card-subtitle style="text-align: center">Formulario para actualizar productos</v-card-subtitle>
         <br />
         <div class="text-subtitle-1 text-medium-emphasis">Nombre</div>
 
-        <v-text-field
-          v-model="foundProduct.nombre"
-          density="compact"
-          placeholder="Nombre"
-          prepend-inner-icon="mdi-account-outline"
-          variant="underlined"
-          :rules="Rules"
-        ></v-text-field>
+        <v-text-field v-model="foundProduct.name" density="compact" placeholder="Nombre"
+          prepend-inner-icon="mdi-account-outline" variant="underlined" :rules="Rules"></v-text-field>
 
         <div class="text-subtitle-1 text-medium-emphasis">Precio</div>
 
-        <v-text-field
-          v-model="foundProduct.precio"
-          density="compact"
-          placeholder="Precio"
-          prepend-inner-icon="mdi-cash"
-          variant="underlined"
-          :rules="[precioRules, Rules].flat()"
-        ></v-text-field>
+        <v-text-field v-model="foundProduct.price" density="compact" placeholder="Precio" prepend-inner-icon="mdi-cash"
+          variant="underlined" :rules="[precioRules, Rules].flat()"></v-text-field>
 
         <div class="text-subtitle-1 text-medium-emphasis">Descripción</div>
-        <v-textarea name="input-7-4" v-model="foundProduct.descripcion" density="compact"
+        <v-textarea name="input-7-4" v-model="foundProduct.description" density="compact"
           prepend-inner-icon="text-box-outline" :rules="Rules"></v-textarea>
 
         <v-btn block class="mb-8" color="#5995fd" size="large" variant="outlined" @click="validatefields">
@@ -50,10 +33,12 @@
 import axios from "axios";
 import { useRoute } from "vue-router";
 import Swal from "sweetalert2";
+import config from "~/config/default.json";
+import { getHeaders } from "~/src/auth/jwt.js";
 const products = ref([]);
 const route = useRoute();
 const router = useRouter();
-const productId = Number(route.params.id); // Asegúrate de que el id sea de tipo número
+const productId = route.params.id; // Asegurarse de que el id sea de tipo número
 let foundProduct = ref({});
 const errorMessage = ref("");
 
@@ -67,7 +52,7 @@ onBeforeMount(async () => {
     await getProducts();
     console.log(products.value);
     foundProduct.value = products.value.find(
-      (product) => product.id == productId
+      (product) => product._id == productId
     );
     if (!foundProduct) {
       throw new Error("Producto no encontrado");
@@ -79,15 +64,17 @@ onBeforeMount(async () => {
 });
 
 const getProducts = async () => {
-  const url = "http://localhost:3001/products";
-  const response = await axios.get(url);
-  products.value = response.data;
+  const url = `${config.api_host}/products`;
+  const token = localStorage.getItem("token")
+  const headers = getHeaders(token);
+  const { data } = await axios.get(url, { headers });
+  products.value = data.info;
 };
 const validatefields = async () => {
   if (
-    foundProduct.value.nombre == "" ||
-    foundProduct.value.precio == "" ||
-    foundProduct.value.descripcion == ""
+    foundProduct.value.name == "" ||
+    foundProduct.value.price == "" ||
+    foundProduct.value.description == ""
   ) {
     errorMessage.value = "Por favor, ingresa todos los campos.";
     Swal.fire({
@@ -98,7 +85,7 @@ const validatefields = async () => {
     return;
   }
   // Validación de solo números
-  if (!/[0-9-]+/.test(foundProduct.value.precio)) {
+  if (!/[0-9-]+/.test(foundProduct.value.price)) {
     errorMessage.value = "Solo se permiten números,";
     Swal.fire({
       icon: "error",
@@ -128,8 +115,11 @@ const update = async () => {
 };
 
 const updateProducts = async () => {
-  const url = `http://localhost:3001/products/${foundProduct.value.id}`;
-  const response = await axios.put(url, foundProduct.value);
+  console.log(foundProduct.value);
+  const url = `${config.api_host}/products/${foundProduct.value._id}`;
+  const token = localStorage.getItem("token");
+  const headers = getHeaders(token);
+  const response = await axios.put(url, foundProduct.value, { headers });
   console.log(response);
   products.value = response.data;
 };
